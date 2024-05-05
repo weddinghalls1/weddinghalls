@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "551895694274",
+    "project_id": "wedding-halls-24c3b",
+    "storage_bucket": "wedding-halls-24c3b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:551895694274:android:3b53f1c147ad83deda745b",
+        "android_client_info": {
+          "package_name": "com.example.untitled"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDO7lvVIrHLCBnP9dHOZGMo5WevmIR-TcM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
