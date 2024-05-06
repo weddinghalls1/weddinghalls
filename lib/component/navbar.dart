@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:weddinghalls/screen/hall/hall_screen.dart';
+import 'package:weddinghalls/screen/hall/hall_view.dart';
 import 'package:weddinghalls/screen/home/home_screen.dart';
-// import 'package:untitled/screen/projfile/profile_screen.dart';
-// import 'package:untitled/screen/favorite/favorite_screen.dart';
-// import 'package:untitled/screen/sidebar/sidebar_screen.dart';
+import 'package:weddinghalls/screen/projfile/profile_screeen.dart';
+
 
 class HomeNavigationBar extends StatefulWidget {
   const HomeNavigationBar({Key? key}) : super(key: key);
@@ -13,7 +12,7 @@ class HomeNavigationBar extends StatefulWidget {
 }
 
 class _HomeNavigationBarState extends State<HomeNavigationBar> {
-  final screen = [HomeScreen(), HallScreen(), /*ProfileScreen()*/];
+  final screen = [HomeScreen(), HallScreen(), ProfileScreen()];
   int _selectedScreenIndex = 0;
 
   void _selectScreen(int index) {
@@ -28,23 +27,6 @@ class _HomeNavigationBarState extends State<HomeNavigationBar> {
       onWillPop: () async => false,
       child: SafeArea(
         child: Scaffold(
-          appBar: AppBar(
-            title: const Text('Navigation Bar'),
-            /*leading: IconButton(
-              icon: const Icon(Icons.menu),
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => SidebarScreen()));
-              },
-            ),
-            actions: [
-              IconButton(
-                icon: const Icon(Icons.favorite),
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => FavoriteScreen()));
-                },
-              ),
-            ],*/
-          ),
           body: screen[_selectedScreenIndex],
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: _selectedScreenIndex,
@@ -72,4 +54,3 @@ class _HomeNavigationBarState extends State<HomeNavigationBar> {
     );
   }
 }
-
