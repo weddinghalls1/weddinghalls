@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weddinghalls/screen/hall/hall_view.dart';
 import 'package:weddinghalls/screen/home/home_screen.dart';
-import 'package:weddinghalls/screen/projfile/profile_screeen.dart';
+import 'package:weddinghalls/screen/projfile/profile_view.dart';
 
 
 class HomeNavigationBar extends StatefulWidget {
