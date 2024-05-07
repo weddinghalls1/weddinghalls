@@ -9,14 +9,16 @@ class ProfileViewModel {
 
   Future<void> fetchUserData(String token) async {
     try {
-      DatabaseEvent event = await _database.child('users').orderByChild('token').equalTo(token).once();
+      DatabaseEvent event = await _database.child('users')
+          .orderByChild('token')
+          .equalTo(token)
+          .once();
       DataSnapshot snapshot = event.snapshot;
       if (snapshot.value != null) {
-        // Assuming there is exactly one entry for each token
-        var entry = (snapshot.value as Map).values.first;  // Access the first item of values
+        var entry = (snapshot.value as Map).values
+            .first;
         if (entry != null) {
           Map<String, dynamic> userData = Map<String, dynamic>.from(entry);
-          print(userData['email']);  // Should now properly print the email
           email = userData['email'];
           userName = userData['userName'];
           location = userData['location'];
@@ -31,18 +33,20 @@ class ProfileViewModel {
   }
 
   Future<void> updateUserData(String userName, String location) async {
+    String token = "hassan";
+    DatabaseReference usersRef = FirebaseDatabase.instance.reference().child(
+        'users');
+
     try {
-      // This needs to be corrected as well to reference the right user node
-      String token = 'hassan'; // Placeholder: Fetch or store the actual user ID somewhere
-      await _database.child('users').child(token).update({
+      await usersRef.child(token).update({
         'userName': userName,
         'location': location,
+        'email': email,
+        'token': token
       });
-      this.userName = userName;
-      this.location = location;
-    } catch (e) {
-      print('Error updating user data: $e');
-      throw e;
+      print('User data updated successfully');
+    } catch (error) {
+      print('Error updating user data: $error');
     }
   }
 }
