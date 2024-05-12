@@ -1,8 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:weddinghalls/routes/router.dart';
+import 'package:weddinghalls/screen/Authentication/welcome.dart';
 import 'firebase_options.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,8 +23,16 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
       return MaterialApp(
+        // debugShowCheckedModeBanner: false,
+        // initialRoute: '/',
+        // routes: kRoutes
         debugShowCheckedModeBanner: false,
-        initialRoute: '/',
-        routes: kRoutes);
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: const WelcomeScreen(),
+          );
   }
 }
