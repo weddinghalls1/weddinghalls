@@ -1,8 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'Signup.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class SigninPage extends StatelessWidget {
+class SigninPage extends StatefulWidget{
+  const SigninPage ({super.key});
+
+  State<SigninPage> createState()=> _SigninPageState();
+}
+
+
+class _SigninPageState extends State<SigninPage> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  Future login() async {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim());
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -50,6 +66,7 @@ class SigninPage extends StatelessWidget {
                       ),
                       SizedBox(height: 30),
                       TextField(
+                        controller: emailController,
                         decoration: InputDecoration(
                           //suffixIcon: Icon(Icons.check, color: Colors.grey),
                           labelText: 'Email',
@@ -66,6 +83,7 @@ class SigninPage extends StatelessWidget {
                       ),
                       SizedBox(height: 20),
                       TextField(
+                        controller: passwordController,
                         obscureText: true,
                         decoration: InputDecoration(
                           //suffixIcon: Icon(Icons.visibility_off, color: Colors.grey),
@@ -106,10 +124,13 @@ class SigninPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(30),
                           color: Color(0xffAD88C6),
                         ),
-                        child: const Center(
-                          child: Text(
-                            'SIGN IN',
-                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
+                        child: InkWell(
+                          onTap: () => login(),
+                          child: const Center(
+                            child: Text(
+                              'SIGN IN',
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
+                            ),
                           ),
                         ),
                       ),
