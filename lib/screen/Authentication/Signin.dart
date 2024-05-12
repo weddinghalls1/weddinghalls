@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:quickalert/quickalert.dart';
 import 'Signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class SigninPage extends StatefulWidget{
-  const SigninPage ({super.key});
+  final VoidCallback onClickedSignUp;
+  const SigninPage ({required this.onClickedSignUp, super.key});
 
   State<SigninPage> createState()=> _SigninPageState();
 }
@@ -14,6 +16,7 @@ class _SigninPageState extends State<SigninPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   Future login() async {
+    //QuickAlert.show(context: context, type: QuickAlertType.loading);
     await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim());
@@ -101,19 +104,19 @@ class _SigninPageState extends State<SigninPage> {
                       ),
                       SizedBox(height: 20),
                       TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => SignupPage()),
-                          );
-                        },
-                        child: const Align(
-                          alignment: Alignment.centerRight,
-                          child:  Text(
-                            "Forget Password ?",
-                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17, color: Colors.black),
-                          ),
-                        )
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => SignupPage(onClickedSignin: () {  },)),
+                            );
+                          },
+                          child: const Align(
+                            alignment: Alignment.centerRight,
+                            child:  Text(
+                              "Forget Password ?",
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17, color: Colors.black),
+                            ),
+                          )
 
                       ),
                       SizedBox(height: 70),
@@ -144,10 +147,11 @@ class _SigninPageState extends State<SigninPage> {
                           ),
                           TextButton(
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => SignupPage()),
-                              );
+                              widget.onClickedSignUp();
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(builder: (context) => SignupPage()),
+                              //);
                             },
                             child: const Text(
                               "Sign up",

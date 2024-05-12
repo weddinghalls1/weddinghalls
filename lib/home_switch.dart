@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:weddinghalls/screen/Authentication/Signin.dart';
+import 'package:weddinghalls/screen/Authentication/auth_screen.dart';
 import 'package:weddinghalls/screen/home/home_page.dart';
 class HomeSwitch extends StatelessWidget {
   const HomeSwitch({super.key});
@@ -14,7 +15,7 @@ class HomeSwitch extends StatelessWidget {
           if(snapshot.hasData){
             return HomePage();
           }else{
-            return SigninPage();
+            return AuthScreen();
           }
         }
       ),
