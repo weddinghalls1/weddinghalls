@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'Signin.dart';
-import 'Signup.dart'; // Change as per your file structure
+import 'package:quickalert/quickalert.dart';
+
 
 class SignupPage extends StatefulWidget{
   final VoidCallback onClickedSignin;
@@ -19,11 +19,24 @@ class _SignupPageState extends State<SignupPage> {
   TextEditingController confirmPasswordController = TextEditingController();
   Future signup() async {
     //QuickAlert.show(context: context, type: QuickAlertType.loading);
-    await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: emailController.text.trim(),
-        password: passwordController.text.trim());
+    if(isPasswordConfirmed()){
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: emailController.text.trim(),
+          password: passwordController.text.trim());
+    }else{
+      QuickAlert.show(context: context, type: QuickAlertType.error);
+    }
 
   }
+  bool isPasswordConfirmed(){
+    if(confirmPasswordController.text.trim() ==
+       passwordController.text.trim()){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -161,8 +174,8 @@ class _SignupPageState extends State<SignupPage> {
                         ),
                         child: InkWell(
                           onTap: () => signup(),
-                          child: Center(
-                            child: Text(
+                          child: const Center(
+                            child:  Text(
                               'SIGN UP',
                               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
                             ),
@@ -180,10 +193,7 @@ class _SignupPageState extends State<SignupPage> {
                           TextButton(
                             onPressed: () {
                               widget.onClickedSignin();
-                              //   Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(builder: (context) => SigninPage()),
-                              //   );
+
                             },
                             child: const Text(
                               "Sign in",

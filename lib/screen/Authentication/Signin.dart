@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:quickalert/quickalert.dart';
 import 'Signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'ForgetPassword.dart';
 
 class SigninPage extends StatefulWidget{
   final VoidCallback onClickedSignUp;
@@ -107,7 +108,7 @@ class _SigninPageState extends State<SigninPage> {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => SignupPage(onClickedSignin: () {  },)),
+                              MaterialPageRoute(builder: (context) => ForgetPassword()),
                             );
                           },
                           child: const Align(
