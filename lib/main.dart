@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:weddinghalls/routes/router.dart';
+import 'package:weddinghalls/views/hall_view.dart';
 import 'firebase_options.dart';
 
 
@@ -23,8 +24,12 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
       return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        initialRoute: '/',
-        routes: kRoutes);
+          debugShowCheckedModeBanner: false,
+          title: 'Edit Hall Description',
+          theme: ThemeData(
+          primarySwatch: Colors.blue,
+      ),
+    home: EditHallDescription(),
+      );
   }
 }
