@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'signin_model.dart';  // Ensure this import points to the new model file
+import '../model/signin_model.dart';  // Ensure this import points to the new model file
 
 class SigninViewModel {
   final FirebaseAuth _auth = FirebaseAuth.instance;

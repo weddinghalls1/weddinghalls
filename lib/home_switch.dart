@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:weddinghalls/screen/Authentication/Signin.dart';
-import 'package:weddinghalls/screen/Authentication/auth_screen.dart';
+import 'package:weddinghalls/views/auth_screen.dart';
 import 'package:weddinghalls/screen/home/home_page.dart';
 class HomeSwitch extends StatelessWidget {
   const HomeSwitch({super.key});

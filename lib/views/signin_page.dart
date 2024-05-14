@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'ForgetPassword.dart';
-import 'signin_view_model.dart';
+import '../view_model/signin_view_model.dart';
 
 class SigninPage extends StatefulWidget {
   final VoidCallback onClickedSignUp;
