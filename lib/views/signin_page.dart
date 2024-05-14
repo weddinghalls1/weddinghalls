@@ -14,10 +14,8 @@ class _SigninPageState extends State<SigninPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final viewModel = SigninViewModel();
-  //final SigninViewModel viewModel = SigninViewModel();
 
   void login() async {
-    // Call the login method from the view model and pass the email and password
     await viewModel.login(emailController.text.trim(), passwordController.text.trim());
   }
 
@@ -57,13 +55,15 @@ class _SigninPageState extends State<SigninPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          _roleButton("Celebratory"),
-                          _roleButton("Hall Owner"),
-                        ],
+                      Text(
+                          "Hello!",
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                       ),
+                      Text(
+                          "Sign in",
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      
                       SizedBox(height: 30),
                       TextField(
                         controller: emailController,

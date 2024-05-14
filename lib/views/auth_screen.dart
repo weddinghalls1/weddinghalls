@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weddinghalls/views/signin_page.dart';
-import '../screen/Authentication/Signin.dart';
-import '../screen/Authentication/signup.dart';
+import 'package:weddinghalls/views/Signup.dart';
 
 
 class AuthScreen extends StatefulWidget {

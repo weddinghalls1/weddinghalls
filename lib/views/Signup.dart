@@ -75,14 +75,11 @@ class _SignupPageState extends State<SignupPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          _roleButton("Celebratory"),
-                          _roleButton("Hall Owner"),
-                        ],
+                      Text("Create Your Account",
+                        style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(height: 20),
+
+                       SizedBox(height: 20),
                       TextField(
                         controller: fullNameController,
                         decoration: InputDecoration(
@@ -182,7 +179,7 @@ class _SignupPageState extends State<SignupPage> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: 25),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -212,18 +209,5 @@ class _SignupPageState extends State<SignupPage> {
       ),
     );
   }
-  Widget _roleButton(String role) {
-    return ElevatedButton(
-      onPressed: () {
-        // Define what happens when you tap the button
-      },
-      child: Text(role),
-      style: ElevatedButton.styleFrom(
-        foregroundColor: Colors.black, backgroundColor: Colors.purple[100],
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(18.0),
-        ),
-      ),
-    );
-  }
+
 }
