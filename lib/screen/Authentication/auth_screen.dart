@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:weddinghalls/screen/Authentication/signin_page.dart';
 import 'Signin.dart';
-import 'Signup.dart';
+import 'signup.dart';
+
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
