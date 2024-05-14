@@ -2,15 +2,57 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
+import 'package:weddinghalls/view_model/edit_view_model.dart';
 
 class EditHallDescription extends StatefulWidget {
-  const EditHallDescription({super.key});
+  const EditHallDescription({Key? key}) : super(key: key);
 
   @override
   State<EditHallDescription> createState() => _HallScreenState();
 }
 
 class _HallScreenState extends State<EditHallDescription> {
+  final EditViewModel viewModel = EditViewModel();
+
+  final TextEditingController hallNameController = TextEditingController();
+  final TextEditingController hallLocationController = TextEditingController();
+   final TextEditingController imageUrlController = TextEditingController();
+   final TextEditingController minimumReservationCapacityController = TextEditingController();
+   final TextEditingController numberOfEntrancesController = TextEditingController();
+  final TextEditingController numberOfFlightAttendantsMenController = TextEditingController();
+  final TextEditingController numberOfFlightAttendantsWomenController = TextEditingController();
+  final TextEditingController numberOfSeatsMenController = TextEditingController();
+  final TextEditingController numberOfSeatsWomenController = TextEditingController();
+  final TextEditingController numberOfSectionsController = TextEditingController();
+  final TextEditingController reservationPriceController = TextEditingController();
+  final TextEditingController selectedDateTimeController = TextEditingController();
+  final TextEditingController selectedTimingController = TextEditingController();
+
+  void initState(){
+    super.initState();
+    String initialToken = 'hassan';
+    viewModel.fetchHallData(initialToken).then((_) {
+      if (mounted) {
+        setState(() {
+          print(viewModel.hallName);
+          hallNameController.text = viewModel.hallName ?? '';
+          hallLocationController.text = viewModel.hallLocation ?? '';
+          imageUrlController.text = viewModel.imageUrl ?? '';
+          minimumReservationCapacityController.text = viewModel.minimumReservationCapacity ?? '';
+          numberOfEntrancesController.text = viewModel.numberOfEntrances ?? '';
+          numberOfFlightAttendantsMenController.text = viewModel.numberOfFlightAttendantsMen ?? '';
+          numberOfFlightAttendantsWomenController.text = viewModel.numberOfFlightAttendantsWomen ?? '';
+          numberOfSeatsMenController.text = viewModel.numberOfSeatsMen ?? '';
+          numberOfSeatsWomenController.text = viewModel.numberOfSeatsWomen ?? '';
+          numberOfSectionsController.text = viewModel.numberOfSections ?? '';
+          reservationPriceController.text = viewModel.reservationPrice ?? '';
+          selectedDateTimeController.text = viewModel.selectedDateTime ?? '';
+          selectedTimingController.text = viewModel.selectedTiming ?? '';
+        });
+      }
+    });
+  }
+
 
   DateTime? selectedDateTime = DateTime.now();
   String? selectedTiming;
@@ -49,9 +91,9 @@ class _HallScreenState extends State<EditHallDescription> {
                 height: 180,
                 //color: Colors.white,
                 margin: EdgeInsets.only(top: 10),
-                child: const Column(
+                child: Column(
                   children: <Widget>[
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.only(right: 290),
                       child: Text(
                         'Hall Name',
@@ -60,13 +102,14 @@ class _HallScreenState extends State<EditHallDescription> {
                     ),
                     //SizedBox(height: 8),
                     TextField(
-                      decoration: InputDecoration(
+                      controller: hallNameController,
+                      decoration: const InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
                       ),
                     ),
                     SizedBox(height: 15),
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.only(right: 260),
                       child: Text(
                         'Hall Location',
@@ -74,7 +117,8 @@ class _HallScreenState extends State<EditHallDescription> {
                       ),
                     ),
                     //SizedBox(height: 8),
-                    TextField(
+                     TextField(
+                      controller: hallLocationController,
                       decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
@@ -285,8 +329,26 @@ class _HallScreenState extends State<EditHallDescription> {
                       ),
                       SizedBox(height: 20.0),
                       ElevatedButton(
-                        onPressed: () {
-                          // Add to favorites functionality
+                        onPressed: () async{
+                          try{
+                            await viewModel.updateHallData(hallNameController.text,
+                                hallLocationController.text,
+                                imageUrlController.text,
+                                minimumReservationCapacityController.text,
+                                numberOfEntrancesController.text,
+                                numberOfFlightAttendantsMenController.text,
+                                numberOfFlightAttendantsWomenController.text,
+                                numberOfSeatsMenController.text,
+                                numberOfSeatsWomenController.text,
+                                numberOfSectionsController.text,
+                                reservationPriceController.text,
+                                selectedDateTimeController.text,
+                                selectedTimingController.text);
+                          }catch (e) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('Failed to update profile: $e')),
+                            );
+                          }
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xFF7469B6),
@@ -305,3 +367,5 @@ class _HallScreenState extends State<EditHallDescription> {
     );
   }
 }
+
+
