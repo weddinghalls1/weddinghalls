@@ -46,5 +46,36 @@ class HallViewModel {
     _hall.location = location;
   }
 
-// Add update methods for other properties as needed
+  void updateReservationPrice(String price) {
+    _hall.reservationPrice = price;
+  }
+
+  void updateNumberOfSections(int sections) {
+    _hall.numberOfSections = sections;
+  }
+
+  void updateMinimumReservationCapacity(int capacity) {
+    _hall.minimumReservationCapacity = capacity;
+  }
+
+  void updateNumberOfSeatsMen(int seats) {
+    _hall.numberOfSeatsMen = seats;
+  }
+
+  void updateNumberOfSeatsWomen(int seats) {
+    _hall.numberOfSeatsWomen = seats;
+  }
+
+  void updateNumberOfFlightAttendantsMen(int attendants) {
+    _hall.numberOfFlightAttendantsMen = attendants;
+  }
+
+  void updateNumberOfFlightAttendantsWomen(int attendants) {
+    _hall.numberOfFlightAttendantsWomen = attendants;
+  }
+
+  void updateNumberOfEntrances(int entrances) {
+    _hall.numberOfEntrances = entrances;
+  }
+
 }
