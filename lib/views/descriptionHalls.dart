@@ -12,7 +12,7 @@ class _DescriptionHallState extends State<DescriptionHall> {
   @override
   void initState() {
     super.initState();
-    _viewModel.fetchHallData('hallId'); // Replace 'hallId' with actual ID
+    _viewModel.fetchHallData('NxsJ45egbjoMClsUHpS');
   }
 
   @override
