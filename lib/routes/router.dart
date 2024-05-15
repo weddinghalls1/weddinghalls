@@ -1,5 +1,6 @@
 
 
+
 import 'package:weddinghalls/component/navbar.dart';
 
 import 'package:weddinghalls/screen/home/home_screen.dart';
@@ -23,3 +24,4 @@ var kRoutes = {
   '/add-hall':(context)=>CombinedPage(),
 
 };
+
