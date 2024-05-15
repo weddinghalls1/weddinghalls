@@ -1,6 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:weddinghalls/routes/router.dart';
 import 'package:weddinghalls/views/descriptionHalls.dart';
 import 'firebase_options.dart';
 
