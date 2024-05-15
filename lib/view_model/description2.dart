@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import '../model/description1.dart';
 
-
 class HallViewModel {
+  FirebaseFirestore _firestore = FirebaseFirestore.instance;
   Hall _hall = Hall(
     name: '',
     location: '',
@@ -15,29 +17,27 @@ class HallViewModel {
     numberOfEntrances: 0,
   );
 
-  // Getter methods for accessing hall data
-  String get hallName => _hall.name;
-  String get hallLocation => _hall.location;
-  String get reservationPrice => _hall.reservationPrice;
+  Hall get hallData => _hall;
 
-  get numberOfSeatsWomen => null;
+  Future<void> fetchHallData(String hallId) async {
+    DocumentSnapshot<Map<String, dynamic>> snapshot =
+    await _firestore.collection('halls').doc(hallId).get();
+    if (snapshot.exists) {
+      _hall = Hall(
+        name: snapshot['name'] ?? '',
+        location: snapshot['location'] ?? '',
+        reservationPrice: snapshot['reservationPrice'] ?? '',
+        numberOfSections: snapshot['numberOfSections'] ?? 0,
+        minimumReservationCapacity: snapshot['minimumReservationCapacity'] ?? 0,
+        numberOfSeatsMen: snapshot['numberOfSeatsMen'] ?? 0,
+        numberOfSeatsWomen: snapshot['numberOfSeatsWomen'] ?? 0,
+        numberOfFlightAttendantsMen: snapshot['numberOfFlightAttendantsMen'] ?? 0,
+        numberOfFlightAttendantsWomen: snapshot['numberOfFlightAttendantsWomen'] ?? 0,
+        numberOfEntrances: snapshot['numberOfEntrances'] ?? 0,
+      );
+    }
+  }
 
-  get numberOfFlightAttendantsMen => null;
-
-  get numberOfEntrances => null;
-
-  get numberOfFlightAttendantsWomen => null;
-
-  get numberOfSeatsMen => null;
-
-  get minimumReservationCapacity => null;
-
-  get numberOfSections => null;
-
-  get photoUrls => null;
-  // Add getters for other properties as needed
-
-  // Methods to update hall data
   void updateHallName(String name) {
     _hall.name = name;
   }
