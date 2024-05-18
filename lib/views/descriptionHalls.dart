@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../model/hall_mode.dart';
+import '../model/descriptionhall_mode.dart';
 import '../view_model/description_viewmodel.dart';
 class DescriptionHalls extends StatefulWidget {
   @override
@@ -18,7 +18,7 @@ class _DescriptionHallsState extends State<DescriptionHalls> {
     HallModel hall = halls.isNotEmpty ? halls[0] : HallModel(
       hallName: 'Default Hall Name',
       hallLocation: 'Default Location',
-      reservationPrice: '0',
+      reservationPrice: 0,
       numberOfSections: 0,
       minimumReservationCapacity: 0,
       numberOfSeatsMen: 0,
@@ -71,7 +71,7 @@ class _DescriptionHallsState extends State<DescriptionHalls> {
     SizedBox(height: 10.0),
     _buildValueBox('Hall Location:', hall.hallLocation),
     SizedBox(height: 10.0),
-    _buildValueBox('Reservation Price:', hall.reservationPrice),
+    _buildValueBox('Reservation Price:', hall.reservationPrice as String),
     SizedBox(height: 10.0),
     _buildValueBox('Number of Sections:', hall.numberOfSections.toString()),
     SizedBox(height: 10.0),

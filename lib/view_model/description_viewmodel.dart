@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 
-import '../model/hall_mode.dart';
+import '../model/descriptionhall_mode.dart';
+
 
 class HallsViewModel extends ChangeNotifier {
   final DatabaseReference _databaseReference = FirebaseDatabase.instance.reference().child('halls');
@@ -11,9 +12,9 @@ class HallsViewModel extends ChangeNotifier {
   HallsViewModel() {
     _fetchHalls();
   }
+
   void _fetchHalls() {
     _databaseReference.onValue.listen((event) {
-      // Check if event.snapshot.value is not null
       if (event.snapshot.value != null) {
         Map<dynamic, dynamic> data = event.snapshot.value as Map<dynamic, dynamic>;
         final List<HallModel> loadedHalls = [];
