@@ -5,7 +5,7 @@ import '../model/descriptionhall_mode.dart';
 
 
 class HallsViewModel extends ChangeNotifier {
-  final DatabaseReference _databaseReference = FirebaseDatabase.instance.reference().child('halls');
+  final DatabaseReference _databaseReference = FirebaseDatabase.instance.ref().child('halls');
   List<HallModel> _halls = [];
   List<HallModel> get halls => _halls;
 
