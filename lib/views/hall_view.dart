@@ -35,6 +35,9 @@ class _HallScreenState extends State<EditHallDescription> {
       if (mounted) {
         setState(() {
           print(viewModel.hallName);
+          print(viewModel.hallLocation);
+          print(viewModel.minimumReservationCapacity);
+          print(viewModel.numberOfEntrances);
           hallNameController.text = viewModel.hallName ?? '';
           hallLocationController.text = viewModel.hallLocation ?? '';
           imageUrlController.text = viewModel.imageUrl ?? '';
@@ -141,7 +144,7 @@ class _HallScreenState extends State<EditHallDescription> {
                 height: 720,
                 width: 400,
                 //color: Colors.white,
-                child: const Column(
+                child: Column(
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.only(right: 230),
@@ -152,6 +155,7 @@ class _HallScreenState extends State<EditHallDescription> {
                     ),
                     //SizedBox(height: 5),
                     TextField(
+                      controller: reservationPriceController,
                       decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
@@ -167,6 +171,7 @@ class _HallScreenState extends State<EditHallDescription> {
                     ),
                     //SizedBox(height: 5),
                     TextField(
+                      controller: numberOfSectionsController,
                       decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
@@ -182,6 +187,7 @@ class _HallScreenState extends State<EditHallDescription> {
                     ),
                     //SizedBox(height: 5),
                     TextField(
+                      controller: minimumReservationCapacityController,
                       decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
@@ -256,6 +262,7 @@ class _HallScreenState extends State<EditHallDescription> {
                     ),
                     //SizedBox(height: 5),
                     TextField(
+                      controller: numberOfEntrancesController,
                       decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
