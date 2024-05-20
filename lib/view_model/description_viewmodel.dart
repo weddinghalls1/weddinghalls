@@ -5,30 +5,54 @@ import '../model/descriptionhall_mode.dart';
 
 
 class HallsViewModel extends ChangeNotifier {
-  final DatabaseReference _databaseReference = FirebaseDatabase.instance.ref().child('halls');
-  List<HallModel> _halls = [];
-  List<HallModel> get halls => _halls;
+  final DatabaseReference _database = FirebaseDatabase.instance.ref();
+  List<HallModel> halls = [];
+  String? hallName;
+  String? hallLocation;
+  String? imageUrl;
+  String? minimumReservationCapacity;
+  String? numberOfEntrances;
+  String? numberOfFlightAttendantsMen;
+  String? numberOfFlightAttendantsWomen;
+  String? numberOfSeatsMen;
+  String? numberOfSeatsWomen;
+  String? numberOfSections;
+  String? reservationPrice;
+  String? selectedDateTime;
+  String? selectedTiming;
 
-  HallsViewModel() {
-    _fetchHalls();
-  }
-
-  void _fetchHalls() {
-    _databaseReference.onValue.listen((event) {
-      if (event.snapshot.value != null) {
-        Map<dynamic, dynamic> data = event.snapshot.value as Map<dynamic, dynamic>;
-        final List<HallModel> loadedHalls = [];
-        data.forEach((key, value) {
-          if (value is Map<String, dynamic>) {
-            final hall = HallModel.fromMap(value);
-            loadedHalls.add(hall);
-          } else {
-            print('Data for key $key is not in the expected format.');
-          }
-        });
-        _halls = loadedHalls;
-        notifyListeners();
+  Future<void> fetchHallData(String token) async {
+    try{
+      DatabaseEvent event = await _database.child('halls')
+          .orderByChild('token')
+          .equalTo(token)
+          .once();
+      DataSnapshot snapshot = event.snapshot;
+      if (snapshot.value != null) {
+        var entry = (snapshot.value as Map).values
+            .first;
+        if (entry != null) {
+          Map<String, dynamic> hallData = Map<String, dynamic>.from(entry);
+          hallName = hallData['hallName'];
+          hallLocation = hallData['hallLocation'];
+          imageUrl = hallData['imageUrl'];
+          minimumReservationCapacity = hallData['minimumReservationCapacity'];
+          numberOfEntrances = hallData['numberOfEntrances'];
+          numberOfFlightAttendantsMen = hallData['numberOfFlightAttendantsMen'];
+          numberOfFlightAttendantsWomen = hallData['numberOfFlightAttendantsWomen'];
+          numberOfSeatsMen = hallData['numberOfSeatsMen'];
+          numberOfSeatsWomen = hallData['numberOfSeatsWomen'];
+          numberOfSections = hallData['numberOfSections'];
+          reservationPrice = hallData['reservationPrice'];
+          selectedDateTime = hallData['selectedDateTime'];
+          selectedTiming = hallData['selectedTiming'];
+        }
+      } else {
+        print('No user found with token: $token');
       }
-    });
+    }catch (e) {
+      print('Error fetching user data: $e');
+      throw e;
+    }
   }
 }
