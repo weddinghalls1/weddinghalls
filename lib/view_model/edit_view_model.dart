@@ -51,45 +51,8 @@ class EditViewModel {
       throw e;
     }
   }
-  Future<void> updateHallData(String hallLocation,
-  String hallName,
-  String imageUrl,
-  String minimumReservationCapacity,
-  String numberOfEntrances,
-  String numberOfFlightAttendantsMen,
-  String numberOfFlightAttendantsWomen,
-  String numberOfSeatsMen,
-  String numberOfSeatsWomen,
-  String numberOfSections,
-  String reservationPrice,
-  String selectedDateTime,
-  String selectedTiming) async {
-    String token = "hassan";
-    DatabaseReference usersRef = FirebaseDatabase.instance.reference().child(
-        'halls');
 
-    try {
-      await usersRef.child(token).update({
-        'hallName': hallName,
-        'hallLocation': hallLocation,
-        'imageUrl': imageUrl,
-        'minimumReservationCapacity': minimumReservationCapacity,
-        'numberOfEntrances': numberOfEntrances,
-        'numberOfFlightAttendantsMen': numberOfFlightAttendantsMen,
-        'numberOfFlightAttendantsWomen': numberOfFlightAttendantsWomen,
-        'numberOfSeatsMen': numberOfSeatsMen,
-        'numberOfSeatsWomen': numberOfSeatsWomen,
-        'numberOfSections': numberOfSections,
-        'reservationPrice': reservationPrice,
-        'selectedDateTime': selectedDateTime,
-        'selectedTiming': selectedTiming,
-        'token': token
-      });
-      print('User data updated successfully');
-    } catch (error) {
-      print('Error updating user data: $error');
-    }
-  }
+
 
 
 }
