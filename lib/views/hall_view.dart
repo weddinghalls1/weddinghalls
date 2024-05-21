@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:weddinghalls/view_model/edit_view_model.dart';
+import 'package:image_picker/image_picker.dart';
 
 class EditHallDescription extends StatefulWidget {
   const EditHallDescription({Key? key}) : super(key: key);
@@ -127,9 +128,42 @@ class _HallScreenState extends State<EditHallDescription> {
               Padding(
                 padding: EdgeInsets.only(top: 5),
                 child: Container(
-                  height: 150,
+                  height: 350,
                   width: 400,
                   color: Colors.white,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 13, top: 50),
+                    child: Row(
+                      children: <Widget>[
+                        SizedBox(
+                          width: 180,
+                          child: ElevatedButton(
+                            onPressed: ()  {
+
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Color(0xFFE57373),
+                            ),
+                            child: Text('Delete', style: TextStyle(color: Colors.white, fontSize: 20)),
+                          ),
+                        ),
+                        SizedBox(width: 15,),
+                        SizedBox(
+                          width: 180,
+                          child: ElevatedButton(
+                            onPressed: ()  {
+
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Color(0xFF7469B6),
+                            ),
+                            child: Text('Upload', style: TextStyle(color: Colors.white, fontSize: 20)),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+
                 ),
               ),
               SizedBox(height: 8),
