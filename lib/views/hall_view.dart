@@ -1,9 +1,9 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:weddinghalls/view_model/edit_view_model.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class EditHallDescription extends StatefulWidget {
   const EditHallDescription({Key? key}) : super(key: key);
@@ -31,6 +31,8 @@ class _HallScreenState extends State<EditHallDescription> {
 
   DateTime? selectedDateTime;
   String? selectedTiming;
+  final ImagePicker _picker = ImagePicker();
+  String? _newImageUrl;
 
   @override
   void initState() {
@@ -74,29 +76,18 @@ class _HallScreenState extends State<EditHallDescription> {
     }
   }
 
-  Future<void> _deleteImage() async {
-    if (viewModel.imageUrl == null || viewModel.imageUrl!.isEmpty) return;
-
-    try {
-      final storageRef = FirebaseStorage.instance.refFromURL(viewModel.imageUrl!);
-      await storageRef.delete();
-
-      await FirebaseFirestore.instance.collection('halls').doc('hall_id').update({
-        'imageUrl': FieldValue.delete(),
-      });
+  Future<void> _pickImage() async {
+    final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      final String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+      final Reference storageReference = FirebaseStorage.instance.ref().child('halls').child(fileName);
+      final UploadTask uploadTask = storageReference.putFile(File(pickedFile.path));
+      final TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() {});
+      final String downloadUrl = await taskSnapshot.ref.getDownloadURL();
 
       setState(() {
-        viewModel.imageUrl = null;
-        imageUrlController.text = '';
+        _newImageUrl = downloadUrl;
       });
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Image deleted successfully')),
-      );
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to delete image: $e')),
-      );
     }
   }
 
@@ -156,14 +147,14 @@ class _HallScreenState extends State<EditHallDescription> {
               Padding(
                 padding: EdgeInsets.only(top: 5),
                 child: Container(
-                  height: 350,
+                  height: 260,
                   width: 400,
-                  color: Colors.white,
+                  //color: Colors.white,
                   child: Column(
                     children: <Widget>[
                       Image.network(
-                        viewModel.imageUrl ?? '',
-                        width: 300,
+                        _newImageUrl ?? viewModel.imageUrl ?? '',
+                        width: 350,
                         height: 200,
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) {
@@ -174,40 +165,23 @@ class _HallScreenState extends State<EditHallDescription> {
                           );
                         },
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 13, top: 50),
-                        child: Row(
-                          children: <Widget>[
-                            SizedBox(
-                              width: 180,
-                              child: ElevatedButton(
-                                onPressed: _deleteImage,
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Color(0xFFE57373),
-                                ),
-                                child: Text('Delete', style: TextStyle(color: Colors.white, fontSize: 20)),
+                      Center(
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 10),
+                          child:SizedBox(
+                            width: 180,
+                            child: ElevatedButton(
+                              onPressed: _pickImage,
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Color(0xFF7469B6),
                               ),
+                              child: Text('Edit', style: TextStyle(color: Colors.white, fontSize: 20)),
                             ),
-                            SizedBox(width: 15,),
-                            SizedBox(
-                              width: 180,
-                              child: ElevatedButton(
-                                onPressed: ()  {
-
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Color(0xFF7469B6),
-                                ),
-                                child: Text('Upload', style: TextStyle(color: Colors.white, fontSize: 20)),
-                              ),
-                            )
-                          ],
+                          ),
                         ),
                       ),
                     ],
                   ),
-
-
                 ),
               ),
               SizedBox(height: 8),
@@ -261,7 +235,7 @@ class _HallScreenState extends State<EditHallDescription> {
                       ),
                     ),
                     SizedBox(height: 15),
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.only(right: 160),
                       child: Text(
                         'Number of Seats for Men',
@@ -412,7 +386,7 @@ class _HallScreenState extends State<EditHallDescription> {
                             await viewModel.updateHallData(
                               hallNameController.text,
                               hallLocationController.text,
-                              imageUrlController.text,
+                              _newImageUrl ?? imageUrlController.text, // Use the new image URL if available
                               minimumReservationCapacityController.text,
                               numberOfEntrancesController.text,
                               numberOfFlightAttendantsMenController.text,

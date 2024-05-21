@@ -44,10 +44,10 @@ class EditViewModel {
           selectedTiming = hallData['selectedTiming'];
         }
       } else {
-        print('No user found with token: $token');
+        print('No Data found with token: $token');
       }
     }catch (e) {
-      print('Error fetching user data: $e');
+      print('Error fetching Data: $e');
       throw e;
     }
   }
@@ -85,9 +85,9 @@ class EditViewModel {
         'selectedTiming': selectedTiming,
         'token': token
       });
-      print('User data updated successfully');
+      print('Data updated successfully');
     } catch (error) {
-      print('Error updating user data: $error');
+      print('Error updating Data for Halls: $error');
     }
   }
 
