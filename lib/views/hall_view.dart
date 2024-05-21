@@ -116,7 +116,7 @@ class _HallScreenState extends State<EditHallDescription> {
                     ),
                     TextField(
                       controller: hallLocationController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
                       ),
@@ -131,38 +131,56 @@ class _HallScreenState extends State<EditHallDescription> {
                   height: 350,
                   width: 400,
                   color: Colors.white,
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 13, top: 50),
-                    child: Row(
-                      children: <Widget>[
-                        SizedBox(
-                          width: 180,
-                          child: ElevatedButton(
-                            onPressed: ()  {
+                  child: Column(
+                    children: <Widget>[
+                      Image.network(
+                        viewModel.imageUrl ?? '',
+                        width: 300,
+                        height: 200,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return const Icon(
+                            Icons.image_not_supported,
+                            size: 200,
+                            color: Colors.grey,
+                          );
+                        },
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 13, top: 50),
+                        child: Row(
+                          children: <Widget>[
+                            SizedBox(
+                              width: 180,
+                              child: ElevatedButton(
+                                onPressed: ()  {
 
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xFFE57373),
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Color(0xFFE57373),
+                                ),
+                                child: Text('Delete', style: TextStyle(color: Colors.white, fontSize: 20)),
+                              ),
                             ),
-                            child: Text('Delete', style: TextStyle(color: Colors.white, fontSize: 20)),
-                          ),
+                            SizedBox(width: 15,),
+                            SizedBox(
+                              width: 180,
+                              child: ElevatedButton(
+                                onPressed: ()  {
+
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Color(0xFF7469B6),
+                                ),
+                                child: Text('Upload', style: TextStyle(color: Colors.white, fontSize: 20)),
+                              ),
+                            )
+                          ],
                         ),
-                        SizedBox(width: 15,),
-                        SizedBox(
-                          width: 180,
-                          child: ElevatedButton(
-                            onPressed: ()  {
-
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xFF7469B6),
-                            ),
-                            child: Text('Upload', style: TextStyle(color: Colors.white, fontSize: 20)),
-                          ),
-                        )
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
+
 
                 ),
               ),
