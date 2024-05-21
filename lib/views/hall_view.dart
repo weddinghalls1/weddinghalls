@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
 import 'package:weddinghalls/view_model/edit_view_model.dart';
 
 class EditHallDescription extends StatefulWidget {
@@ -16,9 +14,9 @@ class _HallScreenState extends State<EditHallDescription> {
 
   final TextEditingController hallNameController = TextEditingController();
   final TextEditingController hallLocationController = TextEditingController();
-   final TextEditingController imageUrlController = TextEditingController();
-   final TextEditingController minimumReservationCapacityController = TextEditingController();
-   final TextEditingController numberOfEntrancesController = TextEditingController();
+  final TextEditingController imageUrlController = TextEditingController();
+  final TextEditingController minimumReservationCapacityController = TextEditingController();
+  final TextEditingController numberOfEntrancesController = TextEditingController();
   final TextEditingController numberOfFlightAttendantsMenController = TextEditingController();
   final TextEditingController numberOfFlightAttendantsWomenController = TextEditingController();
   final TextEditingController numberOfSeatsMenController = TextEditingController();
@@ -28,16 +26,16 @@ class _HallScreenState extends State<EditHallDescription> {
   final TextEditingController selectedDateTimeController = TextEditingController();
   final TextEditingController selectedTimingController = TextEditingController();
 
-  void initState(){
+  DateTime? selectedDateTime;
+  String? selectedTiming;
+
+  @override
+  void initState() {
     super.initState();
     String initialToken = 'hassan';
     viewModel.fetchHallData(initialToken).then((_) {
       if (mounted) {
         setState(() {
-          print(viewModel.hallName);
-          print(viewModel.hallLocation);
-          print(viewModel.minimumReservationCapacity);
-          print(viewModel.numberOfEntrances);
           hallNameController.text = viewModel.hallName ?? '';
           hallLocationController.text = viewModel.hallLocation ?? '';
           imageUrlController.text = viewModel.imageUrl ?? '';
@@ -49,17 +47,14 @@ class _HallScreenState extends State<EditHallDescription> {
           numberOfSeatsWomenController.text = viewModel.numberOfSeatsWomen ?? '';
           numberOfSectionsController.text = viewModel.numberOfSections ?? '';
           reservationPriceController.text = viewModel.reservationPrice ?? '';
+          selectedDateTime = viewModel.selectedDateTime != null ? DateTime.parse(viewModel.selectedDateTime!) : null;
+          selectedTiming = viewModel.selectedTiming ?? '';
           selectedDateTimeController.text = viewModel.selectedDateTime ?? '';
           selectedTimingController.text = viewModel.selectedTiming ?? '';
         });
       }
     });
   }
-
-
-  DateTime? selectedDateTime = DateTime.now();
-  String? selectedTiming;
-  //File? _image;
 
   Future<void> _selectDateTime(BuildContext context) async {
     final DateTime? pickedDateTime = await showDatePicker(
@@ -71,6 +66,7 @@ class _HallScreenState extends State<EditHallDescription> {
     if (pickedDateTime != null) {
       setState(() {
         selectedDateTime = pickedDateTime;
+        selectedDateTimeController.text = selectedDateTime!.toIso8601String();
       });
     }
   }
@@ -85,14 +81,13 @@ class _HallScreenState extends State<EditHallDescription> {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
-      body: SingleChildScrollView( // Wrap the Column in a SingleChildScrollView
+      body: SingleChildScrollView(
         child: Center(
           child: Column(
             children: <Widget>[
               Container(
                 width: 400,
                 height: 180,
-                //color: Colors.white,
                 margin: EdgeInsets.only(top: 10),
                 child: Column(
                   children: <Widget>[
@@ -100,10 +95,9 @@ class _HallScreenState extends State<EditHallDescription> {
                       padding: EdgeInsets.only(right: 290),
                       child: Text(
                         'Hall Name',
-                        style: TextStyle( fontSize: 20),
+                        style: TextStyle(fontSize: 20),
                       ),
                     ),
-                    //SizedBox(height: 8),
                     TextField(
                       controller: hallNameController,
                       decoration: const InputDecoration(
@@ -116,11 +110,10 @@ class _HallScreenState extends State<EditHallDescription> {
                       padding: EdgeInsets.only(right: 260),
                       child: Text(
                         'Hall Location',
-                        style: TextStyle( fontSize: 20),
+                        style: TextStyle(fontSize: 20),
                       ),
                     ),
-                    //SizedBox(height: 8),
-                     TextField(
+                    TextField(
                       controller: hallLocationController,
                       decoration: InputDecoration(
                         fillColor: Colors.white,
@@ -143,52 +136,48 @@ class _HallScreenState extends State<EditHallDescription> {
               Container(
                 height: 720,
                 width: 400,
-                //color: Colors.white,
                 child: Column(
                   children: <Widget>[
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.only(right: 230),
                       child: Text(
                         'Reservation Price',
-                        style: TextStyle( fontSize: 20),
+                        style: TextStyle(fontSize: 20),
                       ),
                     ),
-                    //SizedBox(height: 5),
                     TextField(
                       controller: reservationPriceController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
                       ),
                     ),
                     SizedBox(height: 15),
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.only(right: 210),
                       child: Text(
                         'Number of Sections',
-                        style: TextStyle( fontSize: 20),
+                        style: TextStyle(fontSize: 20),
                       ),
                     ),
-                    //SizedBox(height: 5),
                     TextField(
                       controller: numberOfSectionsController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
                       ),
                     ),
-                    SizedBox(height: 15,),
-                    Padding(
+                    SizedBox(height: 15),
+                    const Padding(
                       padding: EdgeInsets.only(right: 110),
                       child: Text(
                         'Minimum Reservation Capacity',
-                        style: TextStyle( fontSize: 20),
+                        style: TextStyle(fontSize: 20),
                       ),
                     ),
-                    //SizedBox(height: 5),
                     TextField(
                       controller: minimumReservationCapacityController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
                       ),
@@ -198,72 +187,71 @@ class _HallScreenState extends State<EditHallDescription> {
                       padding: EdgeInsets.only(right: 160),
                       child: Text(
                         'Number of Seats for Men',
-                        style: TextStyle( fontSize: 20),
+                        style: TextStyle(fontSize: 20),
                       ),
                     ),
-                    //SizedBox(height: 5),
                     TextField(
-                      decoration: InputDecoration(
+                      controller: numberOfSeatsMenController,
+                      decoration: const InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
                       ),
                     ),
-                    SizedBox(height: 15,),
-                    Padding(
+                    SizedBox(height: 15),
+                    const Padding(
                       padding: EdgeInsets.only(right: 135),
                       child: Text(
                         'Number of Seats for Women',
-                        style: TextStyle( fontSize: 20),
+                        style: TextStyle(fontSize: 20),
                       ),
                     ),
-                    //SizedBox(height: 5),
                     TextField(
-                      decoration: InputDecoration(
+                      controller: numberOfSeatsWomenController,
+                      decoration: const InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
                       ),
                     ),
                     SizedBox(height: 15),
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.only(right: 80),
                       child: Text(
                         'Number of Flight Attendants (Men)',
-                        style: TextStyle( fontSize: 20),
+                        style: TextStyle(fontSize: 20),
                       ),
                     ),
-                    //SizedBox(height: 5),
                     TextField(
-                      decoration: InputDecoration(
+                      controller: numberOfFlightAttendantsMenController,
+                      decoration: const InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
                       ),
                     ),
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.only(right: 50),
                       child: Text(
                         'Number of Flight Attendants (Women)',
-                        style: TextStyle( fontSize: 20),
+                        style: TextStyle(fontSize: 20),
                       ),
                     ),
-                    //SizedBox(height: 5),
                     TextField(
-                      decoration: InputDecoration(
+                      controller: numberOfFlightAttendantsWomenController,
+                      decoration: const InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
                       ),
                     ),
                     SizedBox(height: 15),
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.only(right: 140),
                       child: Text(
                         'Number of Entrances (Door)',
-                        style: TextStyle( fontSize: 20),
+                        style: TextStyle(fontSize: 20),
                       ),
                     ),
-                    //SizedBox(height: 5),
                     TextField(
                       controller: numberOfEntrancesController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
                       ),
@@ -271,13 +259,12 @@ class _HallScreenState extends State<EditHallDescription> {
                   ],
                 ),
               ),
-              SizedBox(height: 8,),
+              SizedBox(height: 8),
               Padding(
                 padding: EdgeInsets.only(top: 5),
                 child: Container(
                   height: 410,
                   width: 400,
-                  //color: Colors.white,
                   child: Column(
                     children: <Widget>[
                       ElevatedButton(
@@ -302,8 +289,10 @@ class _HallScreenState extends State<EditHallDescription> {
                           setState(() {
                             if (value == true) {
                               selectedTiming = 'morning';
+                              selectedTimingController.text = 'morning';
                             } else {
                               selectedTiming = null;
+                              selectedTimingController.text = '';
                             }
                           });
                         },
@@ -315,8 +304,10 @@ class _HallScreenState extends State<EditHallDescription> {
                           setState(() {
                             if (value == true) {
                               selectedTiming = 'evening';
+                              selectedTimingController.text = 'evening';
                             } else {
                               selectedTiming = null;
+                              selectedTimingController.text = '';
                             }
                           });
                         },
@@ -328,30 +319,37 @@ class _HallScreenState extends State<EditHallDescription> {
                           setState(() {
                             if (value == true) {
                               selectedTiming = 'late_evening';
+                              selectedTimingController.text = 'late_evening';
                             } else {
                               selectedTiming = null;
+                              selectedTimingController.text = '';
                             }
                           });
                         },
                       ),
                       SizedBox(height: 20.0),
                       ElevatedButton(
-                        onPressed: () async{
-                          try{
-                            await viewModel.updateHallData(hallNameController.text,
-                                hallLocationController.text,
-                                imageUrlController.text,
-                                minimumReservationCapacityController.text,
-                                numberOfEntrancesController.text,
-                                numberOfFlightAttendantsMenController.text,
-                                numberOfFlightAttendantsWomenController.text,
-                                numberOfSeatsMenController.text,
-                                numberOfSeatsWomenController.text,
-                                numberOfSectionsController.text,
-                                reservationPriceController.text,
-                                selectedDateTimeController.text,
-                                selectedTimingController.text);
-                          }catch (e) {
+                        onPressed: () async {
+                          try {
+                            await viewModel.updateHallData(
+                              hallNameController.text,
+                              hallLocationController.text,
+                              imageUrlController.text,
+                              minimumReservationCapacityController.text,
+                              numberOfEntrancesController.text,
+                              numberOfFlightAttendantsMenController.text,
+                              numberOfFlightAttendantsWomenController.text,
+                              numberOfSeatsMenController.text,
+                              numberOfSeatsWomenController.text,
+                              numberOfSectionsController.text,
+                              reservationPriceController.text,
+                              selectedDateTime?.toIso8601String() ?? '',
+                              selectedTiming ?? '',
+                            );
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('Profile updated successfully')),
+                            );
+                          } catch (e) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text('Failed to update profile: $e')),
                             );
@@ -364,7 +362,6 @@ class _HallScreenState extends State<EditHallDescription> {
                       ),
                     ],
                   ),
-                  //SizedBox(height: 20.0),
                 ),
               ),
             ],
@@ -374,5 +371,3 @@ class _HallScreenState extends State<EditHallDescription> {
     );
   }
 }
-
-
