@@ -1,6 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 
-class EditViewModel {
+class DetailsReservation {
   final DatabaseReference _database = FirebaseDatabase.instance.reference();
 
   String? hallName;
@@ -17,7 +17,7 @@ class EditViewModel {
   String? selectedDateTime;
   String? selectedTiming;
 
-  Future<void> fetchHallData(String token) async {
+  Future<void> fetchResData(String token) async {
     try{
       DatabaseEvent event = await _database.child('halls')
           .orderByChild('token')
@@ -44,10 +44,10 @@ class EditViewModel {
           selectedTiming = hallData['selectedTiming'];
         }
       } else {
-        print('No user found with token: $token');
+        print('No Details found with token: $token');
       }
     }catch (e) {
-      print('Error fetching user data: $e');
+      print('Error fetching Details Data: $e');
       throw e;
     }
   }

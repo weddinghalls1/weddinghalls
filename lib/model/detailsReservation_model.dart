@@ -1,4 +1,4 @@
-class User {
+class DataRes {
   final String id;
   final String hallLocation;
   final String hallName;
@@ -15,7 +15,7 @@ class User {
   final String selectedTiming;
   final String token;
 
-  User({
+  DataRes({
     required this.id,
     required this.hallLocation,
     required this.hallName,
