@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:weddinghalls/view_model/edit_view_model.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class EditHallDescription extends StatefulWidget {
   const EditHallDescription({Key? key}) : super(key: key);
@@ -69,6 +71,32 @@ class _HallScreenState extends State<EditHallDescription> {
         selectedDateTime = pickedDateTime;
         selectedDateTimeController.text = selectedDateTime!.toIso8601String();
       });
+    }
+  }
+
+  Future<void> _deleteImage() async {
+    if (viewModel.imageUrl == null || viewModel.imageUrl!.isEmpty) return;
+
+    try {
+      final storageRef = FirebaseStorage.instance.refFromURL(viewModel.imageUrl!);
+      await storageRef.delete();
+
+      await FirebaseFirestore.instance.collection('halls').doc('hall_id').update({
+        'imageUrl': FieldValue.delete(),
+      });
+
+      setState(() {
+        viewModel.imageUrl = null;
+        imageUrlController.text = '';
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Image deleted successfully')),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to delete image: $e')),
+      );
     }
   }
 
@@ -153,9 +181,7 @@ class _HallScreenState extends State<EditHallDescription> {
                             SizedBox(
                               width: 180,
                               child: ElevatedButton(
-                                onPressed: ()  {
-
-                                },
+                                onPressed: _deleteImage,
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Color(0xFFE57373),
                                 ),
