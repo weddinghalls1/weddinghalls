@@ -26,7 +26,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
       return MaterialApp(
         debugShowCheckedModeBanner: false,
-        home:ReservationPage();
+        home:ReservationPage(),
         );
   }
 }
