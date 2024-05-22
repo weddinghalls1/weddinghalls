@@ -12,7 +12,6 @@ class ReservationPage extends StatefulWidget {
 class _ReservationPageState extends State<ReservationPage> {
   final ReservationViewModel _reservationViewModel = ReservationViewModel();
 
-
   int capacity = 0;
   int numberOfSeatsMen = 0;
   int numberOfSeatsWomen = 0;
@@ -22,7 +21,6 @@ class _ReservationPageState extends State<ReservationPage> {
 
   DateTime? selectedDateTime = DateTime.now();
   String? selectedTiming;
-
 
   Widget _buildInputBox(String label, String value, ValueChanged<String> onChanged) {
     return Column(
@@ -64,29 +62,7 @@ class _ReservationPageState extends State<ReservationPage> {
       });
     }
   }
-  Future<void> _saveHallData() async {
-    try {
-      HallModel hallModel = HallModel(
-          capacity: capacity,
-          numberOfSeatsMen: numberOfSeatsMen,
-          numberOfSeatsWomen: numberOfSeatsWomen,
-          numberOfFlightAttendantsMen: numberOfFlightAttendantsMen,
-          numberOfFlightAttendantsWomen: numberOfFlightAttendantsWomen,
-          numberOfEntrances: numberOfEntrances,
-          selectedDateTime: selectedDateTime!,
-          selectedTiming: selectedTiming!,
-          token: ''
-      );
 
-
-      print("Successfully");
-
-    } catch (e) {
-      // Show error message
-      print("error to save data${e.toString()}");
-
-    }
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,7 +93,7 @@ class _ReservationPageState extends State<ReservationPage> {
                 ),
                 SizedBox(height: 10.0),
                 Text(
-                  'Selected Date: ${selectedDateTime.toString()}',
+                  'Selected Date: ${selectedDateTime!.toLocal().toString().split(' ')[0]}',
                   style: TextStyle(fontSize: 16.0, color: Colors.black),
                 ),
                 SizedBox(height: 20.0),
@@ -199,28 +175,53 @@ class _ReservationPageState extends State<ReservationPage> {
 
                 // Reservation Confirmation Button
                 ElevatedButton(
-                  onPressed: () async {
-                    HallModel hallModel = HallModel(
-                      capacity: capacity,
-                      numberOfSeatsMen: numberOfSeatsMen,
-                      numberOfSeatsWomen: numberOfSeatsWomen,
-                      numberOfFlightAttendantsMen: numberOfFlightAttendantsMen,
-                      numberOfFlightAttendantsWomen: numberOfFlightAttendantsWomen,
-                      numberOfEntrances: numberOfEntrances,
-                      selectedDateTime: selectedDateTime!,
-                      selectedTiming: selectedTiming!, token: '',
-                    );
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Confirmation'),
+                          content: Text('Are you sure you want to confirm this reservation?'),
+                          actions: [
+                            TextButton(
+                              onPressed: () async {
+                                HallModel hallModel = HallModel(
+                                  capacity: capacity,
+                                  numberOfSeatsMen: numberOfSeatsMen,
+                                  numberOfSeatsWomen: numberOfSeatsWomen,
+                                  numberOfFlightAttendantsMen: numberOfFlightAttendantsMen,
+                                  numberOfFlightAttendantsWomen: numberOfFlightAttendantsWomen,
+                                  numberOfEntrances: numberOfEntrances,
+                                  selectedDateTime: selectedDateTime!,
+                                  selectedTiming: selectedTiming!,
+                                  token: '',
+                                );
 
-                    try {
-                      await _reservationViewModel.saveHallData(hallModel);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Reservation saved successfully!')),
-                      );
-                    } catch (e) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Failed to save reservation.')),
-                      );
-                    }
+                                try {
+                                  await _reservationViewModel.saveHallData(hallModel);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text('Reservation saved successfully!')),
+                                  );
+                                } catch (e) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text('Failed to save reservation.')),
+                                  );
+                                }
+
+                                Navigator.of(context).pop(); // Close the dialog
+                              },
+                              child: Text('Confirm'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop(); // Close the dialog
+                              },
+                              child: Text('Cancel'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFF7469B6), // purplish-blue color
