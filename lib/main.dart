@@ -24,13 +24,12 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider( // Wrap MainPage with ChangeNotifierProvider
-      create: (_) => HallsViewModel(), // Provide HallsViewModel
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: DescriptionHalls(),
-        routes: kRoutes,
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Hall Description',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
       ),
+      home: DescriptionHalls(),
     );
-  }
-}
+}}
