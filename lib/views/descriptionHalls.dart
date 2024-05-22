@@ -12,18 +12,47 @@ class DescriptionHalls extends StatefulWidget {
 class _DescriptionHallsState extends State<DescriptionHalls> {
   final HallsViewModel viewModel = HallsViewModel();
 
+  final TextEditingController hallNameController = TextEditingController();
+  final TextEditingController hallLocationController = TextEditingController();
+  final TextEditingController imageUrlController = TextEditingController();
+  final TextEditingController minimumReservationCapacityController = TextEditingController();
+  final TextEditingController numberOfEntrancesController = TextEditingController();
+  final TextEditingController numberOfFlightAttendantsMenController = TextEditingController();
+  final TextEditingController numberOfFlightAttendantsWomenController = TextEditingController();
+  final TextEditingController numberOfSeatsMenController = TextEditingController();
+  final TextEditingController numberOfSeatsWomenController = TextEditingController();
+  final TextEditingController numberOfSectionsController = TextEditingController();
+  final TextEditingController reservationPriceController = TextEditingController();
+  final TextEditingController selectedDateTimeController = TextEditingController();
+  final TextEditingController selectedTimingController = TextEditingController();
+
+  DateTime? selectedDateTime;
+  String? selectedTiming;
   void initState() {
     super.initState();
-    String initialToken = 'defaultToken'; // Replace 'defaultToken' with the actual token
+    String initialToken = 'hassan';
     viewModel.fetchHallData(initialToken).then((_) {
       if (mounted) {
-        setState(() {});
+        setState(() {   hallNameController.text = viewModel.hallName ?? '';
+        hallLocationController.text = viewModel.hallLocation ?? '';
+        imageUrlController.text = viewModel.imageUrl ?? '';
+        minimumReservationCapacityController.text = viewModel.minimumReservationCapacity ?? '';
+        numberOfEntrancesController.text = viewModel.numberOfEntrances ?? '';
+        numberOfFlightAttendantsMenController.text = viewModel.numberOfFlightAttendantsMen ?? '';
+        numberOfFlightAttendantsWomenController.text = viewModel.numberOfFlightAttendantsWomen ?? '';
+        numberOfSeatsMenController.text = viewModel.numberOfSeatsMen ?? '';
+        numberOfSeatsWomenController.text = viewModel.numberOfSeatsWomen ?? '';
+        numberOfSectionsController.text = viewModel.numberOfSections ?? '';
+        reservationPriceController.text = viewModel.reservationPrice ?? '';
+        selectedDateTime = viewModel.selectedDateTime != null ? DateTime.parse(viewModel.selectedDateTime!) : null;
+        selectedTiming = viewModel.selectedTiming ?? '';
+        selectedDateTimeController.text = viewModel.selectedDateTime ?? '';
+        selectedTimingController.text = viewModel.selectedTiming ?? '';});
       }
     });
   }
 
-  DateTime? selectedDateTime = DateTime.now();
-  String? selectedTiming;
+
 
   Future<void> _selectDateTime(BuildContext context) async {
     final DateTime? pickedDateTime = await showDatePicker(
