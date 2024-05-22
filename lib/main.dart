@@ -1,8 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:weddinghalls/routes/router.dart';
-import 'package:weddinghalls/views/edit_Description_view.dart';
 import 'firebase_options.dart';
+import 'views/home_switch.dart';
 
 
 void main() async {
@@ -23,13 +22,15 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
-      return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Edit Hall Description',
-          theme: ThemeData(
-          primarySwatch: Colors.blue,
+    return MaterialApp(
+
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
       ),
-    home: EditHallDescription(),
-      );
+      home: const HomeSwitch(),
+    );
   }
 }
