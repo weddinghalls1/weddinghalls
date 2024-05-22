@@ -5,7 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import '../model/reservation_model.dart';
 
 class ReservationViewModel {
-  final DatabaseReference _database = FirebaseDatabase.instance.reference();
+  final DatabaseReference _database = FirebaseDatabase.instance.ref();
   final FirebaseStorage _storage = FirebaseStorage.instance;
 
   Future<void> saveHallData(HallModel hallModel) async {
