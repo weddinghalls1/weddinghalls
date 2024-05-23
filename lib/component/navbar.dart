@@ -1,10 +1,5 @@
 
 import 'package:flutter/material.dart';
-
-
-
-
-
 import 'package:weddinghalls/views/hall_view.dart';
 import 'package:weddinghalls/views/home_screen.dart';
 import 'package:weddinghalls/views/profile_screen.dart';

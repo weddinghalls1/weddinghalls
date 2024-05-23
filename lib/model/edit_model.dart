@@ -1,4 +1,6 @@
-class User {
+
+
+class Halls {
   final String id;
   final String hallLocation;
   final String hallName;
@@ -15,7 +17,10 @@ class User {
   final String selectedTiming;
   final String token;
 
-  User({
+
+
+  Halls({
+
     required this.id,
     required this.hallLocation,
     required this.hallName,
@@ -32,4 +37,5 @@ class User {
     required this.selectedTiming,
     required this.token,
   });
+
 }
