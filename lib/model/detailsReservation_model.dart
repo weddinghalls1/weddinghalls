@@ -1,6 +1,7 @@
 
 
-class Halls {
+
+class DataRes {
   final String id;
   final String hallLocation;
   final String hallName;
@@ -19,8 +20,8 @@ class Halls {
 
 
 
-  Halls({
 
+  DataRes({
     required this.id,
     required this.hallLocation,
     required this.hallName,

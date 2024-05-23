@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:weddinghalls/view_model/edit_view_model.dart';
+import 'package:weddinghalls/view_model/detailsReservation_view_model.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:weddinghalls/view_model/detailsReservation_view_model.dart';
 
-class EditHallDescription extends StatefulWidget {
-  const EditHallDescription({Key? key}) : super(key: key);
+class HallDetailsReservation extends StatefulWidget {
+  const HallDetailsReservation({Key? key}) : super(key: key);
 
   @override
-  State<EditHallDescription> createState() => _HallScreenState();
+  State<HallDetailsReservation> createState() => _HallScreenState();
 }
 
-class _HallScreenState extends State<EditHallDescription> {
-  final EditViewModel viewModel = EditViewModel();
+class _HallScreenState extends State<HallDetailsReservation> {
+  final DetailsReservation viewModel = DetailsReservation();
 
   final TextEditingController hallNameController = TextEditingController();
   final TextEditingController hallLocationController = TextEditingController();
@@ -35,7 +36,7 @@ class _HallScreenState extends State<EditHallDescription> {
   void initState() {
     super.initState();
     String initialToken = 'hassan';
-    viewModel.fetchHallData(initialToken).then((_) {
+    viewModel.fetchResData(initialToken).then((_) {
       if (mounted) {
         setState(() {
           hallNameController.text = viewModel.hallName ?? '';
@@ -64,7 +65,7 @@ class _HallScreenState extends State<EditHallDescription> {
       backgroundColor: Color(0xffFFE6E6),
       appBar: AppBar(
         title: const Text(
-          'Hall Description',
+          'Details Reservation',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
