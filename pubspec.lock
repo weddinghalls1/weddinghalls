@@ -5,10 +5,11 @@ packages:
     dependency: transitive
     description:
       name: _flutterfire_internals
-      sha256: e4be6711f96d3d4eebe79728897d645b7a5585bbfdd6d534878d202c171266d7
+
+      sha256: "2350805d7afefb0efe7acd325cb19d3ae8ba4039b906eade3807ffb69938a01f"
       url: "https://pub.dev"
     source: hosted
-    version: "1.3.34"
+    version: "1.3.33"
   async:
     dependency: transitive
     description:
@@ -157,10 +158,11 @@ packages:
     dependency: "direct main"
     description:
       name: firebase_core
-      sha256: "4b5100e2dbc3fe72c2d4241a046d3f01457fe11293283a324f5c52575e3406f8"
+
+      sha256: "372d94ced114b9c40cb85e18c50ac94a7e998c8eec630c50d7aec047847d27bf"
       url: "https://pub.dev"
     source: hosted
-    version: "2.31.1"
+    version: "2.31.0"
   firebase_core_platform_interface:
     dependency: transitive
     description:
@@ -181,50 +183,56 @@ packages:
     dependency: "direct main"
     description:
       name: firebase_database
-      sha256: af2ef68603c03f73227268481c87e7062ef4fbac8696e9cad1380047a8cab279
+
+      sha256: "59c711cce8e998389b45723f68b0dad65bbfad77acd634ce2c562049aeab1a5e"
       url: "https://pub.dev"
     source: hosted
-    version: "10.5.6"
+    version: "10.5.5"
   firebase_database_platform_interface:
     dependency: transitive
     description:
       name: firebase_database_platform_interface
-      sha256: "852b0d0c81133b2ac0d335b4a70cbcdd1e62d007fe0f28f1d9557ce9c386cc47"
+
+      sha256: "76c3e9d8f00c7e7bc1acd957dc29ac5696d67611fda38cf1371159b3c840a5e7"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.5+34"
+    version: "0.2.5+33"
   firebase_database_web:
     dependency: transitive
     description:
       name: firebase_database_web
-      sha256: e49ac12c2982d18e32f72fae6efffaba1d773942c28c741f1ffeb55027711ff5
+
+      sha256: d5795e387f507e20146f689ddddb4674451492fbd513744c9513faaab761cad7
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.5+6"
+    version: "0.2.5+5"
   firebase_storage:
     dependency: "direct main"
     description:
       name: firebase_storage
-      sha256: acbdd91f0bfa9b9ee0654d67bef9a5e1499ea4d786b7423a03a58ca8e9870ea3
+
+      sha256: da76ca9c11d795c4bae1bd13b31d54bb9eb9ccbee7eb5f6b86b8294370e9d488
       url: "https://pub.dev"
     source: hosted
-    version: "11.7.6"
+    version: "11.7.5"
   firebase_storage_platform_interface:
     dependency: transitive
     description:
       name: firebase_storage_platform_interface
-      sha256: "8021188daed5f540af3032b3edabd1832fd6bbbc84bc9aa77ec780a27f8dd73f"
+
+      sha256: be17bfa9110a6429b40dd3760c755034079fd734aa1dd2476d5638ab780cc508
       url: "https://pub.dev"
     source: hosted
-    version: "5.1.21"
+    version: "5.1.20"
   firebase_storage_web:
     dependency: transitive
     description:
       name: firebase_storage_web
-      sha256: "710a735da58f7416a14fdc057e13297760b43e49ccb08e03a403300a77bde543"
+
+      sha256: "5219c20c0768a8e2ffedf0a116b7bc80ab32fcc6e2cbd50cbde14f8c4575c3f4"
       url: "https://pub.dev"
     source: hosted
-    version: "3.9.6"
+    version: "3.9.5"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -348,6 +356,7 @@ packages:
     dependency: transitive
     description:
       name: leak_tracker
+
       sha256: "78eb209deea09858f5269f5a5b02be4049535f568c07b275096836f01ea323fa"
       url: "https://pub.dev"
     source: hosted
@@ -356,6 +365,7 @@ packages:
     dependency: transitive
     description:
       name: leak_tracker_flutter_testing
+
       sha256: b46c5e37c19120a8a01918cfaf293547f47269f7cb4b0058f21531c2465d6ef0
       url: "https://pub.dev"
     source: hosted
@@ -364,6 +374,7 @@ packages:
     dependency: transitive
     description:
       name: leak_tracker_testing
+
       sha256: a597f72a664dbd293f3bfc51f9ba69816f84dcd403cdac7066cb3f6003f3ab47
       url: "https://pub.dev"
     source: hosted
@@ -396,6 +407,7 @@ packages:
     dependency: transitive
     description:
       name: meta
+
       sha256: d584fa6707a52763a52446f02cc621b077888fb63b93bbcb1143a7be5a0c0c04
       url: "https://pub.dev"
     source: hosted
@@ -497,6 +509,7 @@ packages:
     dependency: transitive
     description:
       name: vm_service
+
       sha256: b3d56ff4341b8f182b96aceb2fa20e3dcb336b9f867bc0eafc0de10f1048e957
       url: "https://pub.dev"
     source: hosted
