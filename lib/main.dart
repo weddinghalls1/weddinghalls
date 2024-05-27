@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:weddinghalls/views/admin_description_view.dart';
 import 'package:weddinghalls/views/forgot_password_view.dart';
 import 'firebase_options.dart';
 
@@ -22,7 +23,7 @@ class MainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: EmailVerificationPage(),
+      home: ViewHallDescription(),
     );
   }
 }
