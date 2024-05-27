@@ -25,5 +25,5 @@ class MainPage extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: ViewHallDescription(),
     );
-  }
+  } 
 }
