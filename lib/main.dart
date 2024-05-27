@@ -6,6 +6,8 @@ import 'package:weddinghalls/views/reservation.dart';
 import 'package:weddinghalls/views/edit_Description_view.dart';
 import 'package:weddinghalls/views/detailsReservation_view.dart';
 import 'firebase_options.dart';
+import 'package:weddinghalls/views/onboarding_view.dart';
+import 'package:weddinghalls/view_model/onboarding_viewmodel.dart';
 
 
 void main() async {
@@ -26,11 +28,20 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Onboarding Example',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: OnboardingView(),
+    );
+
       return MaterialApp(
 
         debugShowCheckedModeBanner: false,
         home:ReservationPage(),
         );
+
 
 
   }
