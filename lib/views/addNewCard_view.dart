@@ -196,12 +196,38 @@ class _AddCardPaymentState extends State<AddCardPayment> {
     );
   }
   void _saveCardDetails() {
+    final cardNumber = _cardNumberController.text;
+    final cardholderName = _cardholderNameController.text;
+    final expirationDate = _expirationDateController.text;
+    final cvc = _cvcController.text;
+    final cardType = _selectedCardType;
+
+    if (cardNumber.isEmpty ||
+        cardholderName.isEmpty ||
+        expirationDate.isEmpty ||
+        cvc.isEmpty ||
+        cardType.isEmpty) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text('All fields must be filled out.'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
     final card = CardModel(
-      cardNumber: _cardNumberController.text,
-      cardholderName: _cardholderNameController.text,
-      expirationDate: _expirationDateController.text,
-      cvc: _cvcController.text,
-      cardType: _selectedCardType,
+      cardNumber: cardNumber,
+      cardholderName: cardholderName,
+      expirationDate: expirationDate,
+      cvc: cvc,
+      cardType: cardType,
     );
 
     _cardViewModel.saveCardDetails(card);
