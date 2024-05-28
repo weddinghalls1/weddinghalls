@@ -15,7 +15,7 @@ class _AddCardPaymentState extends State<AddCardPayment> {
   final _expirationDateController = TextEditingController();
   final _cvcController = TextEditingController();
 
-  String _selectedCardType = 'mastercard';
+  String _selectedCardType = '';
 
   final CardViewModel _cardViewModel = CardViewModel();
 
@@ -43,7 +43,7 @@ class _AddCardPaymentState extends State<AddCardPayment> {
                 ),
                 child: Column(
                   children: [
-                    Text(
+                    const Text(
                       'CARD DETAILS',
                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
                     ),
@@ -61,8 +61,8 @@ class _AddCardPaymentState extends State<AddCardPayment> {
                               });
                             },
                           ),
-                          Image.network(
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/1200px-Mastercard-logo.svg.png',
+                          Image.asset(
+                              'images/mastercard.png',
                             width: 50,
                           ),
                           Radio<String>(
@@ -74,9 +74,9 @@ class _AddCardPaymentState extends State<AddCardPayment> {
                               });
                             },
                           ),
-                          Image.network(
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/American_Express_logo.svg/1200px-American_Express_logo.svg.png',
-                            width: 50,
+                          Image.asset(
+                            'images/amex.png',
+                            width: 60,
                           ),
                           Radio<String>(
                             value: 'visa',
@@ -87,16 +87,16 @@ class _AddCardPaymentState extends State<AddCardPayment> {
                               });
                             },
                           ),
-                          Image.network(
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/1200px-Visa_Inc._logo.svg.png',
-                            width: 50,
+                          Image.asset(
+                            'images/visa.png',
+                            width: 60,
                           ),
                         ],
                       ),
                     ),
 
                     SizedBox(height: 30),
-                   Padding(
+                    const Padding(
                        padding:EdgeInsets.only(right: 220),
                      child: Text(
                        'CARD NUMBER',
@@ -105,14 +105,14 @@ class _AddCardPaymentState extends State<AddCardPayment> {
                    ),
                     TextField(
                       controller: _cardNumberController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
                       ),
                       keyboardType: TextInputType.number,
                     ),
                     SizedBox(height: 15),
-                    Padding(
+                    const Padding(
                       padding:EdgeInsets.only(right: 170),
                       child: Text(
                         'CARDHOLDER NAME',
@@ -121,13 +121,13 @@ class _AddCardPaymentState extends State<AddCardPayment> {
                     ),
                     TextField(
                       controller: _cardholderNameController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
                       ),
                     ),
                     SizedBox(height: 15),
-                    Row(
+                    const Row(
                       children: [
                         Padding(
                           padding: EdgeInsets.only(left: 10),
@@ -148,7 +148,7 @@ class _AddCardPaymentState extends State<AddCardPayment> {
                         Expanded(
                           child: TextField(
                             controller: _expirationDateController,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               hintText: 'MM / YY',
                               fillColor: Colors.white,
                               filled: true,
@@ -160,7 +160,7 @@ class _AddCardPaymentState extends State<AddCardPayment> {
                         Expanded(
                           child: TextField(
                             controller: _cvcController,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               fillColor: Colors.white,
                               filled: true,
                             ),
@@ -184,7 +184,7 @@ class _AddCardPaymentState extends State<AddCardPayment> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
-                child: Text(
+                child: const Text(
                     'ADD',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
