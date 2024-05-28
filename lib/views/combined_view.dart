@@ -6,7 +6,6 @@ import 'package:path/path.dart';
 import 'package:weddinghalls/model/hall_model.dart';
 import 'package:weddinghalls/view_model/add_hall_viewmodel.dart';
 
-
 class CombinedPage extends StatefulWidget {
   @override
   _CombinedPageState createState() => _CombinedPageState();
@@ -26,23 +25,8 @@ class _CombinedPageState extends State<CombinedPage> {
   int numberOfFlightAttendantsWomen = 0;
   int numberOfEntrances = 0;
 
-  DateTime? selectedDateTime = DateTime.now();
   String? selectedTiming;
   File? _image;
-
-  Future<void> _selectDateTime(BuildContext context) async {
-    final DateTime? pickedDateTime = await showDatePicker(
-      context: context,
-      initialDate: selectedDateTime ?? DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime(2101),
-    );
-    if (pickedDateTime != null) {
-      setState(() {
-        selectedDateTime = pickedDateTime;
-      });
-    }
-  }
 
   Future<void> _pickImage() async {
     final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -56,20 +40,20 @@ class _CombinedPageState extends State<CombinedPage> {
   Future<void> _saveHallData() async {
     try {
       HallModel hallModel = HallModel(
-        hallName: hallName,
-        hallLocation: hallLocation,
-        reservationPrice: reservationPrice,
-        numberOfSections: numberOfSections,
-        minimumReservationCapacity: minimumReservationCapacity,
-        numberOfSeatsMen: numberOfSeatsMen,
-        numberOfSeatsWomen: numberOfSeatsWomen,
-        numberOfFlightAttendantsMen: numberOfFlightAttendantsMen,
-        numberOfFlightAttendantsWomen: numberOfFlightAttendantsWomen,
-        numberOfEntrances: numberOfEntrances,
-        selectedDateTime: selectedDateTime!,
-        selectedTiming: selectedTiming!,
-        imageUrl: basename(_image!.path),
-        token: ''
+          hallName: hallName,
+          hallLocation: hallLocation,
+          reservationPrice: reservationPrice,
+          numberOfSections: numberOfSections,
+          minimumReservationCapacity: minimumReservationCapacity,
+          numberOfSeatsMen: numberOfSeatsMen,
+          numberOfSeatsWomen: numberOfSeatsWomen,
+          numberOfFlightAttendantsMen: numberOfFlightAttendantsMen,
+          numberOfFlightAttendantsWomen: numberOfFlightAttendantsWomen,
+          numberOfEntrances: numberOfEntrances,
+          selectedDateTime: DateTime.now(),
+          selectedTiming: selectedTiming!,
+          imageUrl: basename(_image!.path),
+          token: ''
       );
 
       await _addhallViewModel.saveHallData(hallModel, _image);
@@ -79,7 +63,6 @@ class _CombinedPageState extends State<CombinedPage> {
     } catch (e) {
       // Show error message
       print("error to save data${e.toString()}");
-
     }
   }
 
@@ -109,7 +92,6 @@ class _CombinedPageState extends State<CombinedPage> {
                 _image == null ? const Text('No image selected.') : Image.file(_image!),
                 ElevatedButton(
                   onPressed: _pickImage,
-
                   child: const Text('Upload Image'),
                 ),
                 TextFormField(
@@ -143,21 +125,6 @@ class _CombinedPageState extends State<CombinedPage> {
                 TextFormField(
                   onChanged: (value) => numberOfEntrances = int.tryParse(value) ?? 0,
                   decoration: const InputDecoration(labelText: 'Number of Entrances (Doors)'),
-                ),
-                const SizedBox(height: 20.0),
-                const Text('Date:', style: TextStyle(color: Colors.black)),
-                const SizedBox(height: 10.0),
-                ElevatedButton(
-                  onPressed: () => _selectDateTime(context),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF7469B6),
-                  ),
-                  child: const Text('Select Date', style: TextStyle(color: Colors.white)),
-                ),
-                const SizedBox(height: 10.0),
-                Text(
-                  'Selected Date: ${selectedDateTime?.toString().split(' ')[0]}',
-                  style: const TextStyle(fontSize: 16.0, color: Colors.black),
                 ),
                 const SizedBox(height: 20.0),
                 const Text('Select Timing:', style: TextStyle(color: Colors.black)),
