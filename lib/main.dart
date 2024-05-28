@@ -10,20 +10,26 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(
-    ChangeNotifierProvider(
-      create: (_) => EmailViewModel(),
-      child: MainPage(),
-    ),
-  );
+  runApp(const MainPage());
 }
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
+  const MainPage({super.key});
+
+  @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      title: 'Edit Hall Description',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
       home: ViewHallDescription(),
     );
-  } 
+  }
 }
