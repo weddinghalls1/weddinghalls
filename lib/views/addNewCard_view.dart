@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:weddinghalls/model/add_card_model.dart';
+import '../view_model/add_card_viewmodel.dart';
 
 class AddCardPayment extends StatefulWidget {
   const AddCardPayment({super.key});
@@ -8,7 +10,14 @@ class AddCardPayment extends StatefulWidget {
 }
 
 class _AddCardPaymentState extends State<AddCardPayment> {
+  final _cardNumberController = TextEditingController();
+  final _cardholderNameController = TextEditingController();
+  final _expirationDateController = TextEditingController();
+  final _cvcController = TextEditingController();
+
   String _selectedCardType = 'mastercard';
+
+  final CardViewModel _cardViewModel = CardViewModel();
 
   @override
   Widget build(BuildContext context) {
@@ -95,6 +104,7 @@ class _AddCardPaymentState extends State<AddCardPayment> {
                      ),
                    ),
                     TextField(
+                      controller: _cardNumberController,
                       decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
@@ -110,6 +120,7 @@ class _AddCardPaymentState extends State<AddCardPayment> {
                       ),
                     ),
                     TextField(
+                      controller: _cardholderNameController,
                       decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
@@ -136,6 +147,7 @@ class _AddCardPaymentState extends State<AddCardPayment> {
                       children: [
                         Expanded(
                           child: TextField(
+                            controller: _expirationDateController,
                             decoration: InputDecoration(
                               hintText: 'MM / YY',
                               fillColor: Colors.white,
@@ -147,6 +159,7 @@ class _AddCardPaymentState extends State<AddCardPayment> {
                         SizedBox(width: 10),
                         Expanded(
                           child: TextField(
+                            controller: _cvcController,
                             decoration: InputDecoration(
                               fillColor: Colors.white,
                               filled: true,
@@ -163,7 +176,7 @@ class _AddCardPaymentState extends State<AddCardPayment> {
             SizedBox(
               width: 200,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: _saveCardDetails,
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.black,
                   backgroundColor: Color(0xff7469B6),
@@ -182,4 +195,25 @@ class _AddCardPaymentState extends State<AddCardPayment> {
       ),
     );
   }
+  void _saveCardDetails() {
+    final card = CardModel(
+      cardNumber: _cardNumberController.text,
+      cardholderName: _cardholderNameController.text,
+      expirationDate: _expirationDateController.text,
+      cvc: _cvcController.text,
+      cardType: _selectedCardType,
+    );
+
+    _cardViewModel.saveCardDetails(card);
+  }
+  @override
+  void dispose() {
+    _cardNumberController.dispose();
+    _cardholderNameController.dispose();
+    _expirationDateController.dispose();
+    _cvcController.dispose();
+    super.dispose();
+  }
 }
+
+
