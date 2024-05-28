@@ -1,4 +1,3 @@
-// sidebar.dart
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:weddinghalls/model/user_model.dart';
@@ -21,7 +20,7 @@ class _SidebarState extends State<Sidebar> {
   }
 
   Future<void> fetchUserData() async {
-    UserModel? fetchedUser = await userViewModel.getUserData('rahaf');
+    UserModel? fetchedUser = await userViewModel.getUserData();
     setState(() {
       user = fetchedUser;
     });
@@ -59,7 +58,7 @@ class _SidebarState extends State<Sidebar> {
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
-                      ),
+                        ),
                       Text(
                         user!.email,
                         style: TextStyle(

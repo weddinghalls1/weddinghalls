@@ -4,9 +4,10 @@ import '../model/user_model.dart';
 class UserViewModel {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<UserModel?> getUserData(String token) async {
+  Future<UserModel?> getUserData() async {
     try {
-      DocumentSnapshot doc = await _firestore.collection('profile').doc(token).get();
+      DocumentSnapshot doc =
+      await _firestore.collection('rahaf').doc('profile').get();
       if (doc.exists) {
         return UserModel.fromMap(doc.data() as Map<String, dynamic>);
       } else {
