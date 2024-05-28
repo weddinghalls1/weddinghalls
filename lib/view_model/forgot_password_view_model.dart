@@ -1,28 +1,39 @@
 import 'package:flutter/material.dart';
-import '../model/forgot_password_model.dart';
-import 'email_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class SecondPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Second Page'),
-      ),
-      body: Center(
-        child: Text('This is the second page!'),
-      ),
-    );
-  }
+import '../views/forgot_password_view.dart';
+
+class EmailModel {
+  String email;
+
+  EmailModel({required this.email});
 }
 
-void submitEmail(BuildContext context) {
-  var _emailModel;
-  if (_emailModel.email.isNotEmpty) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => SecondPage()),
-    );
+class EmailViewModel {
+  EmailModel _emailModel = EmailModel(email: '');
+
+  String get email => _emailModel.email;
+
+  void setEmail(String email) {
+    _emailModel.email = email;
+  }
+
+  Future<void> submitEmail(BuildContext context) async {
+    if (_emailModel.email.isNotEmpty) {
+      try {
+        await FirebaseAuth.instance.sendPasswordResetEmail(email: _emailModel.email);
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => SecondPage()),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Password reset email sent')),
+        );
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error: ${e.toString()}')),
+        );
+      }
+    }
   }
 }
-
