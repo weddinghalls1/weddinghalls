@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weddinghalls/views/admin_description_view.dart';
 import 'package:weddinghalls/views/forgot_password_view.dart';
+import 'package:weddinghalls/views/home_screen.dart';
+import 'package:weddinghalls/views/profile_screen.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -29,7 +31,7 @@ class _MainPageState extends State<MainPage> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: ViewHallDescription(),
+      home: ProfileScreen(),
     );
   }
 }
