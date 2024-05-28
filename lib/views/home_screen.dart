@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_database/firebase_database.dart';
 
 import '../model/home_model.dart';
 import '../view_model/home_view_model.dart';
@@ -25,38 +24,38 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          color: const Color(0xffFFE6E6),
-          border: Border.all(color: Colors.black, width: 8),
-        ),
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-            Center(
-              child: Text(
-                "Hello!",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
+      body: SingleChildScrollView(
+        child: Container(
+          decoration: BoxDecoration(
+            color: const Color(0xffFFE6E6),
+            border: Border.all(color: Colors.black, width: 8),
+          ),
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            children: [
+              Center(
+                child: Text(
+                  "Hello!",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
                 ),
               ),
-            ),
-            Center(
-              child: Text(
-                "Welcome to Your Perfect Wedding Journey.",
-                style: TextStyle(
-                  fontSize: 17,
-                  color: Colors.black,
+              Center(
+                child: Text(
+                  "Welcome to Your Perfect Wedding Journey.",
+                  style: TextStyle(
+                    fontSize: 17,
+                    color: Colors.black,
+                  ),
                 ),
               ),
-            ),
-            Center(
-              child: Image.asset('images/logo.png', width: 200, height: 200, fit: BoxFit.cover),
-            ),
-            Expanded(
-              child: FutureBuilder(
+              Center(
+                child: Image.asset('images/logo.png', width: 200, height: 200, fit: BoxFit.cover),
+              ),
+              FutureBuilder(
                 future: viewModel.fetchData(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
@@ -68,6 +67,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       return Center(child: Text("No halls available"));
                     } else {
                       return ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
                         itemCount: viewModel.halls.length,
                         itemBuilder: (context, index) {
                           return buildHallItem(context, viewModel.halls[index]);
@@ -77,8 +78,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   }
                 },
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -87,16 +88,14 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget buildHallItem(BuildContext context, HomeHallModel hall) {
     return Column(
       children: [
-        Center(
-          child: InkWell(
-            onTap: () {
-              // Navigator.push(
-              // context,
-              // MaterialPageRoute(builder: (context) => HallDetailsScreen(hall: hall)),
-              // );
-            },
-            child: Image.network(hall.imageUrl, width: 200, height: 200, fit: BoxFit.cover),
-          ),
+        InkWell(
+          onTap: () {
+            // Navigator.push(
+            // context,
+            // MaterialPageRoute(builder: (context) => HallDetailsScreen(hall: hall)),
+            // );
+          },
+          child: Image.network(hall.imageUrl, width: 200, height: 200, fit: BoxFit.cover),
         ),
         Center(
           child: Text(

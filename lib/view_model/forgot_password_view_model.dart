@@ -22,10 +22,10 @@ class EmailViewModel {
     if (_emailModel.email.isNotEmpty) {
       try {
         await FirebaseAuth.instance.sendPasswordResetEmail(email: _emailModel.email);
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => SecondPage()),
-        );
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => Login),
+        // );
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Password reset email sent')),
         );
