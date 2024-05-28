@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:weddinghalls/routes/router.dart';
 import 'package:weddinghalls/views/SelectPage.dart';
+import 'package:weddinghalls/views/addNewCard_view.dart';
 import 'package:weddinghalls/views/reservation.dart';
 import 'package:weddinghalls/views/edit_Description_view.dart';
 import 'package:weddinghalls/views/detailsReservation_view.dart';
@@ -29,11 +30,11 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Onboarding Example',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: OnboardingView(),
+      home: AddCardPayment(),
     );
 
       return MaterialApp(
