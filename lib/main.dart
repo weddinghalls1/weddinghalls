@@ -9,6 +9,7 @@ import 'package:weddinghalls/views/detailsReservation_view.dart';
 import 'firebase_options.dart';
 import 'package:weddinghalls/views/onboarding_view.dart';
 import 'package:weddinghalls/view_model/onboarding_viewmodel.dart';
+import 'package:flutter/services.dart';
 
 
 void main() async {
@@ -16,7 +17,14 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MainPage());
+
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]).then((_) {
+    runApp(const MainPage());
+  });
 }
 
 class MainPage extends StatefulWidget {
@@ -36,13 +44,6 @@ class _MainPageState extends State<MainPage> {
       ),
       home: AddCardPayment(),
     );
-
-      return MaterialApp(
-
-        debugShowCheckedModeBanner: false,
-        home:ReservationPage(),
-        );
-
 
 
   }
