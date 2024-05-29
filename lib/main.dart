@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 import 'package:weddinghalls/views/admin_description_view.dart';
 import 'package:weddinghalls/views/combined_view.dart';
 import 'package:weddinghalls/views/forgot_password_view.dart';
@@ -26,13 +27,15 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Edit Hall Description',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: HomeScreen(),
-    );
+    return Sizer(builder: (context, orientation, deviceType) {
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Edit Hall Description',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: EmailVerificationPage(),
+      );
+    });
   }
 }
