@@ -71,8 +71,6 @@ flutter:
   assets:
    - images/closed.jpeg
    - images/open.jpeg
-   -  packages/payment_card/assets/icons/
-   -  assets/icons/jpg/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
