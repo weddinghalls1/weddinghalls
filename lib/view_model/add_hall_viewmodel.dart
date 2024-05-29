@@ -9,7 +9,7 @@ class AddHallViewModel {
   final FirebaseStorage _storage = FirebaseStorage.instance;
 
   Future<void> saveHallData(HallModel hallModel, File? imageFile) async {
-    String token ='hassan';
+    String token = 'hassan';
     try {
       String imageUrl = '';
       if (imageFile != null) {
@@ -32,9 +32,8 @@ class AddHallViewModel {
         'numberOfFlightAttendantsWomen': hallModel.numberOfFlightAttendantsWomen,
         'numberOfEntrances': hallModel.numberOfEntrances,
         'selectedDateTime': hallModel.selectedDateTime.toIso8601String(),
-        'selectedTiming': hallModel.selectedTiming,
         'imageUrl': imageUrl,
-        'token':token
+        'token': token,
       });
     } catch (e) {
       print('Error saving hall data: $e');

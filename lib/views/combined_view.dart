@@ -25,7 +25,6 @@ class _CombinedPageState extends State<CombinedPage> {
   int numberOfFlightAttendantsWomen = 0;
   int numberOfEntrances = 0;
 
-  String? selectedTiming;
   File? _image;
 
   Future<void> _pickImage() async {
@@ -40,29 +39,26 @@ class _CombinedPageState extends State<CombinedPage> {
   Future<void> _saveHallData() async {
     try {
       HallModel hallModel = HallModel(
-          hallName: hallName,
-          hallLocation: hallLocation,
-          reservationPrice: reservationPrice,
-          numberOfSections: numberOfSections,
-          minimumReservationCapacity: minimumReservationCapacity,
-          numberOfSeatsMen: numberOfSeatsMen,
-          numberOfSeatsWomen: numberOfSeatsWomen,
-          numberOfFlightAttendantsMen: numberOfFlightAttendantsMen,
-          numberOfFlightAttendantsWomen: numberOfFlightAttendantsWomen,
-          numberOfEntrances: numberOfEntrances,
-          selectedDateTime: DateTime.now(),
-          selectedTiming: selectedTiming!,
-          imageUrl: basename(_image!.path),
-          token: ''
+        hallName: hallName,
+        hallLocation: hallLocation,
+        reservationPrice: reservationPrice,
+        numberOfSections: numberOfSections,
+        minimumReservationCapacity: minimumReservationCapacity,
+        numberOfSeatsMen: numberOfSeatsMen,
+        numberOfSeatsWomen: numberOfSeatsWomen,
+        numberOfFlightAttendantsMen: numberOfFlightAttendantsMen,
+        numberOfFlightAttendantsWomen: numberOfFlightAttendantsWomen,
+        numberOfEntrances: numberOfEntrances,
+        selectedDateTime: DateTime.now(),
+        imageUrl: basename(_image!.path),
+        token: '', selectedTiming: '',
       );
 
       await _addhallViewModel.saveHallData(hallModel, _image);
 
-      print("Successfully");
-
+      print("Successfully saved hall data");
     } catch (e) {
-      // Show error message
-      print("error to save data${e.toString()}");
+      print("Error saving hall data: ${e.toString()}");
     }
   }
 
@@ -89,7 +85,9 @@ class _CombinedPageState extends State<CombinedPage> {
                   onChanged: (value) => hallLocation = value,
                   decoration: const InputDecoration(labelText: 'Hall Location'),
                 ),
-                _image == null ? const Text('No image selected.') : Image.file(_image!),
+                _image == null
+                    ? const Text('No image selected.')
+                    : Image.file(_image!),
                 ElevatedButton(
                   onPressed: _pickImage,
                   child: const Text('Upload Image'),
@@ -125,47 +123,6 @@ class _CombinedPageState extends State<CombinedPage> {
                 TextFormField(
                   onChanged: (value) => numberOfEntrances = int.tryParse(value) ?? 0,
                   decoration: const InputDecoration(labelText: 'Number of Entrances (Doors)'),
-                ),
-                const SizedBox(height: 20.0),
-                const Text('Select Timing:', style: TextStyle(color: Colors.black)),
-                CheckboxListTile(
-                  title: const Text('Morning reservation (9:00 AM - 11:30 AM)'),
-                  value: selectedTiming == 'morning',
-                  onChanged: (bool? value) {
-                    setState(() {
-                      if (value == true) {
-                        selectedTiming = 'morning';
-                      } else {
-                        selectedTiming = null;
-                      }
-                    });
-                  },
-                ),
-                CheckboxListTile(
-                  title: const Text('Evening reservation (2:00 PM - 4:30 PM)'),
-                  value: selectedTiming == 'evening',
-                  onChanged: (bool? value) {
-                    setState(() {
-                      if (value == true) {
-                        selectedTiming = 'evening';
-                      } else {
-                        selectedTiming = null;
-                      }
-                    });
-                  },
-                ),
-                CheckboxListTile(
-                  title: const Text('Late evening reservation (7:00 PM - 9:30 PM)'),
-                  value: selectedTiming == 'late_evening',
-                  onChanged: (bool? value) {
-                    setState(() {
-                      if (value == true) {
-                        selectedTiming = 'late_evening';
-                      } else {
-                        selectedTiming = null;
-                      }
-                    });
-                  },
                 ),
                 const SizedBox(height: 20.0),
                 Row(
