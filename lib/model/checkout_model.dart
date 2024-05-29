@@ -11,12 +11,12 @@ class CardModel {
     required this.cvc,
   });
 
-  factory CardModel.fromMap(Map<String, dynamic> data) {
-    return CardModel(
-      cardNumber: data['cardNumber'] ?? '',
-      cardholderName: data['cardholderName'] ?? '',
-      expirationDate: data['expirationDate'] ?? '',
-      cvc: data['cvc'] ?? '',
-    );
+  Map<String, dynamic> toMap() {
+    return {
+      'cardNumber': cardNumber,
+      'cardholderName': cardholderName,
+      'expirationDate': expirationDate,
+      'cvc': cvc,
+    };
   }
 }

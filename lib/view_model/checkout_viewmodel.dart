@@ -1,22 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
 import '../model/checkout_model.dart';
 
-class CardViewModel extends ChangeNotifier {
-  CardModel? _card;
-  CardModel? get card => _card;
-
-  Future<void> fetchCardDetails() async {
+class CardViewModel {
+  Future<void> saveCardDetails(CardModel card) async {
     try {
-      DocumentSnapshot doc = await FirebaseFirestore.instance
+      await FirebaseFirestore.instance
           .collection('rahaf')
           .doc('cards')
-          .get();
-      _card = CardModel.fromMap(doc.data() as Map<String, dynamic>);
-      notifyListeners();
+          .set(card.toMap());
     } catch (e) {
-      print('Error fetching card details: $e');
+      print('Error saving card details: $e');
     }
   }
 }
