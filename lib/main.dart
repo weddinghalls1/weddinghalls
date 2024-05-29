@@ -8,6 +8,8 @@ import 'package:weddinghalls/views/detailsReservation_view.dart';
 import 'firebase_options.dart';
 import 'package:weddinghalls/views/onboarding_view.dart';
 import 'package:weddinghalls/view_model/onboarding_viewmodel.dart';
+import 'firebase_options.dart';
+import 'views/home_switch.dart';
 
 
 void main() async {
@@ -41,6 +43,7 @@ class _MainPageState extends State<MainPage> {
         debugShowCheckedModeBanner: false,
         home:ReservationPage(),
         );
+
 
 
 

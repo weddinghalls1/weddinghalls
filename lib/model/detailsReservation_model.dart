@@ -1,6 +1,4 @@
 
-
-
 class DataRes {
   final String id;
   final String hallLocation;
