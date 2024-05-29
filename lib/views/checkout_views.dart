@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../model/checkout_model.dart';
 import '../view_model/checkout_viewmodel.dart';
+import 'package:payment_card/payment_card.dart';
 
 void main() {
   runApp(MyApp());
@@ -53,6 +54,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            buildPaymentCardExample1(),
+            SizedBox(height: 16.0),
             Card(
               color: Color(0xFF7469B6), // Dark purple background for details
               elevation: 4.0,
@@ -116,6 +119,27 @@ class _CheckoutPageState extends State<CheckoutPage> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget buildPaymentCardExample1() {
+    return const PaymentCard(
+      cardIssuerIcon: CardIcon(icon: Icons.credit_card),
+      backgroundColor: Colors.blue,
+      backgroundGradient: LinearGradient(
+        colors: [Colors.purple, Colors.indigo],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      ),
+      currency: Text('EUR'),
+      cardNumber: '1234567890123456',
+      validity: '10/24',
+      holder: 'Jane Doe',
+      isStrict: false,
+      cardNetwork: CardNetwork.visa,
+      cardTypeTextStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+      cardNumberStyles: CardNumberStyles.darkStyle4,
+      backgroundImage: null,
     );
   }
 
