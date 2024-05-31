@@ -1,7 +1,9 @@
-class HallModel {
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+class DescriptionModel {
   final String hallName;
   final String hallLocation;
-  final int reservationPrice;
+  final String reservationPrice;
   final int numberOfSections;
   final int minimumReservationCapacity;
   final int numberOfSeatsMen;
@@ -9,12 +11,11 @@ class HallModel {
   final int numberOfFlightAttendantsMen;
   final int numberOfFlightAttendantsWomen;
   final int numberOfEntrances;
-  final DateTime selectedDateTime;
-  late final String selectedTiming;
-  final String imageUrl;
-  final String token;
+  final List<String> photoUrls;
+final String selectedDateTime;
+final String selectedTiming;
 
-  HallModel({
+  DescriptionModel({
     required this.hallName,
     required this.hallLocation,
     required this.reservationPrice,
@@ -25,17 +26,16 @@ class HallModel {
     required this.numberOfFlightAttendantsMen,
     required this.numberOfFlightAttendantsWomen,
     required this.numberOfEntrances,
+    required this.photoUrls,
     required this.selectedDateTime,
     required this.selectedTiming,
-    required this.imageUrl,
-    required this.token,
   });
 
-  factory HallModel.fromMap(Map<String, dynamic> data) {
-    return HallModel(
+  factory DescriptionModel.fromMap(Map<String, dynamic> data) {
+    return DescriptionModel(
       hallName: data['hallName'] ?? '',
       hallLocation: data['hallLocation'] ?? '',
-      reservationPrice: data['reservationPrice'] ?? 0,
+      reservationPrice: data['reservationPrice'] ?? '',
       numberOfSections: data['numberOfSections'] ?? 0,
       minimumReservationCapacity: data['minimumReservationCapacity'] ?? 0,
       numberOfSeatsMen: data['numberOfSeatsMen'] ?? 0,
@@ -43,10 +43,9 @@ class HallModel {
       numberOfFlightAttendantsMen: data['numberOfFlightAttendantsMen'] ?? 0,
       numberOfFlightAttendantsWomen: data['numberOfFlightAttendantsWomen'] ?? 0,
       numberOfEntrances: data['numberOfEntrances'] ?? 0,
-      selectedDateTime: data['selectedDateTime'] != null ? DateTime.parse(data['selectedDateTime']) : DateTime.now(),
-      selectedTiming: data['selectedTiming'] ?? '',
-      imageUrl: data['imageUrl'] ?? '',
-      token: data['token'] ?? '',
+      photoUrls: List<String>.from(data['photoUrls'] ?? []),
+      selectedDateTime:data['selectedDateTime'] ?? '' ,
+      selectedTiming:data['selectedTiming'] ?? '',
     );
   }
 }
