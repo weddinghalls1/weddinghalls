@@ -28,13 +28,41 @@ class _CheckoutPageState extends State<CheckoutPage> {
   final _expirationDateController = TextEditingController();
   final _cvcController = TextEditingController();
 
+  String _cardNumber = '';
+  String _cardholderName = '';
+  String _expirationDate = '';
+  String _cvc = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _cardNumberController.addListener(_updateCardInfo);
+    _cardholderNameController.addListener(_updateCardInfo);
+    _expirationDateController.addListener(_updateCardInfo);
+    _cvcController.addListener(_updateCardInfo);
+  }
+
   @override
   void dispose() {
+    _cardNumberController.removeListener(_updateCardInfo);
+    _cardholderNameController.removeListener(_updateCardInfo);
+    _expirationDateController.removeListener(_updateCardInfo);
+    _cvcController.removeListener(_updateCardInfo);
+
     _cardNumberController.dispose();
     _cardholderNameController.dispose();
     _expirationDateController.dispose();
     _cvcController.dispose();
     super.dispose();
+  }
+
+  void _updateCardInfo() {
+    setState(() {
+      _cardNumber = _cardNumberController.text;
+      _cardholderName = _cardholderNameController.text;
+      _expirationDate = _expirationDateController.text;
+      _cvc = _cvcController.text;
+    });
   }
 
   @override
@@ -123,7 +151,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
   }
 
   Widget buildPaymentCardExample1() {
-    return const PaymentCard(
+    return PaymentCard(
       cardIssuerIcon: CardIcon(icon: Icons.credit_card),
       backgroundColor: Colors.blue,
       backgroundGradient: LinearGradient(
@@ -132,9 +160,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
         end: Alignment.bottomRight,
       ),
       currency: Text('EUR'),
-      cardNumber: '1234567890123456',
-      validity: '10/24',
-      holder: 'Jane Doe',
+      cardNumber: _cardNumber.isEmpty ? '1234567890123456' : _cardNumber,
+      validity: _expirationDate.isEmpty ? '10/24' : _expirationDate,
+      holder: _cardholderName.isEmpty ? 'Jane Doe' : _cardholderName,
       isStrict: false,
       cardNetwork: CardNetwork.visa,
       cardTypeTextStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -145,10 +173,10 @@ class _CheckoutPageState extends State<CheckoutPage> {
 
   void _saveCardDetails() {
     final card = CardModel(
-      cardNumber: _cardNumberController.text,
-      cardholderName: _cardholderNameController.text,
-      expirationDate: _expirationDateController.text,
-      cvc: _cvcController.text,
+      cardNumber: _cardNumber,
+      cardholderName: _cardholderName,
+      expirationDate: _expirationDate,
+      cvc: _cvc,
     );
 
     final viewModel = CardViewModel();
