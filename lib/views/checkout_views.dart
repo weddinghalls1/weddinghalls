@@ -79,43 +79,45 @@ class _CheckoutPageState extends State<CheckoutPage> {
       body: Container(
         color: Color(0xFFFFD1DC), // Pastel pink background
         padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            buildPaymentCardExample1(),
-            SizedBox(height: 16.0),
-            Card(
-              color: Color(0xFF7469B6), // Dark purple background for details
-              elevation: 4.0,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildDetailRow('Card Number', _cardNumberController),
-                    _buildDetailRow('Cardholder Name', _cardholderNameController),
-                    _buildDetailRow('Expiration Date', _expirationDateController),
-                    _buildDetailRow('CVC', _cvcController),
-                  ],
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              buildPaymentCardExample1(),
+              SizedBox(height: 16.0),
+              Card(
+                color: Color(0xFF7469B6), // Dark purple background for details
+                elevation: 4.0,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildDetailRow('Card Number', _cardNumberController),
+                      _buildDetailRow('Cardholder Name', _cardholderNameController),
+                      _buildDetailRow('Expiration Date', _expirationDateController),
+                      _buildDetailRow('CVC', _cvcController),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Spacer(),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFF7469B6), // Dark purple color
-                  padding: EdgeInsets.symmetric(vertical: 16.0),
-                ),
-                onPressed: _saveCardDetails,
-                child: Text(
-                  'Save Card Details',
-                  style: TextStyle(color: Colors.white),
+              SizedBox(height: 16.0),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFF7469B6), // Dark purple color
+                    padding: EdgeInsets.symmetric(vertical: 16.0),
+                  ),
+                  onPressed: _saveCardDetails,
+                  child: Text(
+                    'Save Card Details',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
