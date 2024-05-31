@@ -164,23 +164,23 @@ class _DescriptionHallsState extends State<DescriptionHalls> {
                 // Select Timing
                 Text('Select Timing:', style: TextStyle(color: Colors.black)),
                 CheckboxListTile(
-                  title: Text('Timing 1'),
-                  value: selectedTiming == 'Timing 1',
+                  title: Text('Morning reservation'),
+                  value: selectedTiming == 'Morning reservation',
                   onChanged: (value) {
                     setState(() {
                       if (value == true) {
-                        selectedTiming = 'Timing 1';
+                        selectedTiming = 'Morning reservation';
                       }
                     });
                   },
                 ),
                 CheckboxListTile(
-                  title: Text('Timing 2'),
-                  value: selectedTiming == 'Timing 2',
+                  title: Text('Evening reservation'),
+                  value: selectedTiming == 'Evening reservation',
                   onChanged: (value) {
                     setState(() {
                       if (value == true) {
-                        selectedTiming = 'Timing 2';
+                        selectedTiming = 'Evening reservation';
                       }
                     });
                   },
