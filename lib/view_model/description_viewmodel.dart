@@ -1,58 +1,21 @@
-import 'package:flutter/material.dart';
-import 'package:firebase_database/firebase_database.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../model/descriptionhall_mode.dart';
 
 
-class HallsViewModel extends ChangeNotifier {
-  final DatabaseReference _database = FirebaseDatabase.instance.ref();
-  List<HallModel> halls = [];
-  String? hallName;
-  String? hallLocation;
-  String? imageUrl;
-  String? minimumReservationCapacity;
-  String? numberOfEntrances;
-  String? numberOfFlightAttendantsMen;
-  String? numberOfFlightAttendantsWomen;
-  String? numberOfSeatsMen;
-  String? numberOfSeatsWomen;
-  String? numberOfSections;
-  String? reservationPrice;
-  String? selectedDateTime;
-  String? selectedTiming;
+class DescriptionViewModel {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<void> fetchHallData(String token) async {
-    try{
-      DatabaseEvent event = await _database.child('halls')
-          .orderByChild('token')
-          .equalTo(token)
-          .once();
-      DataSnapshot snapshot = event.snapshot;
-      if (snapshot.value != null) {
-        var entry = (snapshot.value as Map).values
-            .first;
-        if (entry != null) {
-          Map<String, dynamic> hallData = Map<String, dynamic>.from(entry);
-          hallName = hallData['hallName'];
-          hallLocation = hallData['hallLocation'];
-          imageUrl = hallData['imageUrl'];
-          minimumReservationCapacity = hallData['minimumReservationCapacity'];
-          numberOfEntrances = hallData['numberOfEntrances'];
-          numberOfFlightAttendantsMen = hallData['numberOfFlightAttendantsMen'];
-          numberOfFlightAttendantsWomen = hallData['numberOfFlightAttendantsWomen'];
-          numberOfSeatsMen = hallData['numberOfSeatsMen'];
-          numberOfSeatsWomen = hallData['numberOfSeatsWomen'];
-          numberOfSections = hallData['numberOfSections'];
-          reservationPrice = hallData['reservationPrice'];
-          selectedDateTime = hallData['selectedDateTime'];
-          selectedTiming = hallData['selectedTiming'];
-        }
+
+  Future<DescriptionModel> fetchDescription() async {
+    try {
+      DocumentSnapshot doc = await _firestore.collection('rahaf').doc('description_halls').get();
+      if (doc.exists) {
+        return DescriptionModel.fromMap(doc.data() as Map<String, dynamic>);
       } else {
-        print('No user found with token: $token');
+        throw Exception("Document not found");
       }
-    }catch (e) {
-      print('Error fetching user data: $e');
-      throw e;
+    } catch (e) {
+      throw Exception("Error fetching data: $e");
     }
   }
 }
