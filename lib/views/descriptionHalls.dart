@@ -164,28 +164,59 @@ class _DescriptionHallsState extends State<DescriptionHalls> {
                 // Select Timing
                 Text('Select Timing:', style: TextStyle(color: Colors.black)),
                 CheckboxListTile(
-                  title: Text('Morning reservation'),
-                  value: selectedTiming == 'Morning reservation',
+                  title: Text('Morning reservation at 9:00 AM - 11:30 AM'),
+                  value: selectedTiming == 'Morning reservation at 9:00 AM - 11:30 AM',
                   onChanged: (value) {
                     setState(() {
                       if (value == true) {
-                        selectedTiming = 'Morning reservation';
+                        selectedTiming = 'Morning reservation at 9:00 AM - 11:30 AM';
                       }
                     });
                   },
                 ),
                 CheckboxListTile(
-                  title: Text('Evening reservation'),
-                  value: selectedTiming == 'Evening reservation',
+                  title: Text('Evening reservation at 14:00 PM - 16:30 PM'),
+                  value: selectedTiming == 'Evening reservation at 14:00 PM - 16:30 PM',
                   onChanged: (value) {
                     setState(() {
                       if (value == true) {
-                        selectedTiming = 'Evening reservation';
+                        selectedTiming = 'Evening reservation at 14:00 PM - 16:30 PM';
+                      }
+                    });
+                  },
+                ),
+                CheckboxListTile(
+                  title: Text('Late evening reservation at 19:00 PM - 21:30 PM'),
+                  value: selectedTiming == 'Late evening reservation at 19:00 PM - 21:30 PM',
+                  onChanged: (value) {
+                    setState(() {
+                      if (value == true) {
+                        selectedTiming = 'Late evening reservation at 19:00 PM - 21:30 PM';
                       }
                     });
                   },
                 ),
                 SizedBox(height: 20.0),
+                // Add to Favorites Button
+                ElevatedButton(
+                  onPressed: () {
+                    // Implement the logic to add the hall to favorites
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Added to favorites!'),
+                        backgroundColor: Colors.blue,
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFF7469B6), // Purplish-blue background color
+                  ),
+                  child: Text(
+                    'Add to Favorites',
+                    style: TextStyle(color: Colors.white), // White text color
+                  ),
+                ),
+                SizedBox(height: 10.0),
                 // Reservation Confirmation Button
                 ElevatedButton(
                   onPressed: () {
