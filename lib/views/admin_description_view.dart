@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:weddinghalls/view_model/edit_view_model.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import '../view_model/admin_description_view_model.dart';
+import '../view_model/admin_view_model.dart';
 
-class EditHallDescription extends StatefulWidget {
-  const EditHallDescription({Key? key}) : super(key: key);
+class ViewHallDescription extends StatefulWidget {
+  const ViewHallDescription({Key? key}) : super(key: key);
 
   @override
-  State<EditHallDescription> createState() => _HallScreenState();
+  State<ViewHallDescription> createState() => _ViewHallDescription();
 }
 
-class _HallScreenState extends State<EditHallDescription> {
-  final EditViewModel viewModel = EditViewModel();
+class _ViewHallDescription extends State<ViewHallDescription> {
+  final AdminViewModel viewModel = AdminViewModel();
 
   final TextEditingController hallNameController = TextEditingController();
   final TextEditingController hallLocationController = TextEditingController();
@@ -269,48 +268,24 @@ class _HallScreenState extends State<EditHallDescription> {
                   ],
                 ),
               ),
-              SizedBox(height: 8),
-              Padding(
-                padding: EdgeInsets.only(top: 5),
-                child: Container(
-                  height: 410,
-                  width: 400,
-                  child: Column(
-                    children: <Widget>[
 
-                      SizedBox(height: 10.0),
-                      Text(
-                        'Selected Date: ${selectedDateTime?.toString().split(' ')[0]}',
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(height: 20.0),
-                      Text('Selected Timing:', style: TextStyle(color: Colors.black, fontSize: 20)),
-                      CheckboxListTile(
-                        title: Text('Morning reservation (9:00 AM - 11:30 AM)'),
-                        value: selectedTiming == 'morning',
-                        onChanged: null,
-                      ),
-                      CheckboxListTile(
-                        title: Text('Evening reservation (2:00 PM - 4:30 PM)'),
-                        value: selectedTiming == 'evening',
-                        onChanged: null,
-                      ),
-                      CheckboxListTile(
-                        title: Text('Late evening reservation (7:00 PM - 9:30 PM)'),
-                        value: selectedTiming == 'late_evening',
-                        onChanged: null,
-                      ),
-                      ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFF7469B6),
-                          minimumSize: Size(400, 45),
-                        ),
-                        child: Text('Done', style: TextStyle(color: Colors.white, fontSize: 20)),
-                      ),
-                    ],
-                  ),
+              ElevatedButton(
+                onPressed: () {
+// Add to favorites functionality
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFFA62C3A),
                 ),
+                child: Text('Rejection', style: TextStyle(color: Colors.black)),
+              ),
+              ElevatedButton(
+                onPressed: () {
+// Reservation functionality
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFF618E5A),
+                ),
+                child: Text('Acceptance', style: TextStyle(color: Colors.black)),
               ),
             ],
           ),
