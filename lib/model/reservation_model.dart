@@ -1,5 +1,4 @@
 class HallModel {
-
   final int capacity;
   final int numberOfSeatsMen;
   final int numberOfSeatsWomen;
@@ -8,9 +7,8 @@ class HallModel {
   final int numberOfEntrances;
   final DateTime selectedDateTime;
   final String selectedTiming;
-final String token;
-  HallModel( {
 
+  HallModel({
     required this.capacity,
     required this.numberOfSeatsMen,
     required this.numberOfSeatsWomen,
@@ -19,11 +17,7 @@ final String token;
     required this.numberOfEntrances,
     required this.selectedDateTime,
     required this.selectedTiming,
-    required this.token,
-  }) {
-    // TODO: implement HallModel
-    throw UnimplementedError();
-  }
+  });
 
   factory HallModel.fromMap(Map<String, dynamic> map) {
     return HallModel(
@@ -35,7 +29,6 @@ final String token;
       numberOfEntrances: map['numberOfEntrances'],
       selectedDateTime: DateTime.parse(map['selectedDateTime']),
       selectedTiming: map['selectedTiming'],
-      token: map['token'],
     );
   }
 
@@ -49,7 +42,6 @@ final String token;
       'numberOfEntrances': numberOfEntrances,
       'selectedDateTime': selectedDateTime.toIso8601String(),
       'selectedTiming': selectedTiming,
-      'token':token,
     };
   }
 }
