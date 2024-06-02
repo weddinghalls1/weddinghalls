@@ -1,5 +1,4 @@
-
-class DataRes {
+class Admin {
   final String id;
   final String hallLocation;
   final String hallName;
@@ -16,10 +15,7 @@ class DataRes {
   final String selectedTiming;
   final String token;
 
-
-
-
-  DataRes({
+  Admin({
     required this.id,
     required this.hallLocation,
     required this.hallName,

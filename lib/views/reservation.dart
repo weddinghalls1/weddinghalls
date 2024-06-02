@@ -194,7 +194,6 @@ class _ReservationPageState extends State<ReservationPage> {
                                   numberOfEntrances: numberOfEntrances,
                                   selectedDateTime: selectedDateTime!,
                                   selectedTiming: selectedTiming!,
-                                  token: '',
                                 );
 
                                 try {

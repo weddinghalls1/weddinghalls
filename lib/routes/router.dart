@@ -4,7 +4,9 @@ import 'package:weddinghalls/views/home_screen.dart';
 import 'package:weddinghalls/views/profile_screen.dart';
 
 import '../views/checkout_views.dart';
+import '../views/empty_home.dart';
 import '../views/reservation.dart';
+import '../views/sidbar.dart';
 
 
 
@@ -16,5 +18,7 @@ var kRoutes = {
   '/add-hall':(context)=>CombinedPage(),
   '/ReservationPage':(context)=>ReservationPage(),
 '/CheckoutPage ':(context)=>CheckoutPage(),
+  '/HomePage':(context)=>HomePage(),
+
 };
 

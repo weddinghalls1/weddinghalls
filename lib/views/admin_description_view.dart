@@ -1,19 +1,17 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:weddinghalls/view_model/edit_view_model.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import '../view_model/admin_description_view_model.dart';
+import '../view_model/admin_view_model.dart';
 
-class EditHallDescription extends StatefulWidget {
-  const EditHallDescription({Key? key}) : super(key: key);
+class ViewHallDescription extends StatefulWidget {
+  const ViewHallDescription({Key? key}) : super(key: key);
 
   @override
-  State<EditHallDescription> createState() => _HallScreenState();
+  State<ViewHallDescription> createState() => _ViewHallDescription();
 }
 
-class _HallScreenState extends State<EditHallDescription> {
-  final EditViewModel viewModel = EditViewModel();
+class _ViewHallDescription extends State<ViewHallDescription> {
+  final AdminViewModel viewModel = AdminViewModel();
 
   final TextEditingController hallNameController = TextEditingController();
   final TextEditingController hallLocationController = TextEditingController();
@@ -31,8 +29,6 @@ class _HallScreenState extends State<EditHallDescription> {
 
   DateTime? selectedDateTime;
   String? selectedTiming;
-  final ImagePicker _picker = ImagePicker();
-  String? _newImageUrl;
 
   @override
   void initState() {
@@ -61,43 +57,13 @@ class _HallScreenState extends State<EditHallDescription> {
     });
   }
 
-  Future<void> _selectDateTime(BuildContext context) async {
-    final DateTime? pickedDateTime = await showDatePicker(
-      context: context,
-      initialDate: selectedDateTime ?? DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime(2101),
-    );
-    if (pickedDateTime != null) {
-      setState(() {
-        selectedDateTime = pickedDateTime;
-        selectedDateTimeController.text = selectedDateTime!.toIso8601String();
-      });
-    }
-  }
-
-  Future<void> _pickImage() async {
-    final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      final String fileName = DateTime.now().millisecondsSinceEpoch.toString();
-      final Reference storageReference = FirebaseStorage.instance.ref().child('halls').child(fileName);
-      final UploadTask uploadTask = storageReference.putFile(File(pickedFile.path));
-      final TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() {});
-      final String downloadUrl = await taskSnapshot.ref.getDownloadURL();
-
-      setState(() {
-        _newImageUrl = downloadUrl;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xffFFE6E6),
       appBar: AppBar(
         title: const Text(
-          'Edit Description Hall',
+          'Hall Description',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
@@ -124,6 +90,7 @@ class _HallScreenState extends State<EditHallDescription> {
                         fillColor: Colors.white,
                         filled: true,
                       ),
+                      readOnly: true,
                     ),
                     SizedBox(height: 15),
                     const Padding(
@@ -139,6 +106,7 @@ class _HallScreenState extends State<EditHallDescription> {
                         fillColor: Colors.white,
                         filled: true,
                       ),
+                      readOnly: true,
                     ),
                   ],
                 ),
@@ -147,40 +115,21 @@ class _HallScreenState extends State<EditHallDescription> {
               Padding(
                 padding: EdgeInsets.only(top: 5),
                 child: Container(
-                  height: 260,
+                  height: 220,
                   width: 400,
-                  //color: Colors.white,
-                  child: Column(
-                    children: <Widget>[
-                      Image.network(
-                        _newImageUrl ?? viewModel.imageUrl ?? '',
-                        width: 350,
-                        height: 200,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
-                          return const Icon(
-                            Icons.image_not_supported,
-                            size: 200,
-                            color: Colors.grey,
-                          );
-                        },
-                      ),
-                      Center(
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 10),
-                          child:SizedBox(
-                            width: 180,
-                            child: ElevatedButton(
-                              onPressed: _pickImage,
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xFF7469B6),
-                              ),
-                              child: Text('Edit', style: TextStyle(color: Colors.white, fontSize: 20)),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                  color: Colors.white,
+                  child: Image.network(
+                    viewModel.imageUrl ?? '',
+                    width: 300,
+                    height: 200,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return const Icon(
+                        Icons.image_not_supported,
+                        size: 200,
+                        color: Colors.grey,
+                      );
+                    },
                   ),
                 ),
               ),
@@ -203,6 +152,7 @@ class _HallScreenState extends State<EditHallDescription> {
                         fillColor: Colors.white,
                         filled: true,
                       ),
+                      readOnly: true,
                     ),
                     SizedBox(height: 15),
                     const Padding(
@@ -218,6 +168,7 @@ class _HallScreenState extends State<EditHallDescription> {
                         fillColor: Colors.white,
                         filled: true,
                       ),
+                      readOnly: true,
                     ),
                     SizedBox(height: 15),
                     const Padding(
@@ -233,6 +184,7 @@ class _HallScreenState extends State<EditHallDescription> {
                         fillColor: Colors.white,
                         filled: true,
                       ),
+                      readOnly: true,
                     ),
                     SizedBox(height: 15),
                     const Padding(
@@ -248,6 +200,7 @@ class _HallScreenState extends State<EditHallDescription> {
                         fillColor: Colors.white,
                         filled: true,
                       ),
+                      readOnly: true,
                     ),
                     SizedBox(height: 15),
                     const Padding(
@@ -263,6 +216,7 @@ class _HallScreenState extends State<EditHallDescription> {
                         fillColor: Colors.white,
                         filled: true,
                       ),
+                      readOnly: true,
                     ),
                     SizedBox(height: 15),
                     const Padding(
@@ -278,6 +232,7 @@ class _HallScreenState extends State<EditHallDescription> {
                         fillColor: Colors.white,
                         filled: true,
                       ),
+                      readOnly: true,
                     ),
                     const Padding(
                       padding: EdgeInsets.only(right: 50),
@@ -292,6 +247,7 @@ class _HallScreenState extends State<EditHallDescription> {
                         fillColor: Colors.white,
                         filled: true,
                       ),
+                      readOnly: true,
                     ),
                     SizedBox(height: 15),
                     const Padding(
@@ -307,114 +263,29 @@ class _HallScreenState extends State<EditHallDescription> {
                         fillColor: Colors.white,
                         filled: true,
                       ),
+                      readOnly: true,
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: 8),
-              Padding(
-                padding: EdgeInsets.only(top: 5),
-                child: Container(
-                  height: 410,
-                  width: 400,
-                  child: Column(
-                    children: <Widget>[
-                      ElevatedButton(
-                        onPressed: () => _selectDateTime(context),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFF7469B6),
-                          minimumSize: Size(400, 45),
-                        ),
-                        child: Text('Select Date', style: TextStyle(color: Colors.white, fontSize: 20)),
-                      ),
-                      SizedBox(height: 10.0),
-                      Text(
-                        'Selected Date: ${selectedDateTime?.toString().split(' ')[0]}',
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(height: 20.0),
-                      Text('Select Timing:', style: TextStyle(color: Colors.black, fontSize: 20)),
-                      CheckboxListTile(
-                        title: Text('Morning reservation (9:00 AM - 11:30 AM)'),
-                        value: selectedTiming == 'morning',
-                        onChanged: (bool? value) {
-                          setState(() {
-                            if (value == true) {
-                              selectedTiming = 'morning';
-                              selectedTimingController.text = 'morning';
-                            } else {
-                              selectedTiming = null;
-                              selectedTimingController.text = '';
-                            }
-                          });
-                        },
-                      ),
-                      CheckboxListTile(
-                        title: Text('Evening reservation (2:00 PM - 4:30 PM)'),
-                        value: selectedTiming == 'evening',
-                        onChanged: (bool? value) {
-                          setState(() {
-                            if (value == true) {
-                              selectedTiming = 'evening';
-                              selectedTimingController.text = 'evening';
-                            } else {
-                              selectedTiming = null;
-                              selectedTimingController.text = '';
-                            }
-                          });
-                        },
-                      ),
-                      CheckboxListTile(
-                        title: Text('Late evening reservation (7:00 PM - 9:30 PM)'),
-                        value: selectedTiming == 'late_evening',
-                        onChanged: (bool? value) {
-                          setState(() {
-                            if (value == true) {
-                              selectedTiming = 'late_evening';
-                              selectedTimingController.text = 'late_evening';
-                            } else {
-                              selectedTiming = null;
-                              selectedTimingController.text = '';
-                            }
-                          });
-                        },
-                      ),
-                      SizedBox(height: 20.0),
-                      ElevatedButton(
-                        onPressed: () async {
-                          try {
-                            await viewModel.updateHallData(
-                              hallNameController.text,
-                              hallLocationController.text,
-                              _newImageUrl ?? imageUrlController.text, // Use the new image URL if available
-                              minimumReservationCapacityController.text,
-                              numberOfEntrancesController.text,
-                              numberOfFlightAttendantsMenController.text,
-                              numberOfFlightAttendantsWomenController.text,
-                              numberOfSeatsMenController.text,
-                              numberOfSeatsWomenController.text,
-                              numberOfSectionsController.text,
-                              reservationPriceController.text,
-                              selectedDateTime?.toIso8601String() ?? '',
-                              selectedTiming ?? '',
-                            );
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text('Profile updated successfully')),
-                            );
-                          } catch (e) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text('Failed to update profile: $e')),
-                            );
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFF7469B6),
-                        ),
-                        child: Text('Save', style: TextStyle(color: Colors.white, fontSize: 20)),
-                      ),
-                    ],
-                  ),
+
+              ElevatedButton(
+                onPressed: () {
+// Add to favorites functionality
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFFA62C3A),
                 ),
+                child: Text('Rejection', style: TextStyle(color: Colors.black)),
+              ),
+              ElevatedButton(
+                onPressed: () {
+// Reservation functionality
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFF618E5A),
+                ),
+                child: Text('Acceptance', style: TextStyle(color: Colors.black)),
               ),
             ],
           ),
