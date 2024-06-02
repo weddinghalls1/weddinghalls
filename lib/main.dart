@@ -1,5 +1,10 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
+import 'package:weddinghalls/view_model/description_viewmodel.dart';
+import 'package:weddinghalls/views/descriptionHalls.dart';
+import 'firebase_options.dart';
+import 'routes/router.dart';
 import 'package:weddinghalls/routes/router.dart';
 import 'package:weddinghalls/views/SelectPage.dart';
 import 'package:weddinghalls/views/checkout_views.dart';
@@ -40,7 +45,7 @@ void main() async {
 }
 
 class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+  const MainPage({Key? key}) : super(key: key);
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -49,6 +54,16 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Hall Description',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: DescriptionHalls(),
+    );
+}}
+
       return MaterialApp(
 
         debugShowCheckedModeBanner: false,
