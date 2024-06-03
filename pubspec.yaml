@@ -30,7 +30,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  provider: ^6.0.0
 
   payment_card: ^0.0.1
 
@@ -43,7 +42,6 @@ dependencies:
   firebase_database: ^10.5.5
   provider: ^6.1.2
 
-  firebase_database: ^10.5.5
   image_picker: ^1.1.1
   firebase_storage: ^11.7.5
   flutter_screenutil: ^5.9.1

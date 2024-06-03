@@ -64,19 +64,3 @@ class _MainPageState extends State<MainPage> {
     );
 }}
 
-      return MaterialApp(
-
-        debugShowCheckedModeBanner: false,
-        home:CheckoutPage(),
-        );
-
-
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home:ReservationPage (),
-    );
-  }
-}
