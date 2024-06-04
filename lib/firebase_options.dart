@@ -53,11 +53,11 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDO7lvVIrHLCBnP9dHOZGMo5WevmIR-TcM',
-    appId: '1:551895694274:android:82cc106c696d8b22da745b',
-    messagingSenderId: '551895694274',
-    projectId: 'wedding-halls-24c3b',
-    databaseURL: 'https://wedding-halls-24c3b-default-rtdb.europe-west1.firebasedatabase.app',
-    storageBucket: 'wedding-halls-24c3b.appspot.com',
+    apiKey: 'AIzaSyDxPivQA6LKIkMBZ-LxuBAtoHcprDaFRbY',
+    appId: '1:266693475379:android:769aebc60d1cebad92b746',
+    messagingSenderId: '266693475379',
+    projectId: 'weddings-halls-bdc5d',
+    databaseURL: 'https://console.firebase.google.com/project/weddings-halls-bdc5d/firestore/databases/-default-/data/~2FmyHalls~2F1',
+    storageBucket: 'weddings-halls-bdc5d.appspot.com',
   );
 }
