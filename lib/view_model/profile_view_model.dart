@@ -1,28 +1,27 @@
-import 'package:firebase_database/firebase_database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'dart:io';
 
 class ProfileViewModel {
-  final DatabaseReference _database = FirebaseDatabase.instance.reference();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseStorage _storage = FirebaseStorage.instance;
 
   String? email;
   String? userName;
   String? location;
+  String? profileImageUrl;
 
-  Future<void> fetchUserData(String token) async {
+  Future<void> fetchUserData(String userId) async {
     try {
-      DatabaseEvent event = await _database.child('users').orderByChild('token').equalTo(token).once();
-      DataSnapshot snapshot = event.snapshot;
-      if (snapshot.value != null) {
-        // Assuming there is exactly one entry for each token
-        var entry = (snapshot.value as Map).values.first;  // Access the first item of values
-        if (entry != null) {
-          Map<String, dynamic> userData = Map<String, dynamic>.from(entry);
-          print(userData['email']);  // Should now properly print the email
-          email = userData['email'];
-          userName = userData['userName'];
-          location = userData['location'];
-        }
+      DocumentSnapshot userDoc = await _firestore.collection('user').doc(userId).get();
+      if (userDoc.exists) {
+        Map<String, dynamic> userData = userDoc.data() as Map<String, dynamic>;
+        email = userData['email'];
+        userName = userData['userName'];
+        location = userData['location'];
+        profileImageUrl = userData['profileImageUrl'];
       } else {
-        print('No user found with token: $token');
+        print('No user found with userId: $userId');
       }
     } catch (e) {
       print('Error fetching user data: $e');
@@ -30,11 +29,9 @@ class ProfileViewModel {
     }
   }
 
-  Future<void> updateUserData(String userName, String location) async {
+  Future<void> updateUserData(String userId, String userName, String location) async {
     try {
-      // This needs to be corrected as well to reference the right user node
-      String token = 'hassan'; // Placeholder: Fetch or store the actual user ID somewhere
-      await _database.child('users').child(token).update({
+      await _firestore.collection('user').doc(userId).update({
         'userName': userName,
         'location': location,
       });
@@ -42,6 +39,36 @@ class ProfileViewModel {
       this.location = location;
     } catch (e) {
       print('Error updating user data: $e');
+      throw e;
+    }
+  }
+
+  Future<void> uploadProfileImage(String userId, File imageFile) async {
+    try {
+      Reference storageRef = _storage.ref().child('profile_images/$userId.jpg');
+      UploadTask uploadTask = storageRef.putFile(imageFile);
+
+      TaskSnapshot taskSnapshot = await uploadTask;
+      String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+
+      await _firestore.collection('users').doc(userId).update({
+        'profileImageUrl': downloadUrl,
+      });
+
+      profileImageUrl = downloadUrl;
+    } catch (e) {
+      print('Error uploading profile image: $e');
+      throw e;
+    }
+  }
+
+  Future<void> deleteUserData(String userId) async {
+    try {
+      await _firestore.collection('users').doc(userId).delete();
+      Reference storageRef = _storage.ref().child('profile_images/$userId.jpg');
+      await storageRef.delete();
+    } catch (e) {
+      print('Error deleting user data: $e');
       throw e;
     }
   }
