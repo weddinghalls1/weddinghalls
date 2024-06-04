@@ -1,22 +1,21 @@
 {
   "project_info": {
-    "project_number": "551895694274",
-    "firebase_url": "https://wedding-halls-24c3b-default-rtdb.europe-west1.firebasedatabase.app",
-    "project_id": "wedding-halls-24c3b",
-    "storage_bucket": "wedding-halls-24c3b.appspot.com"
+    "project_number": "266693475379",
+    "project_id": "weddings-halls-bdc5d",
+    "storage_bucket": "weddings-halls-bdc5d.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:551895694274:android:cce8467bdcd55780da745b",
+        "mobilesdk_app_id": "1:266693475379:android:769aebc60d1cebad92b746",
         "android_client_info": {
-          "package_name": "com.example.untitled"
+          "package_name": "com.company.weddinghalls"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDO7lvVIrHLCBnP9dHOZGMo5WevmIR-TcM"
+          "current_key": "AIzaSyDxPivQA6LKIkMBZ-LxuBAtoHcprDaFRbY"
         }
       ],
       "services": {
