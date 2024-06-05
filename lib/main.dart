@@ -60,7 +60,8 @@ class _MainPageState extends State<MainPage> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: DescriptionHalls(),
+      home:  //HomePage(),
+      HallSelectionPage(),
     );
 }}
 
