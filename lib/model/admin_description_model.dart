@@ -1,18 +1,18 @@
 class Admin {
   final String id;
-  final String hallLocation;
   final String hallName;
-  final String imageUrl;
-  final String minimumReservationCapacity;
-  final String numberOfEntrances;
-  final String numberOfFlightAttendantsMen;
-  final String numberOfFlightAttendantsWomen;
-  final String numberOfSeatsMen;
-  final String numberOfSeatsWomen;
-  final String numberOfSections;
+  final String hallLocation;
   final String reservationPrice;
-  final String selectedDateTime;
+  final int numberOfSections;
+  final int minimumReservationCapacity;
+  final int numberOfSeatsMen;
+  final int numberOfSeatsWomen;
+  final int numberOfFlightAttendantsMen;
+  final int numberOfFlightAttendantsWomen;
+  final int numberOfEntrances;
+  final DateTime selectedDateTime;
   final String selectedTiming;
+  final String imageUrl;
   final String token;
 
   Admin({

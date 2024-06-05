@@ -1,7 +1,7 @@
-import 'package:firebase_database/firebase_database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AdminViewModel {
-  final DatabaseReference _database = FirebaseDatabase.instance.reference();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   String? hallName;
   String? hallLocation;
@@ -18,41 +18,38 @@ class AdminViewModel {
   String? selectedTiming;
 
   Future<void> fetchHallData(String token) async {
-    try{
-      DatabaseEvent event = await _database.child('halls')
-          .orderByChild('token')
-          .equalTo(token)
-          .once();
-      DataSnapshot snapshot = event.snapshot;
-      if (snapshot.value != null) {
-        var entry = (snapshot.value as Map).values
-            .first;
-        if (entry != null) {
-          Map<String, dynamic> hallData = Map<String, dynamic>.from(entry);
-          hallName = hallData['hallName'];
-          hallLocation = hallData['hallLocation'];
-          imageUrl = hallData['imageUrl'];
-          minimumReservationCapacity = hallData['minimumReservationCapacity'];
-          numberOfEntrances = hallData['numberOfEntrances'];
-          numberOfFlightAttendantsMen = hallData['numberOfFlightAttendantsMen'];
-          numberOfFlightAttendantsWomen = hallData['numberOfFlightAttendantsWomen'];
-          numberOfSeatsMen = hallData['numberOfSeatsMen'];
-          numberOfSeatsWomen = hallData['numberOfSeatsWomen'];
-          numberOfSections = hallData['numberOfSections'];
-          reservationPrice = hallData['reservationPrice'];
-          selectedDateTime = hallData['selectedDateTime'];
-          selectedTiming = hallData['selectedTiming'];
-        }
+    try {
+      QuerySnapshot querySnapshot = await _firestore
+          .collection('halls')
+          .where('token', isEqualTo: token)
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        var hallData = querySnapshot.docs.first.data() as Map<String, dynamic>;
+
+        hallName = hallData['hallName'].toString();
+        hallLocation = hallData['hallLocation'].toString();
+        imageUrl = hallData['imageUrl'].toString();
+        minimumReservationCapacity = hallData['minimumReservationCapacity'].toString();
+        numberOfEntrances = hallData['numberOfEntrances'].toString();
+        numberOfFlightAttendantsMen = hallData['numberOfFlightAttendantsMen'].toString();
+        numberOfFlightAttendantsWomen = hallData['numberOfFlightAttendantsWomen'].toString();
+        numberOfSeatsMen = hallData['numberOfSeatsMen'].toString();
+        numberOfSeatsWomen = hallData['numberOfSeatsWomen'].toString();
+        numberOfSections = hallData['numberOfSections'].toString();
+        reservationPrice = hallData['reservationPrice'].toString();
+        selectedDateTime = hallData['selectedDateTime'].toString();
+        selectedTiming = hallData['selectedTiming'].toString();
+
+        print('Data fetched successfully');
+        print('Hall Name: $hallName');
+        print('Hall Location: $hallLocation');
       } else {
-        print('No user found with token: $token');
+        print('No hall found with token: $token');
       }
-    }catch (e) {
-      print('Error fetching user data: $e');
+    } catch (e) {
+      print('Error fetching hall data: $e');
       throw e;
     }
   }
-
-
-
-
 }
