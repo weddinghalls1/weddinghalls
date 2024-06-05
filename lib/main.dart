@@ -38,6 +38,8 @@ class _MainPageState extends State<MainPage> {
         primarySwatch: Colors.blue,
       ),
       home: ViewHallDescription(),
+      home:  //HomePage(),
+      HallSelectionPage(),
     );
 }}
 
