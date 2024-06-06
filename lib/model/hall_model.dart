@@ -13,6 +13,7 @@ class HallModel {
   final String selectedTiming;
   final String imageUrl;
   final String token;
+  final String hallType;
 
   HallModel({
     required this.hallName,
@@ -29,6 +30,7 @@ class HallModel {
     required this.selectedTiming,
     required this.imageUrl,
     required this.token,
+    required this.hallType,
 
   });
 }

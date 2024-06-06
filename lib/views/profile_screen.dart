@@ -83,6 +83,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ElevatedButton(
               style: ElevatedButton.styleFrom(backgroundColor: Colors.pink),
               onPressed: () {
+                Navigator.of(context).pushNamed('/my_reservations');
+              },
+              child: Text('My Reservations'),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.pink),
+              onPressed: () {
                 Navigator.of(context).pushReplacementNamed('/login');
               },
               child: Text('Sign Out'),
