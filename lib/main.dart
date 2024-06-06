@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:weddinghalls/views/SelectPage.dart';
 import 'package:weddinghalls/views/admin_description_view.dart';
+import 'package:weddinghalls/views/onboarding_view.dart';
 import 'firebase_options.dart';
 import 'package:weddinghalls/views/home_screen.dart';
 import 'package:flutter/services.dart';
@@ -38,7 +39,7 @@ class _MainPageState extends State<MainPage> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HallSelectionPage(),
+      home: OnboardingView(),
       //HomePage(),
 
     );
