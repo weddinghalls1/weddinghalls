@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:weddinghalls/model/user_model.dart';
-
+import 'package:weddinghalls/views/favorit_screen.dart';
 import '../view_model/user_viewmodel.dart';
 
 class Sidebar extends StatefulWidget {
@@ -75,7 +75,12 @@ class _SidebarState extends State<Sidebar> {
               leading: Icon(Icons.favorite),
               title: Text('Favorite'),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        FavoritScreen(),
+                  ),
+                );
               },
             ),
             ListTile(

@@ -39,8 +39,13 @@ class _MainPageState extends State<MainPage> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+
+      home:  HomePage(),
+      //HallSelectionPage(),
+
       home: OnboardingView(),
       //HomePage(),
+
 
     );
 }}
