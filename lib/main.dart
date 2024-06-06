@@ -1,33 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:provider/provider.dart';
-import 'package:weddinghalls/view_model/description_viewmodel.dart';
-import 'package:weddinghalls/views/descriptionHalls.dart';
-import 'firebase_options.dart';
-import 'routes/router.dart';
-import 'package:weddinghalls/routes/router.dart';
 import 'package:weddinghalls/views/SelectPage.dart';
-import 'package:weddinghalls/views/checkout_views.dart';
-import 'package:weddinghalls/views/addNewCard_view.dart';
-import 'package:weddinghalls/views/empty_home.dart';
-
-import 'package:weddinghalls/views/reservation.dart';
-import 'package:weddinghalls/views/edit_Description_view.dart';
-import 'package:weddinghalls/views/detailsReservation_view.dart';
-import 'package:weddinghalls/views/sidbar.dart';
-import 'package:provider/provider.dart';
-import 'package:sizer/sizer.dart';
 import 'package:weddinghalls/views/admin_description_view.dart';
-import 'package:weddinghalls/views/combined_view.dart';
-import 'package:weddinghalls/views/forgot_password_view.dart';
-import 'package:weddinghalls/views/home_screen.dart';
-import 'package:weddinghalls/views/profile_screen.dart';
-import 'firebase_options.dart';
 import 'package:weddinghalls/views/onboarding_view.dart';
-import 'package:weddinghalls/view_model/onboarding_viewmodel.dart';
-import 'package:flutter/services.dart';
 import 'firebase_options.dart';
-import 'views/home_switch.dart';
+import 'package:weddinghalls/views/home_screen.dart';
+import 'package:flutter/services.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -60,8 +39,14 @@ class _MainPageState extends State<MainPage> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+
       home:  HomePage(),
       //HallSelectionPage(),
+
+      home: OnboardingView(),
+      //HomePage(),
+
+
     );
 }}
 

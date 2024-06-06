@@ -1,11 +1,11 @@
 import 'dart:io';
 
-import 'package:firebase_database/firebase_database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:weddinghalls/model/hall_model.dart';
 
 class AddHallViewModel {
-  final DatabaseReference _database = FirebaseDatabase.instance.reference();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
 
   Future<void> saveHallData(HallModel hallModel, File? imageFile) async {
@@ -20,7 +20,7 @@ class AddHallViewModel {
         imageUrl = await snapshot.ref.getDownloadURL();
       }
 
-      await _database.child('halls').push().set({
+      await _firestore.collection('halls').add({
         'hallName': hallModel.hallName,
         'hallLocation': hallModel.hallLocation,
         'reservationPrice': hallModel.reservationPrice,

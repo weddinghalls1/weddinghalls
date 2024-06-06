@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../view_model/profile_view_model.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -16,14 +15,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController userNameController = TextEditingController();
   final TextEditingController locationController = TextEditingController();
 
+  String userId = 'n46Kwor3rjfFPQZErGQ4'; // Make userId available in the widget
+
   @override
   void initState() {
     super.initState();
-    String initialToken = 'hassan';
-    viewModel.fetchUserData(initialToken).then((_) {
+    viewModel.fetchUserData(userId).then((_) {
       if (mounted) {
         setState(() {
-          print(viewModel.email);
           emailController.text = viewModel.email ?? '';
           userNameController.text = viewModel.userName ?? '';
           locationController.text = viewModel.location ?? '';
@@ -54,8 +53,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             SizedBox(height: 20),
-            inputField('Email Address', emailController,
-                readOnly: true), // Set readOnly to true for email
+            inputField('Email Address', emailController, readOnly: true),
             SizedBox(height: 10),
             inputField('User Name', userNameController),
             SizedBox(height: 10),
@@ -66,6 +64,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               onPressed: () async {
                 try {
                   await viewModel.updateUserData(
+                    userId, // Include userId
                     userNameController.text,
                     locationController.text,
                   );
@@ -83,7 +82,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             SizedBox(height: 20),
             ElevatedButton(
               style: ElevatedButton.styleFrom(backgroundColor: Colors.pink),
-              onPressed: () async {
+              onPressed: () {
                 Navigator.of(context).pushReplacementNamed('/login');
               },
               child: Text('Sign Out'),
