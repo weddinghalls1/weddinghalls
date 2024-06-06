@@ -34,6 +34,7 @@ class AddHallViewModel {
         'selectedDateTime': hallModel.selectedDateTime.toIso8601String(),
         'imageUrl': imageUrl,
         'token': token,
+        'hallType': hallModel.hallType,
       });
     } catch (e) {
       print('Error saving hall data: $e');

@@ -14,6 +14,7 @@ class Admin {
   final String selectedTiming;
   final String imageUrl;
   final String token;
+  final String hallType; // New property
 
   Admin({
     required this.id,
@@ -31,6 +32,6 @@ class Admin {
     required this.selectedDateTime,
     required this.selectedTiming,
     required this.token,
+    required this.hallType, // New property
   });
-
 }

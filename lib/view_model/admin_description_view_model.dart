@@ -16,6 +16,7 @@ class AdminViewModel {
   String? reservationPrice;
   String? selectedDateTime;
   String? selectedTiming;
+  String? hallType; // New property
 
   Future<void> fetchHallData(String token) async {
     try {
@@ -40,6 +41,7 @@ class AdminViewModel {
         reservationPrice = hallData['reservationPrice'].toString();
         selectedDateTime = hallData['selectedDateTime'].toString();
         selectedTiming = hallData['selectedTiming'].toString();
+        hallType = hallData['hallType'].toString(); // New property
 
         print('Data fetched successfully');
         print('Hall Name: $hallName');
