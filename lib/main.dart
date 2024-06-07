@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:weddinghalls/views/My_halls.dart';
 import 'package:weddinghalls/views/SelectPage.dart';
 import 'package:weddinghalls/views/admin_description_view.dart';
 import 'package:weddinghalls/views/combined_view.dart';
@@ -47,7 +48,7 @@ class _MainPageState extends State<MainPage> {
 
 
 
-      home: OnboardingView(),
+      home:HallsPage (),
       //HomePage(),
 
 
