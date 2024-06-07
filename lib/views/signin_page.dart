@@ -1,4 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'ForgetPassword.dart';
 import '../view_model/signin_view_model.dart';
 
@@ -14,9 +18,42 @@ class _SigninPageState extends State<SigninPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final viewModel = SigninViewModel();
+  String selectedCategory = '';
+
 
   void login() async {
-    await viewModel.login(emailController.text.trim(), passwordController.text.trim());
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+          email: emailController.text.trim(),
+          password: passwordController.text.trim());
+
+
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userCredential.user!.uid)
+          .get();
+
+      if (userDoc.exists) {
+        String category = userDoc['category'];
+        if (category == selectedCategory) {
+
+          print('User category matches: $category');
+          QuickAlert.show(context: context, type: QuickAlertType.success);
+        } else {
+          QuickAlert.show(
+              context: context,
+              type: QuickAlertType.error,
+              title: 'Error',
+              text: 'Selected category does not match');
+          FirebaseAuth.instance.signOut();
+        }
+      } else {
+        QuickAlert.show(context: context, type: QuickAlertType.error);
+      }
+    } catch (e) {
+      QuickAlert.show(context: context, type: QuickAlertType.error);
+    }
   }
 
   @override
@@ -52,10 +89,81 @@ class _SigninPageState extends State<SigninPage> {
                     color: Color(0xffFFE6E6),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.only(bottom: 50.0, left: 20, right: 20),
+                    padding: const EdgeInsets.only(bottom: 100, left: 20, right: 20),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ElevatedButton(
+                              onPressed: () {
+                                setState(() {
+                                  selectedCategory = 'Celebratory';
+                                });
+                              },
+                              child: Text(
+                                "Celebratory",
+                                style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: selectedCategory == 'Celebratory'
+                                    ? Color(0xffAD88C6)
+                                    : Color(0xb3eed5ff),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      bottomLeft: Radius.circular(10)
+                                  ),
+                                ),
+                              ),
+                            ),
+
+                            ElevatedButton(
+                              onPressed: () {
+                                setState(() {
+                                  selectedCategory = 'HallOwner';
+                                });
+                              },
+                              child: Text(
+                                "Hall Owner",
+                                style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: selectedCategory == 'HallOwner'
+                                    ? Color(0xffAD88C6)
+                                    : Color(0xb3eed5ff),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(0),
+                                ),
+                              ),
+                            ),
+
+                            ElevatedButton(
+                              onPressed: () {
+                                setState(() {
+                                  selectedCategory = 'Admin';
+                                });
+                              },
+                              child: Text(
+                                "Admin",
+                                style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: selectedCategory == 'Admin'
+                                    ? Color(0xffAD88C6)
+                                    : Color(0xb3eed5ff),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(10),
+                                      bottomRight: Radius.circular(10)
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 20,),
                         Text(
                           "Hello!",
                           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
