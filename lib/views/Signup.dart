@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:quickalert/quickalert.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 
 class SignupPage extends StatefulWidget{
@@ -17,16 +18,34 @@ class _SignupPageState extends State<SignupPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
+  String selectedCategory = '';
+
   Future signup() async {
-    //QuickAlert.show(context: context, type: QuickAlertType.loading);
-    if(isPasswordConfirmed()){
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: emailController.text.trim(),
-          password: passwordController.text.trim());
-    }else{
+    if (isPasswordConfirmed()) {
+      try {
+        UserCredential userCredential = await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(
+            email: emailController.text.trim(),
+            password: passwordController.text.trim());
+
+
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(userCredential.user!.uid)
+            .set({
+          'fullName': fullNameController.text.trim(),
+          'phone': phoneController.text.trim(),
+          'email': emailController.text.trim(),
+          'category': selectedCategory,
+        });
+
+        QuickAlert.show(context: context, type: QuickAlertType.success);
+      } catch (e) {
+        QuickAlert.show(context: context, type: QuickAlertType.error);
+      }
+    } else {
       QuickAlert.show(context: context, type: QuickAlertType.error);
     }
-
   }
   bool isPasswordConfirmed(){
     if(confirmPasswordController.text.trim() ==
@@ -76,6 +95,77 @@ class _SignupPageState extends State<SignupPage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ElevatedButton(
+                              onPressed: () {
+                                setState(() {
+                                  selectedCategory = 'Celebratory';
+                                });
+                              },
+                              child: Text(
+                                  "Celebratory",
+                                style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: selectedCategory == 'Celebratory'
+                                    ? Color(0xffAD88C6)
+                                    : Color(0xb3eed5ff),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      bottomLeft: Radius.circular(10)
+                                  ),
+                                ),
+                              ),
+                            ),
+
+                            ElevatedButton(
+                              onPressed: () {
+                                setState(() {
+                                  selectedCategory = 'HallOwner';
+                                });
+                              },
+                              child: Text(
+                                  "Hall Owner",
+                                style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: selectedCategory == 'HallOwner'
+                                    ? Color(0xffAD88C6)
+                                    : Color(0xb3eed5ff),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(0),
+                                ),
+                              ),
+                            ),
+
+                            ElevatedButton(
+                              onPressed: () {
+                                setState(() {
+                                  selectedCategory = 'Admin';
+                                });
+                              },
+                              child: Text(
+                                  "Admin",
+                                style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: selectedCategory == 'Admin'
+                                    ? Color(0xffAD88C6)
+                                    : Color(0xb3eed5ff),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(10),
+                                      bottomRight: Radius.circular(10)
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+
                         Text("Create Your Account",
                           style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
                         ),
