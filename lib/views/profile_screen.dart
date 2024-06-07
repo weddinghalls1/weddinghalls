@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../view_model/profile_view_model.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key, required String category}) : super(key: key);
+  const ProfileScreen({Key? key}) : super(key: key);
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
