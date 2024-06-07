@@ -49,7 +49,7 @@ class _MainPageState extends State<MainPage> {
 
 
 
-      home:HomeSwitch(),
+      home:ProfileScreen(category: '',),
       //HomePage(),
 
 

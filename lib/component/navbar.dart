@@ -14,7 +14,7 @@ class HomeNavigationBar extends StatefulWidget {
 }
 
 class _HomeNavigationBarState extends State<HomeNavigationBar> {
-  final screen = [HomeScreen(),  ProfileScreen()];
+  final screen = [HomeScreen(),  ProfileScreen(category: '',)];
   int _selectedScreenIndex = 0;
 
   void _selectScreen(int index) {

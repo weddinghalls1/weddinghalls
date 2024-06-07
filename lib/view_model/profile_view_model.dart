@@ -10,6 +10,7 @@ class ProfileViewModel {
   String? userName;
   String? location;
   String? profileImageUrl;
+  String? userType;
 
   Future<void> fetchUserData(String userId) async {
     try {
@@ -20,6 +21,7 @@ class ProfileViewModel {
         userName = userData['userName'];
         location = userData['location'];
         profileImageUrl = userData['profileImageUrl'];
+        userType = userData['userType'];
       } else {
         print('No user found with userId: $userId');
       }
@@ -51,7 +53,7 @@ class ProfileViewModel {
       TaskSnapshot taskSnapshot = await uploadTask;
       String downloadUrl = await taskSnapshot.ref.getDownloadURL();
 
-      await _firestore.collection('users').doc(userId).update({
+      await _firestore.collection('user').doc(userId).update({
         'profileImageUrl': downloadUrl,
       });
 
@@ -64,7 +66,7 @@ class ProfileViewModel {
 
   Future<void> deleteUserData(String userId) async {
     try {
-      await _firestore.collection('users').doc(userId).delete();
+      await _firestore.collection('user').doc(userId).delete();
       Reference storageRef = _storage.ref().child('profile_images/$userId.jpg');
       await storageRef.delete();
     } catch (e) {

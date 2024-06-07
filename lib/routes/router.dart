@@ -24,7 +24,7 @@ var kRoutes = {
 
   '/homepage':(context)=>HomeScreen(),
   '/':(context)=>HomeNavigationBar(),
-  '/profile':(context)=>ProfileScreen(),
+  '/profile':(context)=>ProfileScreen(category: '',),
   '/add-hall':(context)=>CombinedPage(),
   '/ReservationPage':(context)=>ReservationPage(),
 '/CheckoutPage ':(context)=>CheckoutPage(),
