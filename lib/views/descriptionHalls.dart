@@ -14,6 +14,7 @@ class DescriptionHalls extends StatefulWidget {
   @override
   _DescriptionHallsState createState() => _DescriptionHallsState();
 }
+
 class _DescriptionHallsState extends State<DescriptionHalls> {
   final DescriptionViewModel _viewModel = DescriptionViewModel();
   DescriptionModel? _description;
@@ -65,23 +66,6 @@ class _DescriptionHallsState extends State<DescriptionHalls> {
     );
   }
 
-  Future<void> _selectDateTime(BuildContext context) async {
-    final DateTime? pickedDateTime = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime(2101),
-    );
-    if (pickedDateTime != null) {
-      setState(() {
-        selectedDateTime = pickedDateTime;
-      });
-    }
-  }
-
-  DateTime? selectedDateTime = DateTime.now();
-  String? selectedTiming;
-
   @override
   Widget build(BuildContext context) {
     if (_description == null) {
@@ -131,95 +115,21 @@ class _DescriptionHallsState extends State<DescriptionHalls> {
                 const SizedBox(height: 10.0),
                 _buildValueBox('Hall Location:', _description!.hallLocation),
                 const SizedBox(height: 10.0),
-                _buildValueBox(
-                    'Reservation Price:', _description!.reservationPrice),
+                _buildValueBox('Reservation Price:', _description!.reservationPrice),
                 const SizedBox(height: 10.0),
-                _buildValueBox('Number of Sections:',
-                    _description!.numberOfSections.toString()),
+                _buildValueBox('Number of Sections:', _description!.numberOfSections.toString()),
                 const SizedBox(height: 10.0),
-                _buildValueBox('Minimum Reservation Capacity:',
-                    _description!.minimumReservationCapacity.toString()),
+                _buildValueBox('Minimum Reservation Capacity:', _description!.minimumReservationCapacity.toString()),
                 const SizedBox(height: 10.0),
-                _buildValueBox('Number of Seats for Men:',
-                    _description!.numberOfSeatsMen.toString()),
+                _buildValueBox('Number of Seats for Men:', _description!.numberOfSeatsMen.toString()),
                 const SizedBox(height: 10.0),
-                _buildValueBox('Number of Seats for Women:',
-                    _description!.numberOfSeatsWomen.toString()),
+                _buildValueBox('Number of Seats for Women:', _description!.numberOfSeatsWomen.toString()),
                 const SizedBox(height: 10.0),
-                _buildValueBox('Number of Flight Attendants (Men):',
-                    _description!.numberOfFlightAttendantsMen.toString()),
+                _buildValueBox('Number of Flight Attendants (Men):', _description!.numberOfFlightAttendantsMen.toString()),
                 const SizedBox(height: 10.0),
-                _buildValueBox('Number of Flight Attendants (Women):',
-                    _description!.numberOfFlightAttendantsWomen.toString()),
+                _buildValueBox('Number of Flight Attendants (Women):', _description!.numberOfFlightAttendantsWomen.toString()),
                 const SizedBox(height: 10.0),
-                _buildValueBox('Number of Entrances (Doors):',
-                    _description!.numberOfEntrances.toString()),
-                const SizedBox(height: 20.0),
-                // Select Date
-                const Text('Date:', style: TextStyle(color: Colors.black)),
-                const SizedBox(height: 10.0),
-                ElevatedButton(
-                  onPressed: () => _selectDateTime(context),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                    const Color(0xFF7469B6), // Background color
-                  ),
-                  child: const Text(
-                    'Select Date',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-                const SizedBox(height: 10.0),
-                Text(
-                  'Selected Date: ${selectedDateTime.toString()}',
-                  style: const TextStyle(fontSize: 16.0, color: Colors.black),
-                ),
-                const SizedBox(height: 20.0),
-                // Select Timing
-                const Text('Select Timing:',
-                    style: TextStyle(color: Colors.black)),
-                CheckboxListTile(
-                  title:
-                  const Text('Morning reservation at 9:00 AM - 11:30 AM'),
-                  value: selectedTiming ==
-                      'Morning reservation at 9:00 AM - 11:30 AM',
-                  onChanged: (value) {
-                    setState(() {
-                      if (value == true) {
-                        selectedTiming =
-                        'Morning reservation at 9:00 AM - 11:30 AM';
-                      }
-                    });
-                  },
-                ),
-                CheckboxListTile(
-                  title:
-                  const Text('Evening reservation at 14:00 PM - 16:30 PM'),
-                  value: selectedTiming ==
-                      'Evening reservation at 14:00 PM - 16:30 PM',
-                  onChanged: (value) {
-                    setState(() {
-                      if (value == true) {
-                        selectedTiming =
-                        'Evening reservation at 14:00 PM - 16:30 PM';
-                      }
-                    });
-                  },
-                ),
-                CheckboxListTile(
-                  title: const Text(
-                      'Late evening reservation at 19:00 PM - 21:30 PM'),
-                  value: selectedTiming ==
-                      'Late evening reservation at 19:00 PM - 21:30 PM',
-                  onChanged: (value) {
-                    setState(() {
-                      if (value == true) {
-                        selectedTiming =
-                        'Late evening reservation at 19:00 PM - 21:30 PM';
-                      }
-                    });
-                  },
-                ),
+                _buildValueBox('Number of Entrances (Doors):', _description!.numberOfEntrances.toString()),
                 const SizedBox(height: 20.0),
                 // Add to Favorites Button
                 ElevatedButton(
@@ -235,8 +145,7 @@ class _DescriptionHallsState extends State<DescriptionHalls> {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(
-                        0xFF7469B6), // Purplish-blue background color
+                    backgroundColor: const Color(0xFF7469B6), // Purplish-blue background color
                   ),
                   child: const Text(
                     'Add to Favorites',
@@ -247,28 +156,16 @@ class _DescriptionHallsState extends State<DescriptionHalls> {
                 // Reservation Confirmation Button
                 ElevatedButton(
                   onPressed: () {
-                    if (selectedDateTime != null && selectedTiming != null) {
-                      // Show success message
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Reservation successful!'),
-                          backgroundColor: Colors.green,
-                        ),
-                      );
-                    } else {
-                      // Show failure message
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content:
-                          Text('Failed: Please select date and timing.'),
-                          backgroundColor: Colors.red,
-                        ),
-                      );
-                    }
+                    // Show success message
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Reservation successful!'),
+                        backgroundColor: Colors.green,
+                      ),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(
-                        0xFF7469B6), // Purplish-blue background color
+                    backgroundColor: const Color(0xFF7469B6), // Purplish-blue background color
                   ),
                   child: const Text(
                     'Reservation Confirmation',

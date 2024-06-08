@@ -4,6 +4,7 @@ import 'package:weddinghalls/views/My_halls.dart';
 import 'package:weddinghalls/views/SelectPage.dart';
 import 'package:weddinghalls/views/admin_description_view.dart';
 import 'package:weddinghalls/views/combined_view.dart';
+import 'package:weddinghalls/views/descriptionHalls.dart';
 import 'package:weddinghalls/views/profile_screen.dart';
 
 import 'package:weddinghalls/views/onboarding_view.dart';
@@ -48,7 +49,7 @@ class _MainPageState extends State<MainPage> {
 
 
 
-      home:HallsPage (),
+      home:DescriptionHalls(),
       //HomePage(),
 
 
