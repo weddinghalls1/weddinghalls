@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../view_model/profile_view_model.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -15,11 +16,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController userNameController = TextEditingController();
   final TextEditingController locationController = TextEditingController();
 
-  String userId = 'n46Kwor3rjfFPQZErGQ4'; // Make userId available in the widget
+  String userId = 'n46Kwor3rjfFPQZErGQ4';
+  String? userType;
 
   @override
   void initState() {
     super.initState();
+    _loadUserType();
     viewModel.fetchUserData(userId).then((_) {
       if (mounted) {
         setState(() {
@@ -31,12 +34,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
+  Future<void> _loadUserType() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userType = prefs.getString('userType');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('My Profile'),
-        backgroundColor: Colors.pink,
+        backgroundColor: Color(0xFF7469B6),
         elevation: 0,
       ),
       body: Container(
@@ -60,11 +70,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
             inputField('Location', locationController),
             SizedBox(height: 20),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.pink),
+              style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF7469B6)),
               onPressed: () async {
                 try {
                   await viewModel.updateUserData(
-                    userId, // Include userId
+                    userId,
                     userNameController.text,
                     locationController.text,
                   );
@@ -77,23 +87,70 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   );
                 }
               },
-              child: Text('Save Changes'),
+              child: Text(
+                'Save Changes',
+                style: TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.bold),
+              ),
             ),
             SizedBox(height: 20),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.pink),
-              onPressed: () {
-                Navigator.of(context).pushNamed('/my_reservations');
-              },
-              child: Text('My Reservations'),
-            ),
+            if (userType == 'user')
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF7469B6)),
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/my_reservations');
+                },
+                child: Text(
+                  'My Reservations',
+                  style: TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.bold),
+                ),
+              ),
+            if (userType == 'admin')
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF7469B6)),
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/halls');
+                },
+                child: Text(
+                  'Halls',
+                  style: TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.bold),
+                ),
+              ),
+            if (userType == 'hall_owner')
+              Column(
+                children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF7469B6)),
+                    onPressed: () {
+                      Navigator.of(context).pushNamed('/adding_halls');
+                    },
+                    child: Text(
+                      'Adding Halls',
+                      style: TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF7469B6)),
+                    onPressed: () {
+                      Navigator.of(context).pushNamed('/my_halls');
+                    },
+                    child: Text(
+                      'My Halls',
+                      style: TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
             SizedBox(height: 20),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.pink),
+              style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF7469B6)),
               onPressed: () {
                 Navigator.of(context).pushReplacementNamed('/login');
               },
-              child: Text('Sign Out'),
+              child: Text(
+                'Sign Out',
+                style: TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.bold),
+              ),
             )
           ],
         ),
@@ -101,8 +158,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget inputField(String label, TextEditingController controller,
-      {bool readOnly = false}) {
+  Widget inputField(String label, TextEditingController controller, {bool readOnly = false}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: TextFormField(
