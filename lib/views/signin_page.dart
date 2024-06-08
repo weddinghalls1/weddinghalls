@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
-import 'ForgetPassword.dart';
 import '../view_model/signin_view_model.dart';
 
 class SigninPage extends StatefulWidget {
@@ -203,12 +202,7 @@ class _SigninPageState extends State<SigninPage> {
                         ),
                         SizedBox(height: 20),
                         TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => ForgetPassword()),
-                              );
-                            },
+                            onPressed: () { },
                             child: const Align(
                               alignment: Alignment.centerRight,
                               child:  Text(
