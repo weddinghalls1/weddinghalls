@@ -19,6 +19,8 @@ class _SignupPageState extends State<SignupPage> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
   String selectedCategory = '';
+  bool _isPasswordVisible = false;
+  bool _isConfirmPasswordVisible = false;
 
   Future signup() async {
     if (isPasswordConfirmed()) {
@@ -75,17 +77,17 @@ class _SignupPageState extends State<SignupPage> {
                 color: Color(0xffAD88C6),
               ),
               child:  Padding(
-                padding: EdgeInsets.only(bottom: 100, left: 7),
+                padding: EdgeInsets.only(bottom: 120, left: 7),
                 child: Image.asset(
                     "images/logo.png"
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 200.0),
+              padding: const EdgeInsets.only(top: 170.0),
               child: SingleChildScrollView(
                 child: Container(
-                  height: screenHeight - 200,
+                  height: screenHeight - 170,
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40)),
                     color: Color(0xffFFE6E6),
@@ -165,7 +167,7 @@ class _SignupPageState extends State<SignupPage> {
                             ),
                           ],
                         ),
-
+                        SizedBox(height: 20,),
                         Text("Create Your Account",
                           style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
                         ),
@@ -176,6 +178,7 @@ class _SignupPageState extends State<SignupPage> {
                           decoration: InputDecoration(
                             labelText: 'Full Name',
                             labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Color(0xffAD88C6)),
+                            prefixIcon: Icon(Icons.person),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide: BorderSide(color: Color(0xffAD88C6), width: 2),
@@ -192,6 +195,7 @@ class _SignupPageState extends State<SignupPage> {
                           decoration: InputDecoration(
                             labelText: 'Phone',
                             labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Color(0xffAD88C6)),
+                            prefixIcon: Icon(Icons.phone),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide: BorderSide(color: Color(0xffAD88C6), width: 2),
@@ -208,6 +212,7 @@ class _SignupPageState extends State<SignupPage> {
                           decoration: InputDecoration(
                             labelText: 'Email',
                             labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Color(0xffAD88C6)),
+                            prefixIcon: Icon(Icons.mail),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide: BorderSide(color: Color(0xffAD88C6), width: 2),
@@ -221,10 +226,24 @@ class _SignupPageState extends State<SignupPage> {
                         SizedBox(height: 20),
                         TextField(
                           controller: passwordController,
-                          obscureText: true,
+                          obscureText: !_isPasswordVisible,
                           decoration: InputDecoration(
                             labelText: 'Password',
                             labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Color(0xffAD88C6)),
+                            prefixIcon: Icon(Icons.lock),
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _isPasswordVisible
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _isPasswordVisible =
+                                  !_isPasswordVisible;
+                                });
+                              },
+                            ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide: BorderSide(color: Color(0xffAD88C6), width: 2),
@@ -238,10 +257,24 @@ class _SignupPageState extends State<SignupPage> {
                         SizedBox(height: 20),
                         TextField(
                           controller: confirmPasswordController,
-                          obscureText: true,
+                          obscureText: !_isConfirmPasswordVisible,
                           decoration: InputDecoration(
                             labelText: 'Confirm Password',
                             labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Color(0xffAD88C6)),
+                            prefixIcon: Icon(Icons.lock),
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _isConfirmPasswordVisible
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _isConfirmPasswordVisible =
+                                  !_isConfirmPasswordVisible;
+                                });
+                              },
+                            ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide: BorderSide(color: Color(0xffAD88C6), width: 2),
@@ -270,7 +303,7 @@ class _SignupPageState extends State<SignupPage> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 25),
+                        SizedBox(height: 10),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
