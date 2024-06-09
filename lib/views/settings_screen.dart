@@ -39,7 +39,7 @@ class _SettingsPageState extends State<SettingsPage> {
             const CircleAvatar(
               radius: 40,
               backgroundImage: NetworkImage(
-                  'https://www.shareicon.net/man-user-avatar-profile-people-770137'), // Add your profile image URL here
+                  'https://photographylife.com/cdn-cgi/imagedelivery/GrQZt6ZFhE4jsKqjDEtqRA/photographylife.com/2014/10/Nikon-D750-Sample-Image-33.jpg/w=960'), // Add your profile image URL here
               backgroundColor: Colors.transparent,
             ),
             const SizedBox(height: 10),
