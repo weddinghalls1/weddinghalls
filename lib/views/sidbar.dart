@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:weddinghalls/model/user_model.dart';
 import 'package:weddinghalls/views/favorit_screen.dart';
 import '../view_model/user_viewmodel.dart';
+import 'package:weddinghalls/views/settings_screen.dart';
+
 
 class Sidebar extends StatefulWidget {
   @override
@@ -84,10 +86,16 @@ class _SidebarState extends State<Sidebar> {
               },
             ),
             ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Settings'),
+              leading: const Icon(Icons.settings),
+              title: const Text('Settings'),
               onTap: () {
                 Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SettingsPage(),
+                  ),
+                );
               },
             ),
             ListTile(

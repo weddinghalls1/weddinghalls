@@ -10,6 +10,8 @@ import 'package:weddinghalls/views/home_switch.dart';
 import 'package:weddinghalls/views/profile_screen.dart';
 
 import 'package:weddinghalls/views/onboarding_view.dart';
+import 'package:weddinghalls/views/settings_screen.dart';
+import 'package:weddinghalls/views/sidbar.dart';
 import 'firebase_options.dart';
 import 'package:weddinghalls/views/home_screen.dart';
 import 'package:flutter/services.dart';
@@ -51,8 +53,7 @@ class _MainPageState extends State<MainPage> {
 
 
 
-      home:DescriptionHalls(),
-      home:ProfileScreen(),
+      home:SettingsPage(),
       //HomePage(),
 
 
