@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:weddinghalls/view_model/detailsReservation_view_model.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:weddinghalls/view_model/detailsReservation_view_model.dart';
+
 
 class HallDetailsReservation extends StatefulWidget {
   const HallDetailsReservation({Key? key}) : super(key: key);

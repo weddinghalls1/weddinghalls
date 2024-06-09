@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weddinghalls/views/My_halls.dart';
 import 'package:weddinghalls/views/addNewCard_view.dart';
+import 'package:weddinghalls/views/detailsReservation_view.dart';
 import 'package:weddinghalls/views/select_page.dart';
 import 'package:weddinghalls/views/admin_description_view.dart';
 import 'package:weddinghalls/views/combined_view.dart';
@@ -51,7 +52,7 @@ class _MainPageState extends State<MainPage> {
 
 
 
-      home:AddCardPayment(),
+      home:HallDetailsReservation(),
       //HomePage(),
 
 
