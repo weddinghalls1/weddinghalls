@@ -54,6 +54,8 @@ class _MainPageState extends State<MainPage> {
 
 
       home:SettingsPage(),
+
+
       //HomePage(),
 
 
