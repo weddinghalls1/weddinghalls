@@ -4,6 +4,8 @@ import 'package:weddinghalls/model/user_model.dart';
 import 'package:weddinghalls/views/favorit_screen.dart';
 import 'package:weddinghalls/views/settings_screen.dart';
 import '../view_model/user_viewmodel.dart';
+import 'package:weddinghalls/views/settings_screen.dart';
+
 
 class Sidebar extends StatefulWidget {
   @override
