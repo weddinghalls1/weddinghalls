@@ -52,7 +52,7 @@ class _MainPageState extends State<MainPage> {
 
 
       home:DescriptionHalls(),
-      home:ProfileScreen(),
+
       //HomePage(),
 
 

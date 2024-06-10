@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:weddinghalls/model/user_model.dart';
 import 'package:weddinghalls/views/favorit_screen.dart';
+import 'package:weddinghalls/views/settings_screen.dart';
 import '../view_model/user_viewmodel.dart';
 
 class Sidebar extends StatefulWidget {
@@ -35,9 +36,9 @@ class _SidebarState extends State<Sidebar> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             user == null
-                ? CircularProgressIndicator()
+                ? const CircularProgressIndicator()
                 : DrawerHeader(
-              decoration: BoxDecoration(
+              decoration:  const BoxDecoration(
                 color: Color(0xFFFFC0CB), // Pastel pink color
               ),
               child: Row(
@@ -46,48 +47,58 @@ class _SidebarState extends State<Sidebar> {
                     radius: 40,
                     backgroundImage: NetworkImage(user!.profileImageUrl),
                   ),
-                  SizedBox(width: 16),
-                  Column(
+                   const SizedBox(width: 16),
+              Expanded(
+                child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         user!.username,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
-                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
                       Text(
                         user!.email,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 14,
                           color: Colors.black,
                         ),
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ],
+                   ),
                   ),
                 ],
               ),
             ),
             ListTile(
-              leading: Icon(Icons.favorite),
-              title: Text('Favorite'),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        FavoritScreen(),
+              leading: const Icon(Icons.favorite),
+              title: const Text('Favorite'),
+              onTap: () {  Navigator.pop(context);
+              Navigator.of(context).push(
+
+                MaterialPageRoute(
+                  builder: (context) => const FavoritScreen(),
                   ),
                 );
               },
             ),
             ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Settings'),
+              leading: const Icon(Icons.settings),
+              title: const Text('Settings'),
               onTap: () {
                 Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SettingsPage(),
+                  ),
+                );
               },
             ),
             ListTile(
