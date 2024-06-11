@@ -53,7 +53,7 @@ class _MainPageState extends State<MainPage> {
 
 
 
-      home:HallDetailsReservation(),
+      home:HomeSwitch(),
       //HomePage(),
 
 
