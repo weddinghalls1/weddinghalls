@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weddinghalls/views/My_halls.dart';
 import 'package:weddinghalls/views/SelectPage.dart';
 import 'package:weddinghalls/views/admin_description_view.dart';
+import 'package:weddinghalls/views/admin_halls.dart';
 import 'package:weddinghalls/views/combined_view.dart';
 import 'package:weddinghalls/views/descriptionHalls.dart';
 import 'package:weddinghalls/views/home_switch.dart';
@@ -12,6 +13,7 @@ import 'package:weddinghalls/views/profile_screen.dart';
 import 'package:weddinghalls/views/onboarding_view.dart';
 import 'package:weddinghalls/views/settings_screen.dart';
 import 'package:weddinghalls/views/sidbar.dart';
+import 'package:weddinghalls/views/signin_page.dart';
 import 'firebase_options.dart';
 import 'package:weddinghalls/views/home_screen.dart';
 import 'package:flutter/services.dart';
@@ -53,7 +55,7 @@ class _MainPageState extends State<MainPage> {
 
 
 
-      home:SettingsPage(),
+      home:AdminHallsScreen(),
 
 
       //HomePage(),
