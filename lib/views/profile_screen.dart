@@ -110,8 +110,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 onPressed: () {
                   Navigator.of(context).pushNamed('/halls');
                 },
-                child: Text(
-                  'Halls',
+                child: Text('Halls',
                   style: TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.bold),
                 ),
               ),
