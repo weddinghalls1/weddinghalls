@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-
+import 'package:weddinghalls/views/sidbar.dart';
 import '../model/home_model.dart';
 import '../view_model/home_view_model.dart';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -14,6 +16,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    viewModel.fetchData();
+
   }
 
   @override
@@ -24,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
+      drawer:Sidebar(),
       body: SingleChildScrollView(
         child: Container(
           decoration: BoxDecoration(
@@ -53,7 +58,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               Center(
-                child: Image.asset('images/logo.png', width: 200, height: 200, fit: BoxFit.cover),
+                child: Image.asset('images/logo.png',
+                    width: 200, height: 200, fit: BoxFit.cover),
               ),
               FutureBuilder(
                 future: viewModel.fetchData(),
@@ -95,7 +101,8 @@ class _HomeScreenState extends State<HomeScreen> {
             // MaterialPageRoute(builder: (context) => HallDetailsScreen(hall: hall)),
             // );
           },
-          child: Image.network(hall.imageUrl, width: 200, height: 200, fit: BoxFit.cover),
+          child: Image.network(hall.imageUrl,
+              width: 200, height: 200, fit: BoxFit.cover),
         ),
         Center(
           child: Text(

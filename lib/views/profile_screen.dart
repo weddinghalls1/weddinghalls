@@ -46,7 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('My Profile'),
-        backgroundColor: Colors.pink,
+        backgroundColor: Color(0xFF7469B6),
         elevation: 0,
       ),
       body: Container(
@@ -70,7 +70,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             inputField('Location', locationController),
             SizedBox(height: 20),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.pink),
+              style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF7469B6)),
               onPressed: () async {
                 try {
                   await viewModel.updateUserData(
@@ -87,52 +87,69 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   );
                 }
               },
-              child: Text('Save Changes'),
+              child: Text(
+                'Save Changes',
+                style: TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.bold),
+              ),
             ),
             SizedBox(height: 20),
             if (userType == 'user')
               ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.pink),
+                style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF7469B6)),
                 onPressed: () {
                   Navigator.of(context).pushNamed('/my_reservations');
                 },
-                child: Text('My Reservations'),
+                child: Text(
+                  'My Reservations',
+                  style: TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.bold),
+                ),
               ),
             if (userType == 'admin')
               ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.pink),
+                style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF7469B6)),
                 onPressed: () {
                   Navigator.of(context).pushNamed('/halls');
                 },
-                child: Text('Halls'),
+                child: Text('Halls',
+                  style: TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.bold),
+                ),
               ),
             if (userType == 'hall_owner')
               Column(
                 children: [
                   ElevatedButton(
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.pink),
+                    style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF7469B6)),
                     onPressed: () {
                       Navigator.of(context).pushNamed('/adding_halls');
                     },
-                    child: Text('Adding Halls'),
+                    child: Text(
+                      'Adding Halls',
+                      style: TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.bold),
+                    ),
                   ),
                   SizedBox(height: 20),
                   ElevatedButton(
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.pink),
+                    style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF7469B6)),
                     onPressed: () {
                       Navigator.of(context).pushNamed('/my_halls');
                     },
-                    child: Text('My Halls'),
+                    child: Text(
+                      'My Halls',
+                      style: TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ],
               ),
             SizedBox(height: 20),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.pink),
+              style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF7469B6)),
               onPressed: () {
                 Navigator.of(context).pushReplacementNamed('/login');
               },
-              child: Text('Sign Out'),
+              child: Text(
+                'Sign Out',
+                style: TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.bold),
+              ),
             )
           ],
         ),
@@ -154,4 +171,3 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 }
-

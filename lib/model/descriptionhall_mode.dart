@@ -12,8 +12,6 @@ class DescriptionModel {
   final int numberOfFlightAttendantsWomen;
   final int numberOfEntrances;
   final List<String> photoUrls;
-final String selectedDateTime;
-final String selectedTiming;
 
   DescriptionModel({
     required this.hallName,
@@ -27,8 +25,6 @@ final String selectedTiming;
     required this.numberOfFlightAttendantsWomen,
     required this.numberOfEntrances,
     required this.photoUrls,
-    required this.selectedDateTime,
-    required this.selectedTiming,
   });
 
   factory DescriptionModel.fromMap(Map<String, dynamic> data) {
@@ -44,8 +40,6 @@ final String selectedTiming;
       numberOfFlightAttendantsWomen: data['numberOfFlightAttendantsWomen'] ?? 0,
       numberOfEntrances: data['numberOfEntrances'] ?? 0,
       photoUrls: List<String>.from(data['photoUrls'] ?? []),
-      selectedDateTime:data['selectedDateTime'] ?? '' ,
-      selectedTiming:data['selectedTiming'] ?? '',
     );
   }
 }
