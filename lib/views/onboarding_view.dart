@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:weddinghalls/view_model/onboarding_viewmodel.dart';
 import 'package:weddinghalls/views/signin_page.dart';
 
-import 'Signup.dart';
+import 'signup_view.dart';
 import 'home_screen.dart';
 
 

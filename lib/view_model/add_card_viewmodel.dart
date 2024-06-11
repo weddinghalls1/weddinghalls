@@ -1,12 +1,12 @@
-import 'package:firebase_database/firebase_database.dart';
-import 'package:weddinghalls/model/add_card_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../model/add_card_model.dart';
 
 class CardViewModel {
-  final DatabaseReference _dbRef = FirebaseDatabase.instance.reference();
-
   Future<void> saveCardDetails(CardModel card) async {
     try {
-      await _dbRef.child(card.cardType).push().set(card.toJson());
+      await FirebaseFirestore.instance
+          .collection(card.cardType)
+          .add(card.toJson());
       print('Card Added');
     } catch (error) {
       print('Failed to add card: $error');

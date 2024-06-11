@@ -1,9 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
-import 'ForgetPassword.dart';
 import '../view_model/signin_view_model.dart';
 
 class SigninPage extends StatefulWidget {
@@ -19,41 +16,25 @@ class _SigninPageState extends State<SigninPage> {
   final passwordController = TextEditingController();
   final viewModel = SigninViewModel();
   String selectedCategory = '';
-
+  bool _isPasswordVisible = false;
 
   void login() async {
-    try {
-      UserCredential userCredential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(
-          email: emailController.text.trim(),
-          password: passwordController.text.trim());
-
-
-      DocumentSnapshot userDoc = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(userCredential.user!.uid)
-          .get();
-
-      if (userDoc.exists) {
-        String category = userDoc['category'];
-        if (category == selectedCategory) {
-
-          print('User category matches: $category');
-          QuickAlert.show(context: context, type: QuickAlertType.success);
-        } else {
-          QuickAlert.show(
-              context: context,
-              type: QuickAlertType.error,
-              title: 'Error',
-              text: 'Selected category does not match');
-          FirebaseAuth.instance.signOut();
-        }
-      } else {
-        QuickAlert.show(context: context, type: QuickAlertType.error);
-      }
-    } catch (e) {
-      QuickAlert.show(context: context, type: QuickAlertType.error);
+    if (selectedCategory.isEmpty) {
+      QuickAlert.show(
+        context: context,
+        type: QuickAlertType.error,
+        title: 'Error',
+        text: 'Please select a category before logging in',
+      );
+      return;
     }
+
+    await viewModel.login(
+      emailController.text.trim(),
+      passwordController.text.trim(),
+      selectedCategory,
+      context,
+    );
   }
 
   @override
@@ -74,9 +55,7 @@ class _SigninPageState extends State<SigninPage> {
               ),
               child: Padding(
                 padding: EdgeInsets.only(bottom: 100, left: 7),
-                child: Image.asset(
-                    "images/logo.png"
-                ),
+                child: Image.asset("images/logo.png"),
               ),
             ),
             Padding(
@@ -110,7 +89,7 @@ class _SigninPageState extends State<SigninPage> {
                                 backgroundColor: selectedCategory == 'Celebratory'
                                     ? Color(0xffAD88C6)
                                     : Color(0xb3eed5ff),
-                                shape: RoundedRectangleBorder(
+                                shape: const RoundedRectangleBorder(
                                   borderRadius: BorderRadius.only(
                                       topLeft: Radius.circular(10),
                                       bottomLeft: Radius.circular(10)
@@ -153,7 +132,7 @@ class _SigninPageState extends State<SigninPage> {
                                 backgroundColor: selectedCategory == 'Admin'
                                     ? Color(0xffAD88C6)
                                     : Color(0xb3eed5ff),
-                                shape: RoundedRectangleBorder(
+                                shape: const RoundedRectangleBorder(
                                   borderRadius: BorderRadius.only(
                                       topRight: Radius.circular(10),
                                       bottomRight: Radius.circular(10)
@@ -164,11 +143,11 @@ class _SigninPageState extends State<SigninPage> {
                           ],
                         ),
                         SizedBox(height: 20,),
-                        Text(
+                        const Text(
                           "Hello!",
                           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                         ),
-                        Text(
+                        const Text(
                           "Sign in",
                           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                         ),
@@ -177,7 +156,7 @@ class _SigninPageState extends State<SigninPage> {
                         TextField(
                           controller: emailController,
                           decoration: InputDecoration(
-                            //suffixIcon: Icon(Icons.check, color: Colors.grey),
+                            prefixIcon: Icon(Icons.mail),
                             labelText: 'Email',
                             labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Color(0xffAD88C6)),
                             border: OutlineInputBorder(
@@ -193,9 +172,22 @@ class _SigninPageState extends State<SigninPage> {
                         SizedBox(height: 20),
                         TextField(
                           controller: passwordController,
-                          obscureText: true,
+                          obscureText: !_isPasswordVisible,
                           decoration: InputDecoration(
-                            //suffixIcon: Icon(Icons.visibility_off, color: Colors.grey),
+                            prefixIcon: Icon(Icons.lock),
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _isPasswordVisible
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _isPasswordVisible =
+                                  !_isPasswordVisible;
+                                });
+                              },
+                            ),
                             labelText: 'Password',
                             labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Color(0xffAD88C6)),
                             border: OutlineInputBorder(
@@ -210,12 +202,7 @@ class _SigninPageState extends State<SigninPage> {
                         ),
                         SizedBox(height: 20),
                         TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => ForgetPassword()),
-                              );
-                            },
+                            onPressed: () { },
                             child: const Align(
                               alignment: Alignment.centerRight,
                               child:  Text(
@@ -243,7 +230,7 @@ class _SigninPageState extends State<SigninPage> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 20),  // Reduced space
+                        SizedBox(height: 10),  // Reduced space
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -254,10 +241,6 @@ class _SigninPageState extends State<SigninPage> {
                             TextButton(
                               onPressed: () {
                                 widget.onClickedSignUp();
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(builder: (context) => SignupPage()),
-                                //);
                               },
                               child: const Text(
                                 "Sign up",
@@ -273,20 +256,6 @@ class _SigninPageState extends State<SigninPage> {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-  Widget _roleButton(String role) {
-    return ElevatedButton(
-      onPressed: () {
-        // Define what happens when you tap the button
-      },
-      child: Text(role),
-      style: ElevatedButton.styleFrom(
-        foregroundColor: Colors.black, backgroundColor: Colors.purple[100],
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(18.0),
         ),
       ),
     );
