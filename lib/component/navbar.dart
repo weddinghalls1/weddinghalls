@@ -15,8 +15,11 @@ class HomeNavigationBar extends StatefulWidget {
 }
 
 class _HomeNavigationBarState extends State<HomeNavigationBar> {
-  final screen = [HomeScreen(),  ProfileScreen()];
-  int _selectedScreenIndex = 0;
+  final List<Widget> _screens = [
+    const HomeScreen(),
+    HallSelectionPage(),
+    const ProfileScreen()
+  ];  int _selectedScreenIndex = 0;
 
   void _selectScreen(int index) {
     setState(() {
@@ -25,34 +28,33 @@ class _HomeNavigationBarState extends State<HomeNavigationBar> {
   }
 
   @override
+  @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async => false,
-      child: SafeArea(
-        child: Scaffold(
-          body: screen[_selectedScreenIndex],
-          bottomNavigationBar: BottomNavigationBar(
-            currentIndex: _selectedScreenIndex,
-            unselectedItemColor: Colors.black,
-            selectedItemColor: Colors.red,
-            onTap: _selectScreen,
-            backgroundColor: Colors.white,
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.business),
-                label: 'Halls',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Profile',
-              ),
-            ],
+    return Scaffold(
+      body: IndexedStack(
+        index: _selectedScreenIndex,
+        children: _screens,
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedScreenIndex,
+        unselectedItemColor: Colors.black,
+        selectedItemColor: const Color.fromARGB(255, 82, 105, 145),
+        onTap: _selectScreen,
+        backgroundColor: Colors.white,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
           ),
-        ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.business),
+            label: 'Halls',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
       ),
     );
   }
