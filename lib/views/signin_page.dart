@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
+import 'package:weddinghalls/views/signup_view.dart';
 import '../view_model/signin_view_model.dart';
 
 class SigninPage extends StatefulWidget {
@@ -218,7 +219,7 @@ class _SigninPageState extends State<SigninPage> {
                           width: 300,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
-                            color: Color(0xffAD88C6),
+                            color: Color(0xFF7469B6),
                           ),
                           child: InkWell(
                             onTap: () => login(),
@@ -240,7 +241,16 @@ class _SigninPageState extends State<SigninPage> {
                             ),
                             TextButton(
                               onPressed: () {
-                                widget.onClickedSignUp();
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => SignupPage(
+                                      onClickedSignin: () {
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                  ),
+                                );
                               },
                               child: const Text(
                                 "Sign up",
