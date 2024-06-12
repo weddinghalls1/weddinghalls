@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weddinghalls/views/SelectPage.dart';
+import 'package:weddinghalls/views/select_page.dart';
 import 'package:weddinghalls/views/home_screen.dart';
 import 'package:weddinghalls/views/profile_screen.dart';
 import '../views/select_page.dart';
@@ -19,10 +19,7 @@ class _HomeNavigationBarState extends State<HomeNavigationBar> {
     const ProfileScreen()
   ];
   int _selectedScreenIndex = 0;
-    const HomeScreen(),
-    HallSelectionPage(),
-    const ProfileScreen()
-  ];  int _selectedScreenIndex = 0;
+
 
   void _selectScreen(int index) {
     setState(() {
@@ -56,11 +53,8 @@ class _HomeNavigationBarState extends State<HomeNavigationBar> {
             icon: Icon(Icons.person),
             label: 'Profile',
           ),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
+
+
         ],
       ),
     );

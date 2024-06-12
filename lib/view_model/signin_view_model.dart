@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
+import '../component/navbar.dart';
 import '../model/signin_model.dart';
+import '../views/home_screen.dart';
 
 class SigninViewModel {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -26,6 +28,7 @@ class SigninViewModel {
         if (category == selectedCategory) {
           print('User category matches: $category');
           QuickAlert.show(context: context, type: QuickAlertType.success);
+          Navigator.pushReplacement( context, MaterialPageRoute(builder: (context) => HomeNavigationBar()), );
         } else {
           await _auth.signOut();
           QuickAlert.show(

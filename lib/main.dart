@@ -31,7 +31,12 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+
   WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+
+
+      await prefs.setString('userType', 'user');
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -61,8 +66,8 @@ class _MainPageState extends State<MainPage> {
 
 
 
-      home:HomeNavigationBar(),
-      //home:OnboardingView(),
+     // home:HomeNavigationBar(),
+      home:OnboardingView(),
       //home:CheckoutPage(),
 
 

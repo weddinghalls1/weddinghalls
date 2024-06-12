@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:weddinghalls/model/user_model.dart';
@@ -107,7 +108,9 @@ class _SidebarState extends State<Sidebar> {
               leading: Icon(Icons.logout),
               title: Text('Logout'),
               onTap: () {
-                Navigator.pop(context);
+
+                  FirebaseAuth.instance.signOut();
+
               },
             ),
           ],

@@ -4,21 +4,9 @@ import '../model/checkout_model.dart';
 import '../view_model/checkout_viewmodel.dart';
 import 'package:payment_card/payment_card.dart';
 
-void main() {
-  runApp(MyApp());
-}
+import 'addNewCard_view.dart';
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: CheckoutPage(),
-      theme: ThemeData(
-        primarySwatch: Colors.purple,
-      ),
-    );
-  }
-}
+
 
 class CheckoutPage extends StatefulWidget {
   @override
@@ -136,6 +124,28 @@ class _CheckoutPageState extends State<CheckoutPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          SizedBox(height: 16.0),
+      SizedBox(
+        width: double.infinity,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Color(0xFF7469B6), // Dark purple color
+            padding: EdgeInsets.symmetric(vertical: 16.0),
+          ),
+          onPressed:() {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const AddCardPayment(),
+              ),
+            );
+          },
+
+          child: Text(
+            'new Card',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+      ),
           Text(
             label,
             style: TextStyle(color: Colors.white), // White text

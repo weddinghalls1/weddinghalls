@@ -64,7 +64,7 @@ class HallsViewModel {
       HallModel(
         name: "Banquet Hall",
         rating: 4,
-        imageUrl: "images/closed.jpeg",
+        imageUrl: "images/Open_air.jpeg",
         isOpen: true,
         priceReservation: 5000,
       ),
@@ -85,14 +85,14 @@ class HallsViewModel {
       HallModel(
         name: "Party Hall",
         rating: 3,
-        imageUrl: "images/closed.jpeg",
+        imageUrl: "images/mastercard.png",
         isOpen: true,
         priceReservation: 2000,
       ),
       HallModel(
         name: "Meeting Hall",
         rating: 4,
-        imageUrl: "images/closed.jpeg",
+        imageUrl: "images/Senussi_Places.jpeg",
         isOpen: false,
         priceReservation: 4000,
       ),

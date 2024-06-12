@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:weddinghalls/views/auth_screen.dart';
 import 'package:weddinghalls/views/home_page.dart';
+
+import 'home_screen.dart';
 class HomeSwitch extends StatelessWidget {
   const HomeSwitch({super.key});
 
@@ -12,7 +14,7 @@ class HomeSwitch extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (builder, snapshot) {
           if(snapshot.hasData){
-            return HomePage();
+            return HomeScreen();
           }else{
             return AuthScreen();
           }
