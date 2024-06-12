@@ -1,37 +1,24 @@
 import 'package:flutter/material.dart';
-
+import 'package:weddinghalls/model/hall_model.dart';
+import 'package:weddinghalls/view_model/admin_halls_view_model.dart';
 class AdminHallsScreen extends StatefulWidget {
   const AdminHallsScreen({super.key});
-
   @override
   State<AdminHallsScreen> createState() => _AdminHallsScreenState();
 }
-
 class _AdminHallsScreenState extends State<AdminHallsScreen> {
-  final List<Map<String, dynamic>> halls = [
-    {
-      'image': 'images/Senussi_Places.jpeg',
-      'title': 'Senussi Places',
-      'rating': 4.5,
-      'price': 500,
-      'location': 'Ramallah'
-    },
-    {
-      'image': 'images/Open_air.jpeg',
-      'title': 'Open Air',
-      'rating': 4.8,
-      'price': 750,
-      'location': 'Nablus'
-    },
-    {
-      'image': 'images/KataleaPalace2.jpeg',
-      'title': 'Katalea Palace',
-      'rating': 4.3,
-      'price': 400,
-      'location': 'Ramalla'
-    },
-  ];
-
+  final adminViewModel = AdminViewModelHall();
+  List<HallModel> adminhalls = [];
+  getData() async {
+    adminhalls = await adminViewModel.fetchAllHalls();
+    print(adminhalls.length);
+    setState(() {});
+  }
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,9 +28,9 @@ class _AdminHallsScreenState extends State<AdminHallsScreen> {
       backgroundColor: const Color(0xffFFE6E6),
       body: ListView.builder(
         padding: const EdgeInsets.all(8),
-        itemCount: halls.length,
+        itemCount: adminhalls.length,
         itemBuilder: (context, index) {
-          final hall = halls[index];
+          final hall = adminhalls[index];
           return Card(
             color: const Color.fromARGB(255, 255, 255, 255),
             margin: const EdgeInsets.symmetric(vertical: 8),
@@ -53,8 +40,10 @@ class _AdminHallsScreenState extends State<AdminHallsScreen> {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
-                    child: Image.asset(
-                      hall['image'],
+                    child: Image.network(
+                      hall.imageUrl == ""
+                          ? "https://th.bing.com/th/id/R.174d1d09fe1b5f15f427ea8411fe2a21?rik=1RMC%2bFU5tvWuRQ&pid=ImgRaw&r=0"
+                          : hall.imageUrl,
                       width: 150,
                       height: 150,
                       fit: BoxFit.cover,
@@ -66,7 +55,7 @@ class _AdminHallsScreenState extends State<AdminHallsScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          hall['title'],
+                          hall.hallName,
                           style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -78,10 +67,10 @@ class _AdminHallsScreenState extends State<AdminHallsScreen> {
                             const Icon(Icons.star,
                                 color: Colors.yellow, size: 25),
                             const SizedBox(width: 4),
-                            Text('${hall['rating']}'),
+                            Text('5'),
                             const SizedBox(width: 20),
                             Text(
-                              '\$${hall['price']}',
+                              '\$${hall.reservationPrice}',
                               style: const TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,
@@ -91,7 +80,7 @@ class _AdminHallsScreenState extends State<AdminHallsScreen> {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          hall['location'],
+                          hall.hallLocation,
                           style: const TextStyle(
                             fontSize: 16,
                             color: Colors.grey,
