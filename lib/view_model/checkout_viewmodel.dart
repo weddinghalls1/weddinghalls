@@ -6,9 +6,8 @@ class CardViewModel {
   Future<void> saveCardDetails(CardModel card) async {
     try {
       await FirebaseFirestore.instance
-          .collection('rahaf')
-          .doc('cards')
-          .set(card.toMap());
+          .collection('cards')
+          .add(card.toMap());
     } catch (e) {
       print('Error saving card details: $e');
     }

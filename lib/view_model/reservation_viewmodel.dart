@@ -7,7 +7,7 @@ class ReservationViewModel {
 
   Future<void> saveHallData(HallModel hallModel) async {
     try {
-      await _firestore.collection('rahaf').doc('reservation').set(hallModel.toMap());
+      await _firestore.collection('reservation').add(hallModel.toMap());
     } catch (e) {
       print('Error saving hall data: $e');
       throw e;
