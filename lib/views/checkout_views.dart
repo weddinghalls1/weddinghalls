@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: CheckoutPage(),
       theme: ThemeData(
-        primarySwatch: Colors.purple, // Define the primary color for the app
+        primarySwatch: Colors.purple,
       ),
     );
   }
