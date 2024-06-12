@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:weddinghalls/views/ForgetPassword.dart';
 import 'package:weddinghalls/views/forgot_password_view.dart';
 
 class SettingsPage extends StatefulWidget {
