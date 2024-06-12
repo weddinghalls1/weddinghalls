@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:weddinghalls/view_model/detailsReservation_view_model.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:weddinghalls/view_model/detailsReservation_view_model.dart';
+import 'package:weddinghalls/view_model/detailsReservation_viewmodel.dart';
+
 
 class HallDetailsReservation extends StatefulWidget {
   const HallDetailsReservation({Key? key}) : super(key: key);
@@ -35,25 +33,30 @@ class _HallScreenState extends State<HallDetailsReservation> {
   @override
   void initState() {
     super.initState();
-    String initialToken = 'hassan';
+    String initialToken = 'hall1';
     viewModel.fetchResData(initialToken).then((_) {
       if (mounted) {
         setState(() {
-          hallNameController.text = viewModel.hallName ?? '';
-          hallLocationController.text = viewModel.hallLocation ?? '';
-          imageUrlController.text = viewModel.imageUrl ?? '';
-          minimumReservationCapacityController.text = viewModel.minimumReservationCapacity ?? '';
-          numberOfEntrancesController.text = viewModel.numberOfEntrances ?? '';
-          numberOfFlightAttendantsMenController.text = viewModel.numberOfFlightAttendantsMen ?? '';
-          numberOfFlightAttendantsWomenController.text = viewModel.numberOfFlightAttendantsWomen ?? '';
-          numberOfSeatsMenController.text = viewModel.numberOfSeatsMen ?? '';
-          numberOfSeatsWomenController.text = viewModel.numberOfSeatsWomen ?? '';
-          numberOfSectionsController.text = viewModel.numberOfSections ?? '';
-          reservationPriceController.text = viewModel.reservationPrice ?? '';
-          selectedDateTime = viewModel.selectedDateTime != null ? DateTime.parse(viewModel.selectedDateTime!) : null;
-          selectedTiming = viewModel.selectedTiming ?? '';
-          selectedDateTimeController.text = viewModel.selectedDateTime ?? '';
-          selectedTimingController.text = viewModel.selectedTiming ?? '';
+          if(viewModel.dataRes != null){
+            hallNameController.text = viewModel.dataRes!.hallName ?? '';
+            hallLocationController.text = viewModel.dataRes!.hallLocation ?? '';
+            imageUrlController.text = viewModel.dataRes!.imageUrl ?? '';
+            minimumReservationCapacityController.text = viewModel.dataRes!.minimumReservationCapacity ?? '';
+            numberOfEntrancesController.text = viewModel.dataRes!.numberOfEntrances ?? '';
+            numberOfFlightAttendantsMenController.text = viewModel.dataRes!.numberOfFlightAttendantsMen ?? '';
+            numberOfFlightAttendantsWomenController.text = viewModel.dataRes!.numberOfFlightAttendantsWomen ?? '';
+            numberOfSeatsMenController.text = viewModel.dataRes!.numberOfSeatsMen ?? '';
+            numberOfSeatsWomenController.text = viewModel.dataRes!.numberOfSeatsWomen ?? '';
+            numberOfSectionsController.text = viewModel.dataRes!.numberOfSections ?? '';
+            reservationPriceController.text = viewModel.dataRes!.reservationPrice ?? '';
+            if(viewModel.dataRes!.selectedDateTime.isNotEmpty){
+              selectedDateTime = DateTime.parse(viewModel.dataRes!.selectedDateTime);
+              selectedDateTimeController.text = viewModel.dataRes!.selectedDateTime;
+            }
+            selectedTiming = viewModel.dataRes!.selectedTiming;
+            selectedTimingController.text = viewModel.dataRes!.selectedTiming;
+          }
+
         });
       }
     });
@@ -121,7 +124,7 @@ class _HallScreenState extends State<HallDetailsReservation> {
                   width: 400,
                   color: Colors.white,
                   child: Image.network(
-                    viewModel.imageUrl ?? '',
+                    viewModel.dataRes?.imageUrl ?? '',
                     width: 300,
                     height: 200,
                     fit: BoxFit.cover,

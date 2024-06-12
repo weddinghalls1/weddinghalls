@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:weddinghalls/component/card_hall.dart';
 import 'package:weddinghalls/model/hall_model_data.dart';
 import 'package:weddinghalls/model/hall_model_favorite_data.dart';
 import 'package:weddinghalls/view_model/get_halls_view_model.dart';
+import 'package:weddinghalls/views/descriptionHalls.dart';
 import 'package:weddinghalls/views/sidbar.dart';
 
 class FavoritScreen extends StatefulWidget {
@@ -18,7 +20,8 @@ class _FavoritScreenState extends State<FavoritScreen> {
 
   getData() async {
     HallsViewModel hallsViewModel = HallsViewModel();
-    hallList = await hallsViewModel.getFavoriteHalls("12345");//  FirebaseAuth.instance.currentUser.uid
+    hallList = await hallsViewModel
+        .getFavoriteHalls("12345"); //  FirebaseAuth.instance.currentUser.uid
 
     print(hallList.length);
     setState(() {});
@@ -45,7 +48,7 @@ class _FavoritScreenState extends State<FavoritScreen> {
         ),
         backgroundColor: const Color(0xffFFE6E6),
       ),
-      drawer: Sidebar(),
+
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -114,7 +117,7 @@ class _FavoritScreenState extends State<FavoritScreen> {
                 itemCount: hallList.length,
                 itemBuilder: (context, index) {
                   return buildFavoritCard(
-                      hallList[index].name, hallList[index].imageUrl);
+                      hallList[index].name, hallList[index].imageUrl, context);
                 },
               ),
             ),
@@ -125,33 +128,42 @@ class _FavoritScreenState extends State<FavoritScreen> {
   }
 }
 
-Widget buildFavoritCard(String name, String image) {
+Widget buildFavoritCard(String name, String image, BuildContext context) {
   return Column(
     children: [
-      Container(
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(10)),
-          border: Border.all(
-            color: Colors.black,
-            width: 0,
-          ),
-          boxShadow: const [
-            BoxShadow(color: Colors.black),
-          ],
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Card(
-            elevation: 12,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
+      InkWell(
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => DescriptionHalls(),
             ),
-            color: Colors.black,
-            child: Image.asset(
-              image,
-              fit: BoxFit.fill, // Ensure the image fills the available space
-              width: double.infinity,
-              height: 130,
+          );
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+            border: Border.all(
+              color: Colors.black,
+              width: 0,
+            ),
+            boxShadow: const [
+              BoxShadow(color: Colors.black),
+            ],
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Card(
+              elevation: 12,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              color: Colors.black,
+              child: Image.asset(
+                image,
+                fit: BoxFit.fill, // Ensure the image fills the available space
+                width: double.infinity,
+                height: 130,
+              ),
             ),
           ),
         ),

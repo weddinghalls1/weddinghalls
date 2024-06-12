@@ -3,14 +3,14 @@ class CardModel {
   final String cardNumber;
   final String cardholderName;
   final String expirationDate;
-  final String cvc;
+  final String cvv;
   final String cardType;
 
   CardModel({
     required this.cardNumber,
     required this.cardholderName,
     required this.expirationDate,
-    required this.cvc,
+    required this.cvv,
     required this.cardType,
   });
 
@@ -19,7 +19,7 @@ class CardModel {
       'cardNumber': cardNumber,
       'cardholderName': cardholderName,
       'expirationDate': expirationDate,
-      'cvc': cvc,
+      'cvv': cvv,
       'cardType': cardType,
     };
   }

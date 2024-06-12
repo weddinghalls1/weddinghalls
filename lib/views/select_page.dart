@@ -1,21 +1,14 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-
 import 'list_halls.dart';
-
-
-
 
 class HallSelectionPage extends StatefulWidget {
   @override
   _HallSelectionPageState createState() => _HallSelectionPageState();
 }
-
 class _HallSelectionPageState extends State<HallSelectionPage> {
   String? _hallType;
-
   void _handleRadioValueChange(String? value) {
     setState(() {
       _hallType = value;
@@ -42,23 +35,33 @@ class _HallSelectionPageState extends State<HallSelectionPage> {
                   width: 430,
                   decoration:  BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
-                    color: Colors.white,
+                    color: _hallType == 'Open' ? Color(0xffcdade1) : Colors.white,
                   ),
                   child: Padding(
                     padding: EdgeInsets.only(top:50),
                     child: ListTile(
-                      leading: Radio<String>(
-                        value: 'Open',
-                        groupValue: _hallType,
-                        onChanged: _handleRadioValueChange,
+                      leading: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Radio<String>(
+                            value: 'Open',
+                            groupValue: _hallType,
+                            onChanged: _handleRadioValueChange,
+                          ),
+                          SizedBox(width: 20,),
+                          SizedBox(
+                            width: 100,
+                            height: 100,
+                            child: Image.asset(
+                              'images/open.jpeg',
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ],
                       ),
                       title: const Text(
                         'Open',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      // Replace with your image widget for 'Open' type hall
-                      trailing: Image.asset(
-                        'images/open.jpeg',
+                        style: TextStyle(fontSize: 25),
                       ),
                     ),
                   ),
@@ -71,22 +74,36 @@ class _HallSelectionPageState extends State<HallSelectionPage> {
                   width: 430,
                   decoration:  BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
-                    color: Colors.white,
+                    color: _hallType == 'Closed' ? Color(0xffcdade1) : Colors.white,
                   ),
                   child: Padding(
                     padding: EdgeInsets.only(top: 50),
                     child: ListTile(
-                      leading: Radio<String>(
-                        value: 'Closed',
-                        groupValue: _hallType,
-                        onChanged: _handleRadioValueChange,
+                      leading: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Radio<String>(
+                            value: 'Closed',
+                            groupValue: _hallType,
+                            onChanged: _handleRadioValueChange,
+                          ),
+                          SizedBox(width: 20,),
+                          SizedBox(
+                            width: 100,
+                            height: 100,
+                            child: Image.asset(
+                              'images/closed.jpeg',
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+
+                        ],
                       ),
+
                       title: const Text(
                         'Closed',
-                        style: TextStyle(fontSize: 20),
+                        style: TextStyle(fontSize: 25),
                       ),
-                      // Replace with your image widget for 'Open' type hall
-                      trailing: Image.asset('images/closed.jpeg'),
                     ),
                   ),
                 ),

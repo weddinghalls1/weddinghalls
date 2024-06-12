@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:weddinghalls/views/SelectPage.dart';
 import 'package:weddinghalls/views/home_screen.dart';
 import 'package:weddinghalls/views/profile_screen.dart';
+import '../views/select_page.dart';
+
+
+
+
 class HomeNavigationBar extends StatefulWidget {
   const HomeNavigationBar({Key? key}) : super(key: key);
   @override
@@ -14,11 +19,17 @@ class _HomeNavigationBarState extends State<HomeNavigationBar> {
     const ProfileScreen()
   ];
   int _selectedScreenIndex = 0;
+    const HomeScreen(),
+    HallSelectionPage(),
+    const ProfileScreen()
+  ];  int _selectedScreenIndex = 0;
+
   void _selectScreen(int index) {
     setState(() {
       _selectedScreenIndex = index;
     });
   }
+  @override
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,6 +51,11 @@ class _HomeNavigationBarState extends State<HomeNavigationBar> {
           BottomNavigationBarItem(
             icon: Icon(Icons.business),
             label: 'Halls',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),

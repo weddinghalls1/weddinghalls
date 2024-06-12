@@ -13,7 +13,7 @@ class _AddCardPaymentState extends State<AddCardPayment> {
   final _cardNumberController = TextEditingController();
   final _cardholderNameController = TextEditingController();
   final _expirationDateController = TextEditingController();
-  final _cvcController = TextEditingController();
+  final _cvvController = TextEditingController();
 
   String _selectedCardType = '';
 
@@ -108,6 +108,7 @@ class _AddCardPaymentState extends State<AddCardPayment> {
                       decoration: const InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
+                        prefixIcon: Icon(Icons.credit_card),
                       ),
                       keyboardType: TextInputType.number,
                     ),
@@ -124,6 +125,7 @@ class _AddCardPaymentState extends State<AddCardPayment> {
                       decoration: const InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
+                        prefixIcon: Icon(Icons.person),
                       ),
                     ),
                     SizedBox(height: 15),
@@ -138,7 +140,7 @@ class _AddCardPaymentState extends State<AddCardPayment> {
                         ),
                         SizedBox(width: 30,),
                          Text(
-                            'CVC',
+                            'CVV',
                             style: TextStyle(fontSize: 20)
                         ),
                       ],
@@ -152,6 +154,7 @@ class _AddCardPaymentState extends State<AddCardPayment> {
                               hintText: 'MM / YY',
                               fillColor: Colors.white,
                               filled: true,
+                              prefixIcon: Icon(Icons.calendar_today),
                             ),
                             keyboardType: TextInputType.number,
                           ),
@@ -159,10 +162,11 @@ class _AddCardPaymentState extends State<AddCardPayment> {
                         SizedBox(width: 10),
                         Expanded(
                           child: TextField(
-                            controller: _cvcController,
+                            controller: _cvvController,
                             decoration: const InputDecoration(
                               fillColor: Colors.white,
                               filled: true,
+                              prefixIcon: Icon(Icons.card_travel),
                             ),
                             keyboardType: TextInputType.number,
                           ),
@@ -199,13 +203,13 @@ class _AddCardPaymentState extends State<AddCardPayment> {
     final cardNumber = _cardNumberController.text;
     final cardholderName = _cardholderNameController.text;
     final expirationDate = _expirationDateController.text;
-    final cvc = _cvcController.text;
+    final cvv = _cvvController.text;
     final cardType = _selectedCardType;
 
     if (cardNumber.isEmpty ||
         cardholderName.isEmpty ||
         expirationDate.isEmpty ||
-        cvc.isEmpty ||
+        cvv.isEmpty ||
         cardType.isEmpty) {
       showDialog(
         context: context,
@@ -226,7 +230,7 @@ class _AddCardPaymentState extends State<AddCardPayment> {
       cardNumber: cardNumber,
       cardholderName: cardholderName,
       expirationDate: expirationDate,
-      cvc: cvc,
+      cvv: cvv,
       cardType: cardType,
     );
 
@@ -237,7 +241,7 @@ class _AddCardPaymentState extends State<AddCardPayment> {
     _cardNumberController.dispose();
     _cardholderNameController.dispose();
     _expirationDateController.dispose();
-    _cvcController.dispose();
+    _cvvController.dispose();
     super.dispose();
   }
 }

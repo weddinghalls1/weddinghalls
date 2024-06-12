@@ -1,9 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:weddinghalls/view_model/edit_view_model.dart';
+import 'package:weddinghalls/view_model/edit_description_viewmodel.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import '../model/edit_description_model.dart';
 
 class EditHallDescription extends StatefulWidget {
   const EditHallDescription({Key? key}) : super(key: key);
@@ -26,55 +27,35 @@ class _HallScreenState extends State<EditHallDescription> {
   final TextEditingController numberOfSeatsWomenController = TextEditingController();
   final TextEditingController numberOfSectionsController = TextEditingController();
   final TextEditingController reservationPriceController = TextEditingController();
-  final TextEditingController selectedDateTimeController = TextEditingController();
-  final TextEditingController selectedTimingController = TextEditingController();
 
-  DateTime? selectedDateTime;
-  String? selectedTiming;
   final ImagePicker _picker = ImagePicker();
   String? _newImageUrl;
 
   @override
   void initState() {
     super.initState();
-    String initialToken = 'hassan';
+    String initialToken = 'hall1';
     viewModel.fetchHallData(initialToken).then((_) {
       if (mounted) {
         setState(() {
-          hallNameController.text = viewModel.hallName ?? '';
-          hallLocationController.text = viewModel.hallLocation ?? '';
-          imageUrlController.text = viewModel.imageUrl ?? '';
-          minimumReservationCapacityController.text = viewModel.minimumReservationCapacity ?? '';
-          numberOfEntrancesController.text = viewModel.numberOfEntrances ?? '';
-          numberOfFlightAttendantsMenController.text = viewModel.numberOfFlightAttendantsMen ?? '';
-          numberOfFlightAttendantsWomenController.text = viewModel.numberOfFlightAttendantsWomen ?? '';
-          numberOfSeatsMenController.text = viewModel.numberOfSeatsMen ?? '';
-          numberOfSeatsWomenController.text = viewModel.numberOfSeatsWomen ?? '';
-          numberOfSectionsController.text = viewModel.numberOfSections ?? '';
-          reservationPriceController.text = viewModel.reservationPrice ?? '';
-          selectedDateTime = viewModel.selectedDateTime != null ? DateTime.parse(viewModel.selectedDateTime!) : null;
-          selectedTiming = viewModel.selectedTiming ?? '';
-          selectedDateTimeController.text = viewModel.selectedDateTime ?? '';
-          selectedTimingController.text = viewModel.selectedTiming ?? '';
+          hallNameController.text = viewModel.hallModel.hallName ?? '';
+          hallLocationController.text = viewModel.hallModel.hallLocation ?? '';
+          imageUrlController.text = viewModel.hallModel.imageUrl ?? '';
+          minimumReservationCapacityController.text = viewModel.hallModel.minimumReservationCapacity ?? '';
+          numberOfEntrancesController.text = viewModel.hallModel.numberOfEntrances ?? '';
+          numberOfFlightAttendantsMenController.text = viewModel.hallModel.numberOfFlightAttendantsMen ?? '';
+          numberOfFlightAttendantsWomenController.text = viewModel.hallModel.numberOfFlightAttendantsWomen ?? '';
+          numberOfSeatsMenController.text = viewModel.hallModel.numberOfSeatsMen ?? '';
+          numberOfSeatsWomenController.text = viewModel.hallModel.numberOfSeatsWomen ?? '';
+          numberOfSectionsController.text = viewModel.hallModel.numberOfSections ?? '';
+          reservationPriceController.text = viewModel.hallModel.reservationPrice ?? '';
         });
       }
+    }).catchError((e){
+      print('Error in initState: $e');
     });
   }
 
-  Future<void> _selectDateTime(BuildContext context) async {
-    final DateTime? pickedDateTime = await showDatePicker(
-      context: context,
-      initialDate: selectedDateTime ?? DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime(2101),
-    );
-    if (pickedDateTime != null) {
-      setState(() {
-        selectedDateTime = pickedDateTime;
-        selectedDateTimeController.text = selectedDateTime!.toIso8601String();
-      });
-    }
-  }
 
   Future<void> _pickImage() async {
     final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
@@ -153,7 +134,7 @@ class _HallScreenState extends State<EditHallDescription> {
                   child: Column(
                     children: <Widget>[
                       Image.network(
-                        _newImageUrl ?? viewModel.imageUrl ?? '',
+                        _newImageUrl ?? viewModel.hallModel.imageUrl ?? '',
                         width: 350,
                         height: 200,
                         fit: BoxFit.cover,
@@ -314,106 +295,36 @@ class _HallScreenState extends State<EditHallDescription> {
               SizedBox(height: 8),
               Padding(
                 padding: EdgeInsets.only(top: 5),
-                child: Container(
-                  height: 410,
-                  width: 400,
-                  child: Column(
-                    children: <Widget>[
-                      ElevatedButton(
-                        onPressed: () => _selectDateTime(context),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFF7469B6),
-                          minimumSize: Size(400, 45),
-                        ),
-                        child: Text('Select Date', style: TextStyle(color: Colors.white, fontSize: 20)),
-                      ),
-                      SizedBox(height: 10.0),
-                      Text(
-                        'Selected Date: ${selectedDateTime?.toString().split(' ')[0]}',
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(height: 20.0),
-                      Text('Select Timing:', style: TextStyle(color: Colors.black, fontSize: 20)),
-                      CheckboxListTile(
-                        title: Text('Morning reservation (9:00 AM - 11:30 AM)'),
-                        value: selectedTiming == 'morning',
-                        onChanged: (bool? value) {
-                          setState(() {
-                            if (value == true) {
-                              selectedTiming = 'morning';
-                              selectedTimingController.text = 'morning';
-                            } else {
-                              selectedTiming = null;
-                              selectedTimingController.text = '';
-                            }
-                          });
-                        },
-                      ),
-                      CheckboxListTile(
-                        title: Text('Evening reservation (2:00 PM - 4:30 PM)'),
-                        value: selectedTiming == 'evening',
-                        onChanged: (bool? value) {
-                          setState(() {
-                            if (value == true) {
-                              selectedTiming = 'evening';
-                              selectedTimingController.text = 'evening';
-                            } else {
-                              selectedTiming = null;
-                              selectedTimingController.text = '';
-                            }
-                          });
-                        },
-                      ),
-                      CheckboxListTile(
-                        title: Text('Late evening reservation (7:00 PM - 9:30 PM)'),
-                        value: selectedTiming == 'late_evening',
-                        onChanged: (bool? value) {
-                          setState(() {
-                            if (value == true) {
-                              selectedTiming = 'late_evening';
-                              selectedTimingController.text = 'late_evening';
-                            } else {
-                              selectedTiming = null;
-                              selectedTimingController.text = '';
-                            }
-                          });
-                        },
-                      ),
-                      SizedBox(height: 20.0),
-                      ElevatedButton(
-                        onPressed: () async {
-                          try {
-                            await viewModel.updateHallData(
-                              hallNameController.text,
-                              hallLocationController.text,
-                              _newImageUrl ?? imageUrlController.text, // Use the new image URL if available
-                              minimumReservationCapacityController.text,
-                              numberOfEntrancesController.text,
-                              numberOfFlightAttendantsMenController.text,
-                              numberOfFlightAttendantsWomenController.text,
-                              numberOfSeatsMenController.text,
-                              numberOfSeatsWomenController.text,
-                              numberOfSectionsController.text,
-                              reservationPriceController.text,
-                              selectedDateTime?.toIso8601String() ?? '',
-                              selectedTiming ?? '',
-                            );
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text('Profile updated successfully')),
-                            );
-                          } catch (e) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text('Failed to update profile: $e')),
-                            );
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFF7469B6),
-                        ),
-                        child: Text('Save', style: TextStyle(color: Colors.white, fontSize: 20)),
-                      ),
-                    ],
+                child:ElevatedButton(
+                  onPressed: () async {
+                    viewModel.hallModel = HallModel(
+                      hallName: hallNameController.text,
+                      hallLocation: hallLocationController.text,
+                      imageUrl: _newImageUrl ?? imageUrlController.text, // Use the new image URL if available
+                      minimumReservationCapacity: minimumReservationCapacityController.text,
+                      numberOfEntrances: numberOfEntrancesController.text,
+                      numberOfFlightAttendantsMen: numberOfFlightAttendantsMenController.text,
+                      numberOfFlightAttendantsWomen: numberOfFlightAttendantsWomenController.text,
+                      numberOfSeatsMen: numberOfSeatsMenController.text,
+                      numberOfSeatsWomen: numberOfSeatsWomenController.text,
+                      numberOfSections: numberOfSectionsController.text,
+                      reservationPrice: reservationPriceController.text,
+                    );
+                    try {
+                      await viewModel.updateHallData('hall1');
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Profile updated successfully')),
+                      );
+                    } catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Failed to update profile: $e')),
+                      );
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFF7469B6),
                   ),
+                  child: Text('Save', style: TextStyle(color: Colors.white, fontSize: 20)),
                 ),
               ),
             ],
