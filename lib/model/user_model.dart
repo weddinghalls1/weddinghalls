@@ -1,12 +1,12 @@
 class UserModel {
   final String email;
   final String profileImageUrl;
-  final String username;
+  final String fullName;
 
   UserModel({
     required this.email,
     required this.profileImageUrl,
-    required this.username,
+    required this.fullName,
 
   });
 
@@ -14,7 +14,7 @@ class UserModel {
     return UserModel(
       email: data['email'] ??'',
       profileImageUrl: data['profileImageUrl']??'',
-      username: data['username']??'',
+      fullName: data['fullName']??'',
 
     );
   }

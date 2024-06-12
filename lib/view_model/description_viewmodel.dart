@@ -8,7 +8,7 @@ class DescriptionViewModel {
 
   Future<DescriptionModel> fetchDescription() async {
     try {
-      DocumentSnapshot doc = await _firestore.collection('rahaf').doc('descnption_halls').get();
+      DocumentSnapshot doc = await _firestore.collection('halls').doc('MPpAo3kULgiHf2ocHXdv').get();
       if (doc.exists) {
         return DescriptionModel.fromMap(doc.data() as Map<String, dynamic>);
       } else {
