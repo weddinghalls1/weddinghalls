@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quickalert/quickalert.dart';
+import 'package:weddinghalls/views/signin_page.dart';
 import '../view_model/signup_viewmodel.dart';
 import '../model/signup_model.dart';
 
@@ -81,7 +82,7 @@ class _SignupPageState extends State<SignupPage> {
                   padding: const EdgeInsets.only(top: 170.0),
                   child: SingleChildScrollView(
                     child: Container(
-                      height: screenHeight - 170,
+                      height: 700,
                       decoration: const BoxDecoration(
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(40),
@@ -90,7 +91,7 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.only(
-                            bottom: 80.0, left: 20, right: 20),
+                             left: 20, right: 20),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -349,8 +350,20 @@ class _SignupPageState extends State<SignupPage> {
                                 ),
                                 TextButton(
                                   onPressed: () {
-                                    widget.onClickedSignin();
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => SigninPage(
+                                          onClickedSignUp: () {
+                                            Navigator.pop(context);
+                                          },
+                                        ),
+                                      ),
+                                    );
                                   },
+                                  // onPressed: () {
+                                  //   widget.onClickedSignin();
+                                  // },
                                   child: const Text(
                                     "Sign in",
                                     style: TextStyle(

@@ -58,7 +58,8 @@ class _MainPageState extends State<MainPage> {
 
 
 
-      home:CheckoutPage(),
+      home:OnboardingView(),
+      //home:CheckoutPage(),
 
 
       //HomePage(),
