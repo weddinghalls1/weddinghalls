@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import '../view_model/admin_description_view_model.dart';
-import '../view_model/admin_halls_view_model';
 
 class ViewHallDescription extends StatefulWidget {
   const ViewHallDescription({Key? key}) : super(key: key);
