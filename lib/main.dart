@@ -9,6 +9,7 @@ import 'package:weddinghalls/views/edit_Description_view.dart';
 import 'package:weddinghalls/views/reservation.dart';
 import 'package:weddinghalls/views/select_page.dart';
 import 'package:weddinghalls/views/admin_description_view.dart';
+import 'package:weddinghalls/views/admin_halls.dart';
 import 'package:weddinghalls/views/combined_view.dart';
 import 'package:weddinghalls/views/descriptionHalls.dart';
 import 'package:weddinghalls/views/home_switch.dart';
@@ -17,6 +18,8 @@ import 'package:weddinghalls/views/profile_screen.dart';
 import 'package:weddinghalls/views/onboarding_view.dart';
 import 'package:weddinghalls/views/settings_screen.dart';
 import 'package:weddinghalls/views/sidbar.dart';
+import 'package:weddinghalls/views/signin_page.dart';
+import 'component/navbar.dart';
 import 'firebase_options.dart';
 import 'package:weddinghalls/views/home_screen.dart';
 import 'package:flutter/services.dart';
@@ -58,7 +61,8 @@ class _MainPageState extends State<MainPage> {
 
 
 
-      home:OnboardingView(),
+      home:HomeNavigationBar(),
+      //home:OnboardingView(),
       //home:CheckoutPage(),
 
 

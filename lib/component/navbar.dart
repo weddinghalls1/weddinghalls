@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:weddinghalls/views/SelectPage.dart';
 import 'package:weddinghalls/views/home_screen.dart';
 import 'package:weddinghalls/views/profile_screen.dart';
 import '../views/select_page.dart';
@@ -9,13 +9,16 @@ import '../views/select_page.dart';
 
 class HomeNavigationBar extends StatefulWidget {
   const HomeNavigationBar({Key? key}) : super(key: key);
-
   @override
   State<HomeNavigationBar> createState() => _HomeNavigationBarState();
 }
-
 class _HomeNavigationBarState extends State<HomeNavigationBar> {
   final List<Widget> _screens = [
+     HomeScreen(),
+    HallSelectionPage(),
+    const ProfileScreen()
+  ];
+  int _selectedScreenIndex = 0;
     const HomeScreen(),
     HallSelectionPage(),
     const ProfileScreen()
@@ -26,7 +29,6 @@ class _HomeNavigationBarState extends State<HomeNavigationBar> {
       _selectedScreenIndex = index;
     });
   }
-
   @override
   @override
   Widget build(BuildContext context) {
@@ -54,9 +56,13 @@ class _HomeNavigationBarState extends State<HomeNavigationBar> {
             icon: Icon(Icons.person),
             label: 'Profile',
           ),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
         ],
       ),
     );
   }
 }
-

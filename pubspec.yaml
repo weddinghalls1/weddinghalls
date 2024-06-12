@@ -89,6 +89,10 @@ flutter:
    - images/visa.png
    - images/Forgot password.png
    - images/logo.png
+   - images/Senussi_Places.jpeg
+   - images/Open_air.jpeg
+   - images/KataleaPalace2.jpeg
+
    -   packages/payment_card/assets/icons/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
