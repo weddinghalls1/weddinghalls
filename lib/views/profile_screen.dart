@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../view_model/profile_view_model.dart';
-import 'admin_halls.dart';
-import 'combined_view.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -13,11 +11,14 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final ProfileViewModel viewModel = ProfileViewModel();
+
   final TextEditingController emailController = TextEditingController();
   final TextEditingController userNameController = TextEditingController();
   final TextEditingController locationController = TextEditingController();
+
   String userId = 'n46Kwor3rjfFPQZErGQ4';
-  String? userType = "hall_owner";
+  String? userType;
+
   @override
   void initState() {
     super.initState();
@@ -32,12 +33,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
       }
     });
   }
+
   Future<void> _loadUserType() async {
-    // SharedPreferences prefs = await SharedPreferences.getInstance();
-    // setState(() {
-    //   userType = prefs.getString('userType');
-    // });
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userType = prefs.getString('userType');
+    });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,24 +87,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   );
                 }
               },
-              child: Text('Save Changes'),
+              child: Text(
+                'Save Changes',
+                style: TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.bold),
+              ),
             ),
             SizedBox(height: 20),
-            // if (userType == 'user')
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF7469B6)),
-              onPressed: () {
-
-              },
-              child: Text('My Reservations'),
-            ),
+            if (userType == 'user')
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF7469B6)),
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/my_reservations');
+                },
+                child: Text(
+                  'My Reservations',
+                  style: TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.bold),
+                ),
+              ),
             if (userType == 'admin')
               ElevatedButton(
                 style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF7469B6)),
                 onPressed: () {
                   Navigator.of(context).pushNamed('/halls');
                 },
-                child: Text('Halls'),
+                child: Text('Halls',
+                  style: TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.bold),
+                ),
               ),
             if (userType == 'hall_owner')
               Column(
@@ -109,27 +120,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF7469B6)),
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => CombinedPage(),
-                        ),
-                      );
+                      Navigator.of(context).pushNamed('/adding_halls');
                     },
-                    child: Text('Adding Halls'),
+                    child: Text(
+                      'Adding Halls',
+                      style: TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.bold),
+                    ),
                   ),
                   SizedBox(height: 20),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF7469B6)),
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const AdminHallsScreen(),
-                        ),
-                      );
+                      Navigator.of(context).pushNamed('/my_halls');
                     },
-                    child: Text('My Halls'),
+                    child: Text(
+                      'My Halls',
+                      style: TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ],
               ),
@@ -139,15 +146,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
               onPressed: () {
                 Navigator.of(context).pushReplacementNamed('/login');
               },
-              child: Text('Sign Out'),
+              child: Text(
+                'Sign Out',
+                style: TextStyle(fontSize: 17, color: Colors.black, fontWeight: FontWeight.bold),
+              ),
             )
           ],
         ),
       ),
     );
   }
-  Widget inputField(String label, TextEditingController controller,
-      {bool readOnly = false}) {
+
+  Widget inputField(String label, TextEditingController controller, {bool readOnly = false}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: TextFormField(
