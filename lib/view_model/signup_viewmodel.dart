@@ -1,7 +1,11 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../component/navbar.dart';
 import '../model/signup_model.dart';
+import 'package:flutter/material.dart';
+
+import '../views/empty_home.dart';
 
 class SignupViewModel {
   final StreamController<bool> _loadingController = StreamController<bool>();
@@ -40,7 +44,7 @@ class SignupViewModel {
         confirmPassword.isNotEmpty;
   }
 
-  Future<void> signup(UserModel user, String password, String confirmPassword) async {
+  Future<void> signup(UserModel user, String password, String confirmPassword, BuildContext context) async {
     if (!areFieldsFilled(user, password, confirmPassword)) {
       _errorController.add('Please fill in all fields!');
       return;
@@ -77,6 +81,8 @@ class SignupViewModel {
           .set(user.toMap());
 
       _loadingController.add(false);
+
+      Navigator.pushReplacement( context, MaterialPageRoute(builder: (context) => HomeNavigationBar()), );
 
     } catch (e) {
       _loadingController.add(false);

@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../view_model/profile_view_model.dart';
+import 'admin_halls.dart';
+import 'combined_view.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -120,7 +123,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF7469B6)),
                     onPressed: () {
-                      Navigator.of(context).pushNamed('/adding_halls');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CombinedPage(),
+                        ),
+                      );
                     },
                     child: Text(
                       'Adding Halls',
@@ -131,7 +139,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF7469B6)),
                     onPressed: () {
-                      Navigator.of(context).pushNamed('/my_halls');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AdminHallsScreen(),
+                        ),
+                      );
                     },
                     child: Text(
                       'My Halls',
@@ -143,8 +156,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             SizedBox(height: 20),
             ElevatedButton(
               style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF7469B6)),
-              onPressed: () {
-                Navigator.of(context).pushReplacementNamed('/login');
+              onPressed: (){
+                FirebaseAuth.instance.signOut();
               },
               child: Text(
                 'Sign Out',

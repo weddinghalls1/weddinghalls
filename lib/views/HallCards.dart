@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import '../model/Myhall1.dart';
-import 'empty page.dart';
+import 'descriptionHalls.dart';
 class MyCard extends StatelessWidget {
   final Hall hall;
 
@@ -14,7 +14,7 @@ class MyCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => HallDetailsPage(hall: hall),
+            builder: (context) => DescriptionHalls(),
           ),
         );
       },

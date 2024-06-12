@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../model/reservation_model.dart';
 import '../view_model/reservation_viewmodel.dart';
+import 'checkout_views.dart';
 
 class ReservationPage extends StatefulWidget {
   @override
@@ -207,8 +208,12 @@ class _ReservationPageState extends State<ReservationPage> {
                                   );
                                 }
 
-                                Navigator.of(context).pop(); // Close the dialog
-                              },
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => CheckoutPage(),
+                                  ),
+                                );                              },
                               child: Text('Confirm'),
                             ),
                             TextButton(
@@ -216,6 +221,7 @@ class _ReservationPageState extends State<ReservationPage> {
                                 Navigator.of(context).pop(); // Close the dialog
                               },
                               child: Text('Cancel'),
+
                             ),
                           ],
                         );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:weddinghalls/view_model/onboarding_viewmodel.dart';
 import 'package:weddinghalls/views/signin_page.dart';
 
+import '../component/navbar.dart';
 import 'signup_view.dart';
 import 'home_screen.dart';
 
@@ -75,7 +76,7 @@ class OnboardingView extends StatelessWidget {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => HomeScreen()),
+                          MaterialPageRoute(builder: (context) => HomeNavigationBar()),
                         );
                       },
                       child: Text('Go To Home', style: TextStyle(color: Colors.black)),

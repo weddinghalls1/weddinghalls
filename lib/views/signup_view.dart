@@ -39,6 +39,7 @@ class _SignupPageState extends State<SignupPage> {
       user,
       passwordController.text.trim(),
       confirmPasswordController.text.trim(),
+      context,
     );
   }
 

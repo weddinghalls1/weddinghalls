@@ -3,6 +3,7 @@ import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:weddinghalls/views/signup_view.dart';
 import '../view_model/signin_view_model.dart';
+import 'forgot_password_view.dart';
 
 class SigninPage extends StatefulWidget {
   final VoidCallback onClickedSignUp;
@@ -203,8 +204,14 @@ class _SigninPageState extends State<SigninPage> {
                         ),
                         SizedBox(height: 20),
                         TextButton(
-                            onPressed: () { },
-                            child: const Align(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>  EmailVerificationPage(),
+                                ),
+                              );
+                            },                            child: const Align(
                               alignment: Alignment.centerRight,
                               child:  Text(
                                 "Forget Password ?",
